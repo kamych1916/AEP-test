@@ -1,0 +1,26 @@
+{
+    "users": [
+        {
+            "role": "admin",
+            "username": "kamol",
+            "telephone": "+79080351453",
+            "email": "kamol@gmail.com",
+            "password": "123123"
+        },
+        {
+            "role": "executor",
+            "username": "pasha",
+            "telephone": "+79080351453",
+            "password": "123123",
+            "email": "pasha@gmail.com"
+        },
+        {
+            "role": "client",
+            "username": "nikita",
+            "telephone": "+79080351453",
+            "password": "123123",
+            "email": "nikita@gmail.com"
+        }
+    ],
+    "reset_links": []
+}

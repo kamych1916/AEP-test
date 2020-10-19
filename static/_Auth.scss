@@ -1,0 +1,98 @@
+// colors
+$black:#000;
+$gray:#555;
+$l-gray:#989898;
+$blue:#2eb7f3;
+$green: #24caa1;
+$yellow:#faca39;
+$orange:#ff7f5a;
+$red:#eb4b4b;
+$dark-blue:#3f4d9f;
+$blue-gray:#4c5667;
+$purple:#805bbe;
+$dark-green:#0c666a;
+
+$dark-blue-3: #3b4352;
+$dark-blue-2: #2f343e;
+$dark-blue-1: #1F232B;
+
+$light-gray: #a2a7b1;
+
+
+.auth{
+	
+	.logo{
+		text-align: center;
+		height: 100px;
+		svg{
+			height: 60px;
+			transform: scale(0.5);
+			padding-left: 60px;
+		}
+	}
+	.etc-login-form.text-center{
+		text-align: center;
+	}
+	#login-form-2{
+		text-align: center;
+		p{
+			color: $gray;
+			margin-top: 10px;
+			font-size: 14px;
+			padding: 0 30px;
+		}
+	}
+	form{
+		a{ cursor: pointer }
+		input{
+			&:not([type='checkbox']){ width: 100%;}
+			&:disabled{ opacity: 0.5 }
+		}
+		
+	}
+	.login-button{ cursor: pointer }
+	.form-group{ padding-right: 0 }
+}
+.image-uploader{
+	overflow: hidden;
+	position: relative;
+	img, input{
+		width: 80px;
+		height: 80px;
+		position: relative;
+		z-index: 1;
+		margin-bottom: 40px;
+		cursor: pointer;
+		border-radius: 100%;
+	}
+	
+	&:before{
+		content:'Загрузить фото';
+		position: absolute;
+		z-index: 5;
+		font-size: 10px;
+		top:95px;
+		width: 100px;
+		display: block;
+		text-align: center;
+		left: calc(50% - 50px);
+		cursor: pointer;
+		
+		
+	}
+}
+.auth form .image-uploader input{
+	position: absolute;
+	z-index: 2;
+	opacity: 0;
+	
+}
+@media all and (max-width: 767px) {
+	.auth{
+		.login-form-1{
+			width: 90%;
+		}
+		.logo svg{ padding-left: 30px }
+	}
+	
+}
