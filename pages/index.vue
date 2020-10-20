@@ -1,8 +1,5 @@
 <template>
-<div v-if="role">
-  <Header />
-  <b-row style="width: 100%; margin: 0">
-    <Sidebar />
+
     <div class="wrap__client_container py-4 px-4">
 
       <div class="wrap__client_container__avatar_block">
@@ -102,12 +99,10 @@
           <b-button @click="password_btn_event()" class="mt-3" style="background-color: #0C2947">{{password_btn_title}}</b-button>
         </b-card>
       </div>
+      </div>
+    
           <!-- <b-alert show>Роль пользователя - <strong>{{role}}</strong></b-alert> -->
-    </div>
-  </b-row> 
-
-</div>
-  
+    
 </template> 
 
 <script>

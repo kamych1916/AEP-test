@@ -1,7 +1,12 @@
 <template>
   <div>
-
-    <Nuxt />
+    <div v-if="role">
+      <Header />
+      <b-row style="width: 100%; margin: 0">
+        <Sidebar />
+        <Nuxt />
+      </b-row>
+    </div> 
   </div>
 </template>
 
