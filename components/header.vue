@@ -1,8 +1,8 @@
 <template>
-    <div class="wrap__header">
+    <div class="wrap__header py-3 ">
         
         <div class="wrap__logo">
-            <b-row>
+            <b-row class="pt-1">
                 <b-col class="d-flex justify-content-end pr-2">
                     <svg width="34" height="22" viewBox="0 0 34 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.7884 0.137511H23.3165V2.20001H13.3758L12.7884 0.137511ZM12.8788 16.3625L14.1891 21.0833H16.2225H23.3165V19.0208H15.6802L13.6469 11.5959H23.3165V9.53336H13.0595L10.4388 0.0916748H9.53505H6.37209H5.78468L0.000976562 21.1292H2.03431L3.34468 16.4084H12.8788V16.3625ZM8.94764 2.20001L12.2913 14.3459H3.88691L7.23061 2.20001H8.94764ZM25.5306 0.137511H33.8899V2.20001V21.1292H31.8565V2.20001H25.5306V0.137511Z" fill="white"/>
@@ -73,7 +73,6 @@
                 </template>
             </b-sidebar>
         </div>
-
     </div>
 </template>
 <script>
@@ -95,7 +94,6 @@ export default {
     display: none;
 }
 .wrap__header{
-    height: 5vh;
     background-color: #0C2947;
     width: 100%;
     display: flex;
@@ -151,15 +149,9 @@ export default {
 
 @media (max-width: 1035px) {
     .wrap__logo{
-        width: 20%
-    }
-
-}
-@media (max-width: 776px) {
-    .wrap__logo{
         width: 25%
     }
-        .wrap__context_desktop{
+    .wrap__context_desktop{
         display: none;
     }
     .wrap__context_mobile{
@@ -168,6 +160,7 @@ export default {
         justify-content: flex-end;
     }
 }
+
 @media (max-width: 622px) {
     .wrap__logo{
         width: 35%
@@ -181,7 +174,7 @@ export default {
 }
 @media (max-width: 414px) {
     .wrap__logo{
-        width: 45%
+        width: 80%
     }   
 }
 </style>

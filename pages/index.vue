@@ -1,6 +1,6 @@
 <template>
 
-    <div class="wrap__client_container py-4 px-4">
+    <div class="wrap__client_container py-4 px-4 ">
 
       <div class="wrap__client_container__avatar_block">
         <b-card class="text-center">
@@ -99,7 +99,8 @@
           <b-button @click="password_btn_event()" class="mt-3" style="background-color: #0C2947">{{password_btn_title}}</b-button>
         </b-card>
       </div>
-      </div>
+
+    </div>
     
           <!-- <b-alert show>Роль пользователя - <strong>{{role}}</strong></b-alert> -->
     
@@ -226,11 +227,12 @@ export default {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 1035px) {
     .wrap__client_container{
       width: 100%;
       justify-content: start;
       flex-direction: column;
+      padding-bottom: 150px !important;
     }
     .wrap__client_container__avatar_block{
       padding-bottom: 30px;
