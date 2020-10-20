@@ -14,7 +14,7 @@
           </div>
           <h4>Компания</h4>
           <h6>Должность</h6>
-          <h8>Фио</h8>
+          <h6>Фио</h6>
         </b-card>
       </div>
       <div class="wrap__client_container__client_block">
@@ -23,7 +23,7 @@
             <b-col cols="4">ФИО</b-col>
             <b-col>
               <div>
-                <input required :readonly="client_input_rdnl" v-model="password" name="password" type="password" class="form-control" id="lg_password"/>
+                <input required :readonly="client_input_rdnl" v-model="password" name="password" type="password" class="form-control"/>
               </div>
             </b-col>
           </b-row>
@@ -31,7 +31,7 @@
             <b-col cols="4">Телефон</b-col>
             <b-col>
               <div>
-                <input required :readonly="client_input_rdnl" v-model="password" name="password" type="password" class="form-control" id="lg_password"/>
+                <input required :readonly="client_input_rdnl" v-model="password" name="password" type="password" class="form-control"/>
               </div>
             </b-col>
           </b-row>
@@ -39,7 +39,7 @@
             <b-col cols="4">Email</b-col>
             <b-col>
               <div>
-                <input required :readonly="client_input_rdnl" v-model="password" name="password" type="password" class="form-control" id="lg_password"/>
+                <input required :readonly="client_input_rdnl" v-model="password" name="password" type="password" class="form-control"/>
               </div>
             </b-col>
           </b-row>
@@ -47,7 +47,7 @@
             <b-col cols="4">Сайт компании</b-col>
             <b-col>
               <div>
-                <input required :readonly="client_input_rdnl" v-model="password" name="password" type="password" class="form-control" id="lg_password"/>
+                <input required :readonly="client_input_rdnl" v-model="password" name="password" type="password" class="form-control"/>
               </div>
             </b-col>
           </b-row>
@@ -55,7 +55,7 @@
             <b-col cols="4">Должность</b-col>
             <b-col>
               <div>
-                <input required :readonly="client_input_rdnl" v-model="password" name="password" type="password" class="form-control" id="lg_password"/>
+                <input required :readonly="client_input_rdnl" v-model="password" name="password" type="password" class="form-control"/>
               </div>
             </b-col>
           </b-row>
@@ -63,7 +63,7 @@
             <b-col cols="4">Название компании</b-col>
             <b-col>
               <div>
-                <input required :readonly="client_input_rdnl" v-model="password" name="password" type="password" class="form-control" id="lg_password"/>
+                <input required :readonly="client_input_rdnl" v-model="password" name="password" type="password" class="form-control"/>
               </div>
             </b-col>
           </b-row>
@@ -76,7 +76,7 @@
             <b-col cols="4">Текущий пароль</b-col>
             <b-col>
               <div>
-                <input required :readonly="password_input_rdnl" v-model="password" name="password" type="password" class="form-control" id="lg_password"/>
+                <input required :readonly="password_input_rdnl" v-model="password" name="password" type="password" class="form-control"/>
               </div>
             </b-col>
           </b-row>
@@ -84,7 +84,7 @@
             <b-col cols="4">Новый пароль</b-col>
             <b-col >
               <div class="form-group">
-                <input required :readonly="password_input_rdnl" v-model="password" name="password" type="password" class="form-control" id="lg_password"/>
+                <input required :readonly="password_input_rdnl" v-model="password" name="password" type="password" class="form-control"/>
               </div>
             </b-col>
           </b-row>
@@ -92,7 +92,7 @@
             <b-col cols="4">Повторите новый пароль</b-col>
             <b-col >
               <div class="form-group">
-                <input required :readonly="password_input_rdnl" v-model="password" name="password" type="password" class="form-control" id="lg_password"/>
+                <input required :readonly="password_input_rdnl" v-model="password" name="password" type="password" class="form-control"/>
               </div>
             </b-col>
           </b-row>

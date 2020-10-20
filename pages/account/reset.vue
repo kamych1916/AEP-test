@@ -66,6 +66,7 @@
 <script>
 import Api from "~/utils/api";
 export default {
+    layout: 'account',
     data() {
         return {
             password: null,     

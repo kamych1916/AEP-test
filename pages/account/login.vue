@@ -110,6 +110,7 @@
 import Api from "~/utils/api";
 
 export default {
+  layout: 'account',
   data: () => ({
     email: null,
     password: null,
