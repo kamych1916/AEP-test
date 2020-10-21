@@ -1,6 +1,7 @@
 <template>
     <div class="wrap__header py-3 ">
-        
+
+
         <div class="wrap__logo">
             <b-row class="pt-1">
                 <b-col class="d-flex justify-content-end pr-2">
@@ -24,7 +25,24 @@
         </div>
 
         <div class="wrap__context_desktop px-3">
-            <div class="wrap__context_desktop__avatar"></div>
+            <b-row class="d-flex align-items-center ">
+                <div class="px-4">
+                    <span v-b-toggle.sidebar-left style="color: #fff">
+                        <font-awesome-icon :icon="['fas', 'bars']"/>
+                    </span>
+                </div>
+                <b-sidebar id="sidebar-left" backdrop shadow left no-header>
+                    <template>
+                        <div class="wrap__context_mobile__block">
+                            <div>
+                                <SidebarContext />
+                            </div>
+                        </div>
+                    </template>
+                </b-sidebar>
+                <div class="wrap__context_desktop__avatar"></div>
+            </b-row>
+
             <div class="wrap__context_desktop__search">
                 <b-input-group>
                     <b-input-group-prepend>
@@ -74,6 +92,7 @@
             </b-sidebar>
         </div>
     </div>
+
 </template>
 <script>
 export default {
@@ -87,19 +106,15 @@ export default {
 }
 </script>
 <style> 
-.wrap__context_mobile{
-    display: flex;
-    height: 100%;
-    align-items: center;
-    display: none;
-}
+
 .wrap__header{
     background-color: #0C2947;
     width: 100%;
+    position: fixed;
     display: flex;
     flex-direction: row;
+    z-index: 999
 }
-
 .wrap__logo{
     width: 15%;
     display: flex;
@@ -107,7 +122,12 @@ export default {
     align-items: center;
     height: 100%;
 }
-
+.wrap__context_mobile{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    display: none;
+}
 .wrap__context_desktop{
     width: 85%;
     display: flex;
@@ -146,7 +166,13 @@ export default {
     height: 100vh; 
     background-color: #2F343E
 }
+.wrap__context_desktop .b-sidebar-backdrop {
+    top: 65px;
+}
+.wrap__context_desktop .b-sidebar {
+    top: 65px;
 
+}
 @media (max-width: 1035px) {
     .wrap__logo{
         width: 25%
@@ -158,6 +184,13 @@ export default {
         width:73%;
         display: flex;
         justify-content: flex-end;
+    }
+    .wrap__context_desktop .b-sidebar-backdrop {
+        top: 58px;
+    }
+    .wrap__context_desktop .b-sidebar {
+        top: 58px;
+
     }
 }
 

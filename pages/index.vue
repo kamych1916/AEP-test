@@ -1,8 +1,7 @@
 <template>
 
-    <div class="wrap__client_container py-4 px-4 ">
-
-      <div class="wrap__client_container__avatar_block">
+    <b-row class="wrap__client_container py-2 px-0 mx-0 ">
+      <b-col class=" ml-md-auto p-3 wrap__client_container__avatar_block ">
         <b-card class="text-center">
           <div class="w-100 d-flex justify-content-center pb-2">
             <div class="wrap__client_container__avatar d-flex justify-content-center align-items-center ">
@@ -16,8 +15,9 @@
           <h6>Должность</h6>
           <h6>Фио</h6>
         </b-card>
-      </div>
-      <div class="wrap__client_container__client_block">
+      </b-col>
+
+      <b-col class="ml-md-auto p-3">
         <b-card header="Данные пользователя">
           <b-row>
             <b-col cols="4">ФИО</b-col>
@@ -69,8 +69,10 @@
           </b-row>
           <b-button @click="client_btn_event()" class="mt-3" style="background-color: #0C2947">{{client_btn_title}}</b-button>
         </b-card>
-      </div>
-      <div class="wrap__client_container__password_block">
+      </b-col>
+
+
+      <b-col class=" ml-md-auto p-3">
         <b-card header="Изменить пароль">
           <b-row>
             <b-col cols="4">Текущий пароль</b-col>
@@ -98,9 +100,10 @@
           </b-row>
           <b-button @click="password_btn_event()" class="mt-3" style="background-color: #0C2947">{{password_btn_title}}</b-button>
         </b-card>
-      </div>
+      </b-col>
 
-    </div>
+
+    </b-row>
     
           <!-- <b-alert show>Роль пользователя - <strong>{{role}}</strong></b-alert> -->
     
@@ -169,12 +172,7 @@ export default {
 
 <style>
 .wrap__client_container{
-  overflow-y:scroll !important;
-  width: 85%;
-  height: 100vh;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
+  width: 100%;
 }
 .wrap__client_container .card-header{
   background-color: unset;
@@ -184,17 +182,6 @@ export default {
 .wrap__client_container__avatar_block .wrap__client_container__avatar_input{
   position: absolute;
 }
-.wrap__client_container__avatar_block{
-  width: 15%;
-}
-.wrap__client_container__client_block{
-  width: 45%;
-}
-.wrap__client_container__password_block{
-  width: 35%;
-}
-
-
 
 
 .wrap__client_container__avatar{
@@ -232,18 +219,7 @@ export default {
       width: 100%;
       justify-content: start;
       flex-direction: column;
-      padding-bottom: 150px !important;
-    }
-    .wrap__client_container__avatar_block{
-      padding-bottom: 30px;
-      width: 100%;
-    }
-    .wrap__client_container__client_block{
-      padding-bottom: 30px;
-      width: 100%;
-    }
-    .wrap__client_container__password_block{
-      width: 100%;
+      padding-bottom: 100px !important;
     }
 }
 </style>

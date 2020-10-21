@@ -2,8 +2,7 @@
   <div>
     <!-- <div v-if="role"> -->
       <Header />
-      <b-row style="width: 100%; margin: 0">
-        <Sidebar />
+      <b-row style="width: 100%; padding-top: 70px;" class="mx-0" >
         <Nuxt />
       </b-row>
     <!-- </div>  -->
@@ -35,7 +34,7 @@ export default {
 html, body{
   margin: 0;  
   font-family: "Museo Sans", sans-serif;
-  overflow: hidden ;
+
 }
 
 body {
