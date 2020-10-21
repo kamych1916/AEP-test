@@ -38,6 +38,10 @@ html, body{
   overflow: hidden ;
 }
 
+body {
+  background-color: #E5E5E5;
+}
+
 .login-group {
     padding: 45px !important;
 }
