@@ -173,6 +173,7 @@ export default {
 <style>
 .wrap__client_container{
   width: 100%;
+  font-size: calc(8px + 6 * (100vw / 1366));
 }
 .wrap__client_container .card-header{
   background-color: unset;
