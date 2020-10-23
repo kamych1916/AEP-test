@@ -80,26 +80,86 @@
 
             <b-card header="Список услуг" class="wrap__contractor_container__services__card">
                 <b-row>
-                    <b-col>1. Техническое управление и диспетчеризация зданий и сооружений</b-col>
+                    <b-col>
+                        <span>1. Техническое управление и диспетчеризация зданий и сооружений</span>
+                        <font-awesome-icon icon="question-circle" id="service__1" class="ml-2"/>
+                    </b-col>
                 </b-row>
                 <b-row class="pt-3">
-                    <b-col>2. Техническое обслуживание инженерных систем</b-col>
+                    <b-col>
+                        <span>2. Техническое обслуживание инженерных систем</span>
+                        <font-awesome-icon icon="question-circle" id="service__2" class="ml-2"/>
+                    </b-col>
                 </b-row>
                 <b-row class="pt-3">
-                    <b-col>3. Клининговое обслуживание</b-col>
+                    <b-col>
+                        <span>3. Клининговое обслуживание</span>
+                        <font-awesome-icon icon="question-circle" id="service__3" class="ml-2"/>
+                    </b-col>
                 </b-row>
                 <b-row class="pt-3">
-                    <b-col>4. Специализированные услуги клининга</b-col>
+                    <b-col>
+                        <span>4. Специализированные услуги клининга</span>
+                        <font-awesome-icon icon="question-circle" id="service__4" class="ml-2"/>
+                    </b-col>
                 </b-row>
                 <b-row class="pt-3">
-                    <b-col>5. Санитарная и антибактериальная обработка</b-col>
+                    <b-col>
+                        <span>5. Санитарная и антибактериальная обработка</span>
+                        <font-awesome-icon icon="question-circle" id="service__5" class="ml-2"/>
+                    </b-col>
                 </b-row>    
             </b-card>
+
+            <b-popover target="service__1" triggers="hover" placement="top">
+                <p>- Представление интересов заказчика в городских службах и взаимодействие 
+                    с арендодателями и контролирующими органами</p>
+                <p>- Управление подрядными организациями</p>
+                <p>- Контроль использования ресурсов (вода, электроэнергия, газ)</p>
+                <p>- Анализ состояния инженерных систем</p>
+                <p>- Подготовка отчетов о проделанной работе</p>
+                <p>- Ведение технической, исполнительной, нормативно-эксплуатационной документации</p>
+                <p>- Контроль соблюдения эксплуатационных норм</p>
+            </b-popover>
+
+            <b-popover target="service__2" triggers="hover" placement="top">
+                <p>- Плановое техническое обслуживание инженерных систем (ППР, регламентные работы)</p>
+                <p>- Сервисное обслуживание (мелкий ремонт, устранение неисправностей)</p>
+                <p>- Локализация и устранение аварийных ситуаций</p>
+                <p>- Ремонтно-строительные и отделочные работы</p>
+                <p>- Капитальный ремонт и модернизация инженерного оборудования</p>
+            </b-popover>
+
+            <b-popover target="service__3" triggers="hover" placement="top">
+                <p>- Ежедневная комплексная и поддерживающая уборка помещений</p>
+                <p>- Уборка прилегающей территории</p>
+                <p>- Генеральная и послестроительная уборка помещений</p>
+                <p>- Вывоз мусора и утилизация опасных отходов</p>
+            </b-popover>
+
+            <b-popover target="service__4" triggers="hover" placement="top">
+                <p>- Химчистка ковров и мягкой мебели</p>
+                <p>- Шлифовка, полировка каменных полов</p>
+                <p>- Кристаллизация поверхности каменных напольных покрытий</p>
+                <p>- Глубокая очистка твердых напольных покрытий</p>
+            </b-popover>
+
+            <b-popover target="service__5" triggers="hover" placement="top">
+                <p>- Аэрозольная дезинфекция помещений методом «холодный туман»</p>
+                <p>- УФ-обработка (кварцевание) помещений</p>
+                <p>- Озонирование помещений</p>
+                <p>- Дезинсекция и дератизация помещений</p>
+                <p>- Дезодорация и антибактериальная обработка</p>
+            </b-popover>   
         </b-col>
     </b-row>
 </template>
 
 <style scoped>
+.popover {
+    max-width: 500px !important;
+    font-size: calc(8px + 6 * (100vw / 1366));
+}
 .wrap__contractor_container{
   width: 100%;
 }
@@ -122,12 +182,17 @@
      font-size: calc(8px + 6 * (100vw / 1366));
  }
 
+
 @media (max-width: 1035px) {
     .wrap__contractor_container {
         display: flex;
         justify-content: start;
         flex-direction: column;
         padding-bottom: 100px !important;
+    }
+
+    .popover {
+        max-width: 70vw !important;
     }
 }
 
