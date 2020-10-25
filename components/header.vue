@@ -205,7 +205,7 @@ export default {
     }   
 
 }
-@media (max-width: 414px) {
+@media (max-width: 415px) {
     .wrap__logo{
         width: 80%
     }   
