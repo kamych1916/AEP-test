@@ -184,7 +184,7 @@
 
 
 @media (max-width: 1035px) {
-    .wrap__contractor_container {
+    .wrap__contractor__container {
         display: flex;
         justify-content: start;
         flex-direction: column;
