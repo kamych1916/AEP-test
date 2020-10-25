@@ -2,10 +2,10 @@
     <div class="wrap__objects__container mx-3 my-3">
         <div class="panel-group theme-panel">
             <div class="panel panel-default">
-                <div class="panel-heading w-100 bg-dark text-light" v-b-toggle.collapse-2 @click="first_accor_is_open=!first_accor_is_open">
+                <div class="panel-heading w-100 text-light" v-b-toggle.collapse-2 @click="first_accor_is_open=!first_accor_is_open">
                     <b-row class="d-flex justify-content-between px-3">
                         <h4 class="panel-title">
-                            Simple Form - Gray
+                            Создание объекта
                         </h4>
                         <h4 class="panel-title">
                             <font-awesome-icon v-if="first_accor_is_open" :icon="['fas', 'arrow-down']"/>
@@ -18,38 +18,121 @@
                         <b-form class="form-theme form-grey">
                             <b-row>
                                 <b-col sm="6">
-                                <b-form-group label="First name" label-for="input-1">
-                                    <b-form-input
-                                    id="input-1"
-                                    type="text"
-                                    name="firstName"
-                                    ></b-form-input>
-                                </b-form-group>
+                                    <b-row>
+                                        <b-col cols="3">Город</b-col>
+                                        <b-col>
+                                            <b-form-group>
+                                                <b-form-input
+                                                id="input-1"
+                                                type="text"
+                                                ></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
+                                    <b-row>
+                                        <b-col cols="3">Адрес</b-col>
+                                        <b-col>
+                                            <b-form-group>
+                                                <b-form-input
+                                                type="text"
+                                                ></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
+                                    <b-row>
+                                        <b-col cols="3">Квадратура</b-col>
+                                        <b-col>
+                                            <b-form-group>
+                                                <b-form-input
+                                                type="text"
+                                                ></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
+                                    <b-row>
+                                        <b-col cols="3">Количество этажей</b-col>
+                                        <b-col>
+                                            <b-form-group>
+                                                <b-form-input
+                                                type="text"
+                                                ></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
+                                    <b-row>
+                                        <b-col cols="3">Время работы</b-col>
+                                        <b-col>
+                                            <b-form-group>
+                                                <b-form-input
+                                                type="text"
+                                                ></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
+                                    <b-row>
+                                        <b-col cols="3">ФИО ответственного</b-col>
+                                        <b-col>
+                                            <b-form-group>
+                                                <b-form-input
+                                                type="text"
+                                                ></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
+                                    <b-row>
+                                        <b-col cols="3">Телефон ответственного</b-col>
+                                        <b-col>
+                                            <b-form-group>
+                                                <b-form-input
+                                                type="text"
+                                                ></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
                                 </b-col>
-                                <b-col sm="6">
-                                <b-form-group label="Last name" label-for="input-2">
-                                    <b-form-input
-                                    id="input-2"
-                                    type="text"
-                                    name="lastName"
-                                    ></b-form-input>
-                                </b-form-group>
-                                </b-col>
-                                <b-col sm="12">
-                                <b-form-group label="Message" label-for="input-3">
-                                    <b-form-textarea
-                                    class="form-text-area"
-                                    ></b-form-textarea>
-                                </b-form-group>
-                                </b-col>
-                                <b-col sm="12">
-                                <b-button
-                                    type="submit"
-                                    class="btn btn-theme form-submit"
-                                    >Submit</b-button
-                                >
+
+                                <b-col>
+                                    <b-row>
+                                        <b-col cols="3">E-mail сотрудника</b-col>
+                                        <b-col>
+                                            <b-form-group>
+                                                <b-form-input
+                                                type="text"
+                                                ></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
+                                    <b-row>
+                                        <b-col cols="3">Придумайте пароль</b-col>
+                                        <b-col>
+                                            <b-form-group>
+                                                <b-form-input
+                                                type="text"
+                                                ></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
+
+                                    <b-row>
+                                        <b-col cols="3">Подтвердите пароль</b-col>
+                                        <b-col>
+                                            <b-form-group>
+                                                <b-form-input
+                                                type="text"
+                                                ></b-form-input>
+                                            </b-form-group>
+                                        </b-col>
+                                    </b-row>
                                 </b-col>
                             </b-row>
+                            <b-button class="save_button mt-3">Сохранить</b-button>
                         </b-form>
                     </div>
                 </b-collapse>
@@ -140,7 +223,7 @@ export default {
      width: 100%;
  }
 
- .wrap__objects__container__table__head {
+ .wrap__objects__container__table__head, .theme-panel .panel-heading , .save_button {
     background-color: #2F343E;
     color: white;
  }
@@ -148,5 +231,7 @@ export default {
  .wrap__objects__container__header {
      text-transform: uppercase;
  }
+
+ 
 
 </style>
