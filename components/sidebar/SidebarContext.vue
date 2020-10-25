@@ -8,7 +8,7 @@
                 </nuxt-link>
             </b-row>
             <b-row class="mt-3 px-3">
-                <nuxt-link to="/" >
+                <nuxt-link to="/objects" >
                     <font-awesome-icon :icon="['fas', 'briefcase']"/>&nbsp;&nbsp;
                     Объекты
                 </nuxt-link>

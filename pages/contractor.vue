@@ -1,5 +1,5 @@
 <template>
-    <b-row class="wrap__contractor_container py-2 px-0 mx-0 ">
+    <b-row class="wrap__contractor__container py-2 px-0 mx-0 ">
         <b-col class="ml-md-auto p-3 wrap__contractor_container__contacts__block">
             <b-card header="Контакты" class="wrap__contractor_container__contacts__block__card">
                 <b-row>
@@ -160,7 +160,7 @@
     max-width: 500px !important;
     font-size: calc(8px + 6 * (100vw / 1366));
 }
-.wrap__contractor_container{
+.wrap__contractor__container{
   width: 100%;
 }
 
