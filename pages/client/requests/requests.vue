@@ -64,7 +64,7 @@
         
         <div class="py-2 w-100 d-flex justify-content-between">
             <p>Все заявки</p>
-            <b-button @click="$router.push('/client/create-request')" size="sm" style="background-color: #FFC221; border: 0px; color: black">Новая заявка</b-button>
+            <b-button @click="$router.push('/client/requests/create-request')" size="sm" style="background-color: #FFC221; border: 0px; color: black">Новая заявка</b-button>
         </div>
         <b-table thead-class="bg-dark text-light" striped :fields="fields" :items="items" responsive>
             <template #cell(status)>
