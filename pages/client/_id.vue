@@ -1,17 +1,17 @@
 <template>
         <b-row class="wrap__objects__element__container py-2 px-0 mx-0 ">
             <b-col class="ml-md-auto p-3">
-                <div class="wrap__objects__element__container__header">
+                <div class="wrap__objects__element__container__header mb-2">
                     <p>Карточка объекта</p>
                     <div>
-                        <nuxt-link to="/client/objects"><b-button style="background-color:#E5E5E5; color:black;">Вернуться к списку объектов</b-button></nuxt-link>
-                        <b-button style="background-color: #FFC221; border: 1px #FFC221 solid; color:black">Новая заявка</b-button>
+                        <nuxt-link to="/client/objects"><b-button style="background-color:#E5E5E5; color:black; font-size: calc(8px + 6 * (100vw / 1366));" class="mr-2">Вернуться к списку объектов</b-button></nuxt-link>
+                        <b-button class="wrap__objects__element__container__header__button" style="background-color: #FFC221; border: 1px #FFC221 solid; color:black; font-size: calc(8px + 6 * (100vw / 1366));">Новая заявка</b-button>
                     </div>
                 </div>
                 <b-card header="Название">
-                    <b-row>
-                        <b-col cols="6">
-                            <b-row>
+                    <b-row class="wrap__objects__element__container__main__row">
+                        <b-col>
+                            <b-row class="pt-3">
                                 <b-col cols="4">Город</b-col>
                                 <b-col>
                                     <div>
@@ -84,8 +84,8 @@
                             </b-row>
                         </b-col>
 
-                        <b-col cols="6">
-                            <b-row>
+                        <b-col>
+                            <b-row class="pt-3">
                                 <b-col cols="4">Придумайте логин</b-col>
                                 <b-col>
                                     <div>
@@ -113,7 +113,7 @@
                             </b-row>
                         </b-col>
                     </b-row>
-                    <div class="wrap__objects__element__container__buttons mt-2">
+                    <div class="wrap__objects__element__container__buttons mt-3">
                         <b-button style="background-color: #0C2947; border:none;">Редактировать</b-button>
                         <b-button v-b-modal.deleteRequest style="background-color: #E84242; border:none;">Удалить</b-button>
                     </div>
@@ -149,7 +149,9 @@ export default {
 <style>
 .wrap__objects__element__container, .wrap__objects__element__container__buttons, .wrap__objects__element__container__header  {
     width: 100%;
+    font-size: calc(8px + 6 * (100vw / 1366));
 }
+
 
 .wrap__objects__element__container__buttons, .wrap__objects__element__container__header {
     display: flex;
@@ -166,6 +168,13 @@ export default {
 
 .wrap__objects__element__container__modal__text {
     text-align: center;
+}
+
+@media (max-width: 1035px) {
+    .wrap__objects__element__container__main__row {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 </style>
