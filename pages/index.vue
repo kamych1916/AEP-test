@@ -6,7 +6,7 @@
           <div class="w-100 d-flex justify-content-center pb-2">
             <div class="wrap__client_container__avatar d-flex justify-content-center align-items-center ">
               <label for="load">Загрузить</label>
-              <input id="load" @change="onFileChange" type="file" name="photo" style="display: none;">
+              <!--<input id="load" @change="onFileChange" type="file" name="photo" style="display: none;">-->
               <font-awesome-icon style="width: 35px; height: 35px " :icon="['fas', 'camera']"/>
               <img :src="image" alt="">
             </div>

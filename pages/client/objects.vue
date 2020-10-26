@@ -139,7 +139,7 @@
             </div>
         </div>
         <p class="wrap__objects__container__header">Все объекты</p>
-        <b-table thead-class="wrap__objects__container__table__head" :fields="fields" :items="items" :table-variant="tableVariant" responsive></b-table>
+        <b-table thead-class="wrap__objects__container__table__head" :fields="fields" :items="items" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable></b-table>
     </div>
 </template>
 
@@ -192,6 +192,7 @@ export default {
 
             items: [
                 {
+                    id: 1,
                     city: 'Набережные Челны',
                     address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
                     area: '30 кв.м.',
@@ -202,6 +203,7 @@ export default {
                 },
 
                 {
+                    id: 2,
                     city: 'Санкт-Петербург',
                     address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
                     area: '15 кв.м.',
@@ -212,6 +214,7 @@ export default {
                 },
 
                 {
+                    id: 3,
                     city: 'Набережные Челны',
                     address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
                     area: '30 кв.м.',
@@ -222,6 +225,7 @@ export default {
                 },
 
                 {
+                    id: 4,
                     city: 'Санкт-Петербург',
                     address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
                     area: '15 кв.м.',
@@ -232,6 +236,7 @@ export default {
                 },
 
                 {
+                    id: 5,
                     city: 'Набережные Челны',
                     address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
                     area: '30 кв.м.',
@@ -242,6 +247,7 @@ export default {
                 },
 
                 {
+                    id: 6,
                     city: 'Санкт-Петербург',
                     address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
                     area: '15 кв.м.',
@@ -256,6 +262,12 @@ export default {
             ],
 
             tableVariant: 'light'
+        }
+    },
+
+    methods: {
+        onRowSelected(picked) {
+            this.$router.push("/client/" + picked[0].id)
         }
     }
 }

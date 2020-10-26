@@ -4,8 +4,8 @@
         <b-card class="text-center">
           <div class="w-100 d-flex justify-content-center pb-2">
             <div class="wrap__client_container__avatar d-flex justify-content-center align-items-center ">
-              <label for="load">Загрузить</label>
-              <input id="load" @change="onFileChange" type="file" name="photo" style="display: none;">
+              <label for="logo">Загрузить</label>
+              <!--<input id="logo"  @change="onFileChange" type="file" name="photo" style="display: none;">-->
               <font-awesome-icon style="width: 35px; height: 35px " :icon="['fas', 'camera']"/>
               <img :src="image" alt="">
             </div>
@@ -15,6 +15,10 @@
           <h6>Фио</h6>
         </b-card>
       </b-col>
+
+      <b-modal id="addLogo" size="lg" centered>
+           
+      </b-modal>
 
       <b-col class="ml-md-auto p-3">
         <b-card header="Данные пользователя">
