@@ -4,7 +4,7 @@
                 <div class="wrap__objects__element__container__header">
                     <p>Карточка объекта</p>
                     <div>
-                        <nuxt-link to="/client/objects"><b-button style="background-color:#E5E5E5; color:black;">Вернуться к списку объектов</b-button></nuxt-link>
+                        <nuxt-link to="/client/objects/objects"><b-button style="background-color:#E5E5E5; color:black;">Вернуться к списку объектов</b-button></nuxt-link>
                         <b-button style="background-color: #FFC221; border: 1px #FFC221 solid; color:black">Новая заявка</b-button>
                     </div>
                 </div>
@@ -151,9 +151,11 @@ export default {
     width: 100%;
 }
 
+/* НУЖНО ИЗМЕНИТЬ НА СТРОКИ */
 .wrap__objects__element__container__buttons, .wrap__objects__element__container__header {
     display: flex;
     justify-content: space-between;
+    /* flex-direction: column; */
 }
 
 .modal-header {
