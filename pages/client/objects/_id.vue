@@ -176,6 +176,10 @@ export default {
         display: flex;
         flex-direction: column;
     }
+
+    .wrap__objects__element__container__header {
+        flex-direction: column;
+    }
 }
 
 </style>
