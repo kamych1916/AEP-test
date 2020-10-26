@@ -1,16 +1,16 @@
 <template>
-    <div class="wrap__objects__container w-100 mx-3 my-3">
+    <div class="wrap__objects__container w-100 p-3">
         <div class="panel-group ">
             <div class="panel panel-default">
-                <div class="panel-heading w-100 p-1 d-flex justify-content-between" v-b-toggle.collapse-2 @click="first_accor_is_open=!first_accor_is_open">
-                    <b-row class=" px-3">
-                            <h4 class="panel-title">
-                                заявки какого объекта вы хотите увидеть ? 
-                            </h4>
-                            <h4 class="panel-title pl-3">
-                                <font-awesome-icon v-if="first_accor_is_open" :icon="['fas', 'arrow-up']"/>
-                                <font-awesome-icon v-else :icon="['fas', 'arrow-down']"/>
-                            </h4>
+                <div class="panel-heading p-2 bg-dark w-100 text-light" v-b-toggle.collapse-2 @click="first_accor_is_open=!first_accor_is_open">
+                    <b-row class="d-flex justify-content-between px-3">
+                        <h4 class="panel-title">
+                            заявки какого объекта вы хотите увидеть ? 
+                        </h4>
+                        <h4 class="panel-title">
+                            <font-awesome-icon v-if="first_accor_is_open" :icon="['fas', 'arrow-up']"/>
+                            <font-awesome-icon v-else :icon="['fas', 'arrow-down']"/>
+                        </h4>
                     </b-row>
                 </div>
                 <b-collapse id="collapse-2" class="panel-collapse">
@@ -62,13 +62,13 @@
             </div>
         </div>
         
-        <div class=" w-100 d-flex justify-content-between">
-            <p class="wrap__objects__container__header">Все объекты</p>
-            <b-button>Новая заявка</b-button>
+        <div class="py-2 w-100 d-flex justify-content-between">
+            <p>Все заявки</p>
+            <b-button @click="$router.push('/client/create-request')" size="sm" style="background-color: #FFC221; border: 0px; color: black">Новая заявка</b-button>
         </div>
-        <b-table thead-class="bg-secondary text-light" :fields="fields" :items="items" :table-variant="tableVariant" responsive>
+        <b-table thead-class="bg-dark text-light" striped :fields="fields" :items="items" responsive>
             <template #cell(status)>
-                <b-button size="sm" variant="success">Активно</b-button>
+                <b-button disabled size="sm" variant="success">Активно</b-button>
             </template>
         </b-table>
                     
@@ -81,6 +81,7 @@ export default {
   data () {
     return {
         first_accor_is_open: false,
+        tableVariant: 'light',
         fields: [
             {
                 key: 'date',
@@ -120,31 +121,11 @@ export default {
 
         items: [
             {
-                date: 'Набережные Челны',
-                number: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                executor: '1',
-                short_description: 'Панкратов-Черный',
-                desription: '+7 (999) 666 7373'
-            },
-
-            {
-                city: 'Санкт-Петербург',
-                address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                area: '15 кв.м.',
-                floors: '9',
-                last_name: 'Панкратов-Белый',
-                phone: '+7 (915) 666 7373',
-                email: 'e-mail@aepgroup'
-            },
-
-            {
-                city: 'Набережные Челны',
-                address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                area: '30 кв.м.',
-                floors: '1',
-                last_name: 'Панкратов-Черный',
-                phone: '+7 (999) 666 7373',
-                email: 'e-mail@aepgroup'
+                date: '30.06.2020 (13:20)',
+                number: '000003',
+                executor: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А',
+                short_description: 'Клининг',
+                desription: 'Описание'
             }
         ],
 

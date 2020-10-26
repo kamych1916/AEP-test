@@ -267,7 +267,7 @@ export default {
 
     methods: {
         onRowSelected(picked) {
-            this.$router.push("/client/" + picked[0].id)
+            this.$router.push("/client/objects/" + picked[0].id)
         }
     }
 }

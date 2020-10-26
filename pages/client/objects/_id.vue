@@ -152,10 +152,11 @@ export default {
     font-size: calc(8px + 6 * (100vw / 1366));
 }
 
-
+/* НУЖНО ИЗМЕНИТЬ НА СТРОКИ */
 .wrap__objects__element__container__buttons, .wrap__objects__element__container__header {
     display: flex;
     justify-content: space-between;
+    /* flex-direction: column; */
 }
 
 .modal-header {
