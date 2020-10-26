@@ -8,14 +8,14 @@
                 </nuxt-link>
             </b-row>
             <b-row class="mt-3 px-3">
-                <nuxt-link to="/objects" >
+                <nuxt-link to="/client/objects" >
                     <font-awesome-icon :icon="['fas', 'briefcase']"/>&nbsp;&nbsp;
                     Объекты
                 </nuxt-link>
             </b-row>
 
             <b-row class="mt-3 px-3">
-                <nuxt-link to="/contractor" >
+                <nuxt-link to="/client/contractor" >
                     <font-awesome-icon :icon="['fas', 'briefcase']"/>&nbsp;&nbsp;
                      Единный подрядчик
                 </nuxt-link>
