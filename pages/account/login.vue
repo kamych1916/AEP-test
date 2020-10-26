@@ -157,7 +157,7 @@ export default {
               localStorage.setItem('strjwt', response.data.access_token)
               localStorage.setItem('role', response.data.role)
               if(this.check_box) { this.event_checkbox() }
-              this.$router.push('/')
+              this.$router.push('/client/profile')
             }
           })
           .catch((error) => {

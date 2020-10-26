@@ -40,7 +40,7 @@
                         </div>
                     </template>
                 </b-sidebar>
-                <div class="wrap__context_desktop__avatar"></div>
+                <div @click="$router.push('/client/profile')" class="wrap__context_desktop__avatar"></div>
             </b-row>
 
             <div class="wrap__context_desktop__search">
@@ -67,7 +67,7 @@
                 <template v-slot:default="{ hide }">
                     <div class="wrap__context_mobile__block">
                         <div class="w-100 d-flex justify-content-between align-items-center px-3 py-2">
-                            <div class="wrap__context_desktop__avatar"></div>
+                            <div @click="$router.push('/client/profile')" class="wrap__context_desktop__avatar"></div>
                             <span @click="logout()">
                                 <svg style="color: #aaa" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.25973 1.29131V3.21976C9.5782 3.94796 10.4205 5.37398 10.4205 6.97814C10.4205 9.32118 8.49125 11.2217 6.11209 11.2217C3.73457 11.2217 1.8053 9.322 1.8053 6.97814C1.8053 5.32225 2.63612 3.90034 4.01863 3.20088V1.28967C1.60745 2.09011 0 4.3215 0 6.97814C0 10.3047 2.7371 12.9999 6.11127 12.9999C9.48625 12.9999 12.2242 10.3047 12.2242 6.97814C12.225 4.36994 10.6044 2.1328 8.25973 1.29131Z" fill="white"/>

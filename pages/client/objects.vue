@@ -2,7 +2,7 @@
     <div class="wrap__objects__container p-3">
         <div class="panel-group theme-panel">
             <div class="panel panel-default">
-                <div class="panel-heading w-100 text-light" v-b-toggle.collapse-2 @click="first_accor_is_open=!first_accor_is_open">
+                <div class="panel-heading w-100 bg-dark text-light" v-b-toggle.collapse-2 @click="first_accor_is_open=!first_accor_is_open">
                     <b-row class="d-flex justify-content-between px-3">
                         <h4 class="panel-title">
                             Создание объекта
@@ -139,7 +139,7 @@
             </div>
         </div>
         <p class="wrap__objects__container__header">Все объекты</p>
-        <b-table thead-class="wrap__objects__container__table__head" :fields="fields" :items="items" :table-variant="tableVariant" responsive></b-table>
+        <b-table thead-class="bg-dark text-light" :fields="fields" :items="items" :table-variant="tableVariant" responsive></b-table>
     </div>
 </template>
 
@@ -261,7 +261,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
  .wrap__objects__container {
      width: 100%;
      font-size: calc(8px + 6 * (100vw / 1366));
