@@ -2,7 +2,7 @@
     <div>
         <div class="wrap__sidebar_context px-3 py-4">
             <b-row class="px-3">
-                <nuxt-link to="/">
+                <nuxt-link to="/client/requests">
                     <font-awesome-icon :icon="['fas', 'briefcase']"/>&nbsp;&nbsp;
                      Заявки
                 </nuxt-link>
