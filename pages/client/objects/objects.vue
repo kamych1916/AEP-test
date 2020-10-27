@@ -15,17 +15,18 @@
                 </div>
                 <b-collapse id="collapse-2" class="panel-collapse">
                     <div class="panel-body">
-                        <b-form class="form-theme form-grey">
+                        <b-form>
                             <b-row>
                                 <b-col sm="6">
                                     <b-row>
                                         <b-col cols="4">Город</b-col>
                                         <b-col>
                                             <b-form-group>
-                                                <b-form-input
+                                                <input
                                                 id="input-1"
                                                 type="text"
-                                                ></b-form-input>
+                                                class="form-control"
+                                                >
                                             </b-form-group>
                                         </b-col>
                                     </b-row>
@@ -132,14 +133,14 @@
                                     </b-row>
                                 </b-col>
                             </b-row>
-                            <b-button class="save_button mt-3">Сохранить</b-button>
+                            <b-button class="save_button mt-3">Создать</b-button>
                         </b-form>
                     </div>
                 </b-collapse>
             </div>
         </div>
         <p class="wrap__objects__container__header">Все объекты</p>
-        <b-table thead-class="wrap__objects__container__table__head" :fields="fields" :items="items" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable></b-table>
+        <b-table thead-class="wrap__objects__container__table__head" striped :fields="fields" :items="items" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable></b-table>
     </div>
 </template>
 
@@ -287,7 +288,4 @@ export default {
  .wrap__objects__container__header {
      text-transform: uppercase;
  }
-
- 
-
 </style>

@@ -4,8 +4,8 @@
                 <div class="wrap__objects__element__container__header mb-2">
                     <p>Карточка объекта</p>
                     <div>
-                        <nuxt-link to="/client/objects/objects"><b-button size="lg" style="background-color:#E5E5E5; color:black; font-size: calc(8px + 6 * (100vw / 1366));" class="mr-2">Вернуться к списку объектов</b-button></nuxt-link>
-                        <b-button size="lg" class="wrap__objects__element__container__header__button" style="background-color: #FFC221; border: 1px #FFC221 solid; color:black; font-size: calc(8px + 6 * (100vw / 1366));">Новая заявка</b-button>
+                        <nuxt-link to="/client/objects/objects"><b-button size="lg" style="font-size: calc(8px + 6 * (100vw / 1366));" class="bg-dark mr-2">Вернуться к списку объектов</b-button></nuxt-link>
+                        <b-button @click="$router.push('/client/requests/create-request')" size="lg" class="wrap__objects__element__container__header__button" style="background-color: #FFC221; border: 1px #FFC221 solid; color:black; font-size: calc(8px + 6 * (100vw / 1366));">Новая заявка</b-button>
                     </div>
                 </div>
                 <b-card header="Название">
