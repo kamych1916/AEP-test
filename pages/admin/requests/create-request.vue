@@ -4,7 +4,6 @@
             <p>Ул. маршала жукова, 13</p>
             <div>
                 <b-button size="lg" class="bg-dark" @click="$router.push('/admin/requests/requests')" style="font-size: calc(8px + 6 * (100vw / 1366));">Вернуться к списку заявок</b-button>
-                <b-button @click="$router.push('/admin/requests/create-request')" size="lg" class="wrap__create_req__container__header__button" style="background-color: #FFC221; border: 1px #FFC221 solid; color:black; font-size: calc(8px + 6 * (100vw / 1366));">Новая заявка</b-button>
             </div>
       </b-row>
       <b-row class="w-100 px-3 mx-0">
@@ -195,7 +194,7 @@
                 
                 <b-col>
                     <b-card header="Заметки от АЕП" class="my-4 ">
-                        <input required :readonly="client_input_rdnl" class="form-control" type="text"/>
+                        <textarea style="width: 100%;"></textarea>
                         <b-button class="mt-3 bg-dark" type="submit">Редактировать</b-button>
                     </b-card>
                 </b-col>
