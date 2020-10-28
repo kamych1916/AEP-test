@@ -139,8 +139,10 @@
                 </b-collapse>
             </div>
         </div>
-        <p class="wrap__objects__container__header">Все объекты</p>
-        <b-table thead-class="wrap__objects__container__table__head" striped :fields="fields" :items="items" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable></b-table>
+        <p class="wrap__objects__container__header">Клиент 1</p>
+        <b-table thead-class="wrap__objects__container__table__head" striped :fields="fields" :items="items1" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable></b-table>
+        <p class="wrap__objects__container__header">Клиент 2</p>
+        <b-table thead-class="wrap__objects__container__table__head" striped :fields="fields" :items="items2" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable></b-table>
     </div>
 </template>
 
@@ -148,7 +150,6 @@
 export default {
     data () {
         return {
-            first_accor_is_open: false,
             fields: [
                 {
                     key: 'city',
@@ -163,14 +164,8 @@ export default {
                 },
 
                 {
-                    key: 'area',
-                    label: 'Квадратура',
-                    sortable: true
-                },
-
-                {
-                    key: 'floors',
-                    label: 'Этажность',
+                    key: 'amount',
+                    label: 'Количество заявок',
                     sortable: true
                 },
 
@@ -184,101 +179,37 @@ export default {
                     key: 'phone',
                     label: 'Телефон'
                 },
+            ],
 
+            items1: [
                 {
-                    key: 'email',
-                    label: 'E-mail'
+                    city: 'Набережные Челны',
+                    address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
+                    amount: 5,
+                    last_name: 'Панкратов-Черный',
+                    phone: '+7 (999) 666 7373',
                 }
             ],
 
-            items: [
+            items2: [
                 {
-                    id: 1,
-                    city: 'Набережные Челны',
-                    address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                    area: '30 кв.м.',
-                    floors: '1',
-                    last_name: 'Панкратов-Черный',
-                    phone: '+7 (999) 666 7373',
-                    email: 'e-mail@aepgroup'
-                },
-
-                {
-                    id: 2,
                     city: 'Санкт-Петербург',
                     address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                    area: '15 кв.м.',
-                    floors: '9',
-                    last_name: 'Панкратов-Белый',
-                    phone: '+7 (915) 666 7373',
-                    email: 'e-mail@aepgroup'
-                },
-
-                {
-                    id: 3,
-                    city: 'Набережные Челны',
-                    address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                    area: '30 кв.м.',
-                    floors: '1',
+                    amount: 5,
                     last_name: 'Панкратов-Черный',
                     phone: '+7 (999) 666 7373',
-                    email: 'e-mail@aepgroup'
-                },
-
-                {
-                    id: 4,
-                    city: 'Санкт-Петербург',
-                    address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                    area: '15 кв.м.',
-                    floors: '9',
-                    last_name: 'Панкратов-Белый',
-                    phone: '+7 (915) 666 7373',
-                    email: 'e-mail@aepgroup'
-                },
-
-                {
-                    id: 5,
-                    city: 'Набережные Челны',
-                    address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                    area: '30 кв.м.',
-                    floors: '1',
-                    last_name: 'Панкратов-Черный',
-                    phone: '+7 (999) 666 7373',
-                    email: 'e-mail@aepgroup'
-                },
-
-                {
-                    id: 6,
-                    city: 'Санкт-Петербург',
-                    address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                    area: '15 кв.м.',
-                    floors: '9',
-                    last_name: 'Панкратов-Белый',
-                    phone: '+7 (915) 666 7373',
-                    email: 'e-mail@aepgroup'
-                },
-
-
-
-            ],
-
-            tableVariant: 'light'
-        }
-    },
-
-    methods: {
-        onRowSelected(picked) {
-            this.$router.push("/client/objects/" + picked[0].id)
+                }
+            ]
         }
     }
 }
 </script>
 
 <style>
- .wrap__objects__container {
+.wrap__objects__container {
      width: 100%;
      font-size: calc(8px + 6 * (100vw / 1366));
- }
+}
 
  .wrap__objects__container__table__head, .wrap__objects__container .theme-panel .panel-heading , .wrap__objects__container .save_button {
     background-color: #2F343E;

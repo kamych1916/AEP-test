@@ -94,7 +94,8 @@
                         </div>
                     </b-col>
                 </b-row>
-                <b-button class="wrap__contractor_container__contacts__block__card__button mt-3">Скачать в PDF</b-button>
+                <b-button class="wrap__contractor_container__contacts__block__card__button mt-3 mr-1">Сохранить в PDF</b-button>
+                <b-button @click="edit_btn_event()" class="mt-3" style="background-color: #0C2947; border:none; font-size: calc(8px + 6 * (100vw / 1366));">{{edit_btn_title}}</b-button>
             </b-card>
         </b-col>
 
@@ -222,8 +223,24 @@
 <script>
 export default {
     data: () => ({
-        client_input_rdnl: true
+        client_input_rdnl: true,
+        edit_btn_title: "Редактировать",
     }),
+
+    methods: {
+        edit_btn_event(){
+            let saveButton = document.querySelector(".wrap__contractor_container__contacts__block__card__button");
+            if(this.edit_btn_title == "Редактировать"){
+                this.edit_btn_title = "Сохранить";
+                this.client_input_rdnl = false;
+                saveButton.style.display = "none";
+            }else{
+                this.edit_btn_title = "Редактировать";
+                this.client_input_rdnl = true;
+                saveButton.style.display = "inline";
+            }
+        }
+    }
 }
 </script>
 

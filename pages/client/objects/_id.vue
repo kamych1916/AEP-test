@@ -182,4 +182,10 @@ export default {
     }
 }
 
+@media (max-width: 451px) {
+   .wrap__objects__element__container__header__button {
+        margin-top: 5px;
+    } 
+}
+
 </style>
