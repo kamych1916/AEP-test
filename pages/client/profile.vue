@@ -3,12 +3,13 @@
       <b-col class=" ml-md-auto p-3 wrap__client_container__avatar_block ">
         <b-card class="text-center">
           <div class="w-100 d-flex justify-content-center pb-2">
-            <div class="wrap__client_container__avatar d-flex justify-content-center align-items-center ">
-              <label v-b-modal.downloadPhoto>Загрузить</label>
-              <font-awesome-icon style="width: 35px; height: 35px " :icon="['fas', 'camera']"/>
-              <img :src="image" alt="">
+            <div style="" class="wrap__client_container__avatar d-flex justify-content-center align-items-center">
+              <h2 class="mt-2">К.Р.</h2>
+              <!-- <label v-b-modal.downloadPhoto>Загрузить</label> -->
+              <!-- <font-awesome-icon style="width: 35px; height: 35px " :icon="['fas', 'camera']"/> -->
+              <!-- <img :src="image" alt=""> -->
 
-              <b-modal id="downloadPhoto" size="lg" centered>
+              <!-- <b-modal id="downloadPhoto" size="lg" centered>
                   <template v-slot:modal-header>
                     <p></p>
                   </template>
@@ -22,7 +23,7 @@
                   <template v-slot:modal-footer>
                     <p></p>
                   </template>
-              </b-modal>
+              </b-modal> -->
             </div>
           </div>
           <h4>Компания</h4>
@@ -30,10 +31,6 @@
           <h6>Фио</h6>
         </b-card>
       </b-col>
-
-      <b-modal id="addLogo" size="lg" centered>
-           
-      </b-modal>
 
       <b-col class="ml-md-auto p-3">
         <b-card header="Данные пользователя">
@@ -117,6 +114,7 @@
             </b-col>
           </b-row>
           <b-button @click="password_btn_event()" class="mt-3" style="background-color: #0C2947">{{password_btn_title}}</b-button>
+          <button @click="AuthReq()">kek</button>
         </b-card>
       </b-col>
 
@@ -127,7 +125,7 @@
     
 </template> 
 
-<script>
+<script >
 import Api from "~/utils/api";
 
 export default {
@@ -152,6 +150,9 @@ export default {
     }
   },
   methods: {
+    initials(str) {
+      return str.split(/\s+/).map((w,i) => i ? w.substring(0,1).toUpperCase() + '.' : w).join(' ');
+    },
     password_btn_event(){
       if(this.password_btn_title == "Редактировать"){
         this.password_btn_title = "Сохранить";
@@ -184,11 +185,23 @@ export default {
         };
         reader.readAsDataURL(file);
     },
+    AuthReq() {
+      Api.getInstance().auth.test().then((response) => {
+          console.log('kek-> ', response)
+        })
+        .catch((error) => {
+          this.$bvToast.toast("Неверное имя пользователя или пароль", {
+            title: `Ошибка авторизации`,
+            variant: "danger",
+            solid: true,
+          });
+        });
+    },
   }
 }
 </script>
 
-<style>
+<style scoped>
 .wrap__client_container{
   width: 100%;
   font-size: calc(8px + 6 * (100vw / 1366));

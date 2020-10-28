@@ -32,7 +32,8 @@ export default class Api {
         },
 
         async test() {    
-            return axios.get(`${contsants.API_BASE_URL}/test`, 
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(`${contsants.API_BASE_URL}/test`, {idecur}, 
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('strjwt')}`

@@ -13,7 +13,6 @@
                     Объекты
                 </nuxt-link>
             </b-row>
-
             <b-row class="mt-3 px-3">
                 <nuxt-link to="/client/contractor" >
                     <font-awesome-icon :icon="['fas', 'briefcase']"/>&nbsp;&nbsp;

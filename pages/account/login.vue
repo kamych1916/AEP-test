@@ -155,7 +155,8 @@ export default {
               setTimeout(()=>{this.$router.push('/')}, 1500)
             }else{
               localStorage.setItem('strjwt', response.data.access_token)
-              localStorage.setItem('role', response.data.role)
+              localStorage.setItem('role', response.data.store_role)
+              localStorage.setItem('idecur', response.data.store_idecur)
               if(this.check_box) { this.event_checkbox() }
               this.$router.push('/client/profile')
             }

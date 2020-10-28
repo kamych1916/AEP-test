@@ -100,6 +100,7 @@ export default {
         logout(){
             localStorage.removeItem('strjwt');
             localStorage.removeItem('role');
+            localStorage.removeItem('idecur');
             this.$router.push('/account/login')
         }
     },

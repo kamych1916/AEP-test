@@ -1,25 +1,40 @@
 {
     "users": [
         {
+            "id": 1,
             "role": "admin",
-            "username": "kamol",
+            "username": "Рахимов Камол Самеевич",
             "telephone": "+79080351453",
             "email": "kamol@gmail.com",
+            "company_site": "",
+            "position": "",
+            "company_name": "",
+            "avatar_color": "",
             "password": "123123"
         },
         {
+            "id": 3,
             "role": "executor",
-            "username": "pasha",
+            "username": "Кацков Павел Григорьевич",
             "telephone": "+79080351453",
-            "password": "123123",
-            "email": "pasha@gmail.com"
+            "email": "pasha@gmail.com",
+            "company_site": "",
+            "position": "",
+            "company_name": "",
+            "avatar_color": "",
+            "password": "123123"
         },
         {
+            "id": 2,
             "role": "client",
-            "username": "nikita",
+            "username": "Яковлев Никита Олегович",
             "telephone": "+79080351453",
-            "password": "123123",
-            "email": "nikita@gmail.com"
+            "email": "nikita@gmail.com",
+            "company_site": "",
+            "position": "",
+            "company_name": "",
+            "avatar_color": "",
+            "password": "123123"
         }
     ],
     "reset_links": []

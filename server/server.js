@@ -9,6 +9,7 @@ const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken')
 
 const shortid = require('shortid');
+const CryptoJS = require("crypto-js");
 const crypto = require("crypto");
 const SECRET_KEY = '123456789'
 const expiresIn = '1h'
@@ -20,6 +21,11 @@ const { reset } = require('nodemon');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+
+function decryptCode(idecur){
+  let bytes  = CryptoJS.AES.decrypt(idecur, 'AeP-idecur_2020');
+  return bytes.toString(CryptoJS.enc.Utf8);
+}
 
 // Create a token from a payload 
 function createToken(payload){
@@ -82,8 +88,9 @@ app.post('/auth/login', (req, res) => {
   let RoleStore = userdb.users.find((user) => {
     if(user.email == email){ return user }
   })
-  let role = RoleStore.role
-  res.status(200).json({access_token, role})
+  let store_role = RoleStore.role
+  let store_idecur = CryptoJS.AES.encrypt(RoleStore.id.toString(), 'AeP-idecur_2020').toString();
+  res.status(200).json({access_token, store_role, store_idecur})
 })
 
 // START - АПИ ДЛЯ РЕГИСТРАЦИИ
@@ -246,7 +253,10 @@ app.post('/auth/remember', (req, res) => {
  
 })
 
-app.get('/test', (req, res) => {
+app.post('/test', (req, res) => {
+  //id encrupt user
+  const {idecur} = req.body
+  console.log('kek-> ', decryptCode(idecur))
   let test = 'test'
   res.status(200).json({test})
 })

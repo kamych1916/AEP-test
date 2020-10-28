@@ -258,7 +258,7 @@ export default {
 @media (max-width: 1035px) {
     .wrap__contractor__container {
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
         flex-direction: column;
         padding-bottom: 100px !important;
     }
