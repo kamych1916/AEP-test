@@ -158,7 +158,23 @@ export default {
               localStorage.setItem('role', response.data.store_role)
               localStorage.setItem('idecur', response.data.store_idecur)
               if(this.check_box) { this.event_checkbox() }
-              this.$router.push('/client/profile')
+
+              if(response.data.store_role == 'client'){
+                console.log('keklololol')
+              }
+                switch(response.data.store_role) {
+                  case 'admin':
+                    this.$router.push('/admin/profile')
+                    break
+                  case 'client':
+                    this.$router.push('/client/profile')
+                    break
+                  case 'executor':
+                    this.$router.push('/executor/profile')
+                    break
+                  default:
+                    break
+                } 
             }
           })
           .catch((error) => {

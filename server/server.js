@@ -85,17 +85,17 @@ app.post('/auth/login', (req, res) => {
   }
   let store_shortid = shortid.generate()
   const access_token = createToken({email, store_shortid})
-  let RoleStore = userdb.users.find((user) => {
+  let UserStore = userdb.users.find((user) => {
     if(user.email == email){ return user }
   })
-  let store_role = RoleStore.role
-  let store_idecur = CryptoJS.AES.encrypt(RoleStore.id.toString(), 'AeP-idecur_2020').toString();
+  let store_role = UserStore.role
+  let store_idecur = CryptoJS.AES.encrypt(UserStore.id.toString(), 'AeP-idecur_2020').toString();
   res.status(200).json({access_token, store_role, store_idecur})
 })
 
 // START - АПИ ДЛЯ РЕГИСТРАЦИИ
 app.post('/auth/registration', (req, res) => {
-  const {username, telephone, email, password} = req.body
+  const {username, phone_number, email, password} = req.body
   
   if (isAuthenticated(email, 'check_email') === true) {
     const status = 401
@@ -108,15 +108,33 @@ app.post('/auth/registration', (req, res) => {
     if (err) {
       return err
     };
-    
-    // Get current users data
+
+    // create color for avatar color css block 
+    let letters = '0123456789ABCDEF';
+    let store_avatar_color = '#';
+    for (let i = 0; i < 6; i++) {
+      store_avatar_color += letters[Math.floor(Math.random() * 16)];
+    }
+
+    // find last item in object for increment user id
+    let last_item;
+    for(let key of userdb.users) {
+      last_item = key;
+    }
+
+    // create new object of new user
     var data = JSON.parse(data.toString());
     let new_user = {
+      id: last_item.id+1,
       role: 'client',
       username: username,
-      telephone: telephone,
+      phone_number: phone_number,
       email: email,
-      password: password
+      password: password,
+      avatar_color: store_avatar_color,
+      company_site: "",
+      position: "",
+      company_name: "",
     }
     data.users.push(new_user)
 
@@ -192,7 +210,6 @@ app.post('/auth/get_reset_code', (req, res) => {
   }
 })
 
-
 app.post('/auth/remember', (req, res) => {
     const email = req.body
     if (isAuthenticated(email.email, 'check_email') === false) {
@@ -259,6 +276,58 @@ app.post('/test', (req, res) => {
   console.log('kek-> ', decryptCode(idecur))
   let test = 'test'
   res.status(200).json({test})
+})
+
+
+app.post('/newUserData', (req, res) => {
+  const {UserData} = req.body
+  
+  fs.readFile("./db.json", (err, data) => {  
+    if (err) {
+      return err
+    };
+    let UserStore = userdb.users.find((user) => {
+      if(user.id == UserData.id){ return user }
+    })
+    // create new object of new user
+    var data = JSON.parse(data.toString());
+    data.users.splice(UserStore, 1, UserData)
+
+    // //Add new user
+    fs.writeFile("./db.json", JSON.stringify(data), (err, result) => {  // WRITE
+      if (err) {
+        return err
+      }
+    });
+    let message = 'ok'
+    res.status(200).json({message})
+  })
+})
+
+
+app.post('/getClientInfo', (req, res) => {
+  const {PageRole, UserRole, idecur} = req.body
+  if(PageRole != UserRole){
+    const status = 401
+    const message = 'Dont have access for this request'
+    res.status(status).json({status, message})
+    return
+  }else{
+    let UserStore = userdb.users.find((user) => {
+      if(user.id == decryptCode(idecur)){ return user }
+    })
+    if(UserStore){
+      if(UserStore.role == UserRole){
+        res.status(200).json({UserStore})
+      }else{
+        res.status(401)
+        return
+      }
+    }else{
+      res.status(401)
+      return
+    }
+  }
 })
 
 app.listen(8000, () => {

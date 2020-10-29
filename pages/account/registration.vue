@@ -48,13 +48,13 @@
                                   </div>
                                   <div class="form-group">
                                     <input
-                                      name="telephone"
+                                      name="phone_number"
                                       type="text"
                                       class="form-control"
-                                      id="lg_telephone"
+                                      id="lg_phone_number"
                                       placeholder="Контактный телефон"
                                       required
-                                      v-model="telephone"
+                                      v-model="phone_number"
                                     />
                                   </div>
                                   <div class="form-group">
@@ -128,7 +128,7 @@ export default {
     email: null,
     password: null,
     username: null,
-    telephone: null,
+    phone_number: null,
     check_box: false,
     warning: false,
   }),
@@ -146,7 +146,7 @@ export default {
       if(this.check_box){
         if(this.validateEmail(this.email)){
         Api.getInstance()
-            .auth.registration(this.username, this.telephone, this.email, this.password)
+            .auth.registration(this.username, this.phone_number, this.email, this.password)
             .then((response) => {
                 this.$bvToast.toast("Регистрация прошла успешно.", {
                 title: `Сообщение:`,

@@ -34,7 +34,6 @@ export default {
 html, body{
   margin: 0;  
   font-family: "Museo Sans", sans-serif;
-
 }
 
 body {
