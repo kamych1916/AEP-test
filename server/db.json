@@ -1,1 +1,65 @@
-{"users":[{"id":4,"role":"client","username":"Федоров Дмитрий Алексеевич","phone_number":"+79080351453","email":"fedor@gmail.com","password":"123123","avatar_color":"#2F9D91","company_site":"krista.ru","position":"IT-developer","company_name":"krista"},{"id":2,"role":"executor","username":"Кацков Павел Григорьевич","phone_number":"+79080351453","email":"pasha@gmail.com","company_site":"","position":"","company_name":"","avatar_color":"#4E5C21","password":"123123"},{"id":3,"role":"admin","username":"Яковлев Никита Олегович","phone_number":"+79080351453","email":"nikita@gmail.com","company_site":"","position":"","company_name":"","avatar_color":"#5A3C51","password":"123123"},{"id":4,"role":"client","username":"Федоров Дмитрий Алексеевич","phone_number":"+79080351453","email":"fedor@gmail.com","password":"123123","avatar_color":"#2F9D91","company_site":"","position":"","company_name":""},{"id":5,"role":"client","username":"Алесандровская Дарья Владимировна","email":"daray@gmail.com","password":"123123","avatar_color":"#02E65D","company_site":"","position":"","company_name":""}],"reset_links":[]}
+{
+    "users": [
+        {
+            "id": 1,
+            "role": "client",
+            "username": "Рахимов Камол Самеевич",
+            "phone_number": "+79080351453",
+            "email": "kamol@gmail.com",
+            "company_site": "www.perugino.club",
+            "position": "CEO",
+            "company_name": "perugino",
+            "avatar_color": "#3F4C91",
+            "password": "123123"
+        },
+        {
+            "id": 2,
+            "role": "executor",
+            "username": "Кацков Павел Григорьевич",
+            "phone_number": "+79080351453",
+            "email": "pasha@gmail.com",
+            "company_site": "",
+            "position": "",
+            "company_name": "",
+            "avatar_color": "#4E5C21",
+            "password": "123123"
+        },
+        {
+            "id": 3,
+            "role": "admin",
+            "username": "Яковлев Никита Олегович",
+            "phone_number": "+79080351453",
+            "email": "nikita@gmail.com",
+            "company_site": "",
+            "position": "",
+            "company_name": "",
+            "avatar_color": "#5A3C51",
+            "password": "123123"
+        },
+        {
+            "id": 4,
+            "role": "client",
+            "username": "Федоров Дмитрий Алексеевич",
+            "phone_number": "+79080351453",
+            "email": "fedor@gmail.com",
+            "password": "123123",
+            "avatar_color": "#2F9D91",
+            "company_site": "www.krista.ru",
+            "position": "IT-developer",
+            "company_name": "krista"
+        },
+        {
+            "id": 5,
+            "role": "client",
+            "username": "Александровская Дарья Владимировна",
+            "email": "daray@gmail.com",
+            "password": "123123",
+            "avatar_color": "#02E65D",
+            "company_site": "www.rsatu.ru",
+            "position": "Student",
+            "company_name": "RSATU",
+            "phone_number": "+79080351453"
+        }
+    ],
+    "reset_links": []
+}

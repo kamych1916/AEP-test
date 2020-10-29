@@ -291,7 +291,7 @@ app.post('/newUserData', (req, res) => {
     })
     // create new object of new user
     var data = JSON.parse(data.toString());
-    data.users.splice(UserStore, 1, UserData)
+    data.users.splice(UserStore.id-1, 1, UserData)
 
     // //Add new user
     fs.writeFile("./db.json", JSON.stringify(data), (err, result) => {  // WRITE
