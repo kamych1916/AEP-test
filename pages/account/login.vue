@@ -158,10 +158,6 @@ export default {
               localStorage.setItem('role', response.data.store_role)
               localStorage.setItem('idecur', response.data.store_idecur)
               if(this.check_box) { this.event_checkbox() }
-
-              if(response.data.store_role == 'client'){
-                console.log('keklololol')
-              }
                 switch(response.data.store_role) {
                   case 'admin':
                     this.$router.push('/admin/profile')
