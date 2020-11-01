@@ -149,11 +149,6 @@ export default class Api {
         async reset(password, code, email) {    
             return axios.post(`${contsants.API_BASE_URL}/auth/reset`, {password, code, email})
         },
-        // async check_user_role(){
-        //     let UserRole = localStorage.getItem('role')
-        //     let idecur = localStorage.getItem('idecur');
-        //     return axios.post(`${contsants.API_BASE_URL}/auth/check_user_role`, {UserRole, idecur})
-        // },
         async test() {    
             let idecur = localStorage.getItem('idecur');
             return axios.post(`${contsants.API_BASE_URL}/test`, {idecur}, 
