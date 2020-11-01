@@ -14,25 +14,21 @@
 </template>
 
 <script>
+import Api from "~/utils/api";
 export default {
-  methods: {
-    onRowSelected(picked) {
-        this.$router.push("/client/requests/" + picked[0].id)
-    }
-  },
   data () {
     return {
         first_accor_is_open: false,
         tableVariant: 'light',
         fields: [
             {
-                key: 'date',
+                key: 'date_creating',
                 label: 'Дата создания заявки',
                 sortable: true
             },
 
             {
-                key: 'number',
+                key: 'name',
                 label: 'Номер заявки',
                 sortable: true
             },
@@ -44,20 +40,14 @@ export default {
             },
 
             {
-                key: 'executor',
+                key: 'object_address',
                 label: 'Объект',
                 sortable: true
             },
 
             {
-                key: 'short_description',
-                label: 'Краткое описание',
-                sortable: true
-            },
-
-            {
-                key: 'desription',
-                label: 'Описание'
+                key: 'problem',
+                label: 'Краткое описание'
             }
         ],
 
@@ -74,6 +64,31 @@ export default {
 
     }
   },
+  mounted(){
+      this.getRequests()
+  },
+  methods: {
+    getRequests(){
+        Api.getInstance().requests.getRequests('client').then((response) => {
+                this.items = response.data.RequestsStore
+            })
+            .catch((error) => {
+                this.$bvToast.toast("У вас нет доступа к данной странице", {
+                    title: `Системная ошибка`,
+                    variant: "danger",
+                    solid: true,
+                });
+                localStorage.removeItem('strjwt');
+                localStorage.removeItem('role');
+                localStorage.removeItem('idecur');
+                setTimeout(()=>{this.$router.push('/account/login')}, 1000)
+            });
+    },
+    onRowSelected(picked) {
+        this.$router.push("/client/requests/" + picked[0].id)
+    }
+  },
+
     
 }
 </script>

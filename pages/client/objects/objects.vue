@@ -117,11 +117,11 @@
 
                                 <b-col>
                                     <b-row>
-                                        <b-col cols="4">E-mail сотрудника</b-col>
+                                        <b-col cols="4">E-mail ответственного</b-col>
                                         <b-col>
                                             <b-form-group>
                                                 <b-form-input
-                                                v-model="object.email_employee"
+                                                v-model="object.email_responsible"
                                                 required
                                                 type="email"
                                                 ></b-form-input>
@@ -187,7 +187,7 @@ export default {
                 time_to: null,
                 fullname_responsible: null,
                 phone_number_responsible: null, 
-                email_employee: null,
+                email_responsible: null,
                 password: null,
                 password_confirm: null,
                 id: null
@@ -230,14 +230,14 @@ export default {
                 },
 
                 {
-                    key: 'email_employee',
+                    key: 'email_responsible',
                     label: 'E-mail'
                 }
             ],
 
             items: [],
 
-            
+            tableVariant: 'light'
         }
     },
 
@@ -253,7 +253,7 @@ export default {
                     this.time_to_flag = false
                 }else{
                     if(this.object.password == this.object.password_confirm){
-                        Api.getInstance().objects.sendNewObjectData(this.object).then((response) => {
+                        Api.getInstance().objects.createDataObject(this.object).then((response) => {
                                 this.time_from_flag = null;
                                 this.time_to_flag = null;
                                 this.$bvToast.toast("Объект успешно добавлен!", {

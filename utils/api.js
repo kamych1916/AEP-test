@@ -37,6 +37,22 @@ export default class Api {
         },  
     }
 
+    requests = {
+        async getRequests(PageRole) {
+            let UserRole = localStorage.getItem('role')
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/getRequests`,
+                {UserRole, idecur, PageRole}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
+    }
+
     objects = {
         async getObjects(PageRole) {
             let UserRole = localStorage.getItem('role')
@@ -64,10 +80,10 @@ export default class Api {
                 }
             )
         },
-        async sendNewObjectData(ObjectData) {
+        async createDataObject(ObjectData) {
             let idecur = localStorage.getItem('idecur');
             return axios.post(
-                `${contsants.API_BASE_URL}/newObjectData`,
+                `${contsants.API_BASE_URL}/createDataObject`,
                 {ObjectData, idecur}, 
                 {
                     headers: {

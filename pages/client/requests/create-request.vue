@@ -13,14 +13,14 @@
                             <b-col cols="4">Объект</b-col>
                             <b-col>
                                 <div>
-                                        <b-form-select
+                                    <b-form-select
                                         v-model="selected"
                                         :options="options"
                                         value-field="item"
                                         text-field="name"
                                         required
                                         disabled-field="notEnabled"
-                                        ></b-form-select>
+                                    ></b-form-select>
                                 </div>
                             </b-col>
                         </b-row>
@@ -36,14 +36,14 @@
                             <b-col cols="4">Выберите услугу</b-col>
                             <b-col>
                                 <div>
-                                        <b-form-select
+                                    <b-form-select
                                         v-model="selected"
                                         :options="options"
                                         value-field="item"
                                         text-field="name"
                                         required
                                         disabled-field="notEnabled"
-                                        ></b-form-select>
+                                    ></b-form-select>
                                 </div>
                             </b-col>
                         </b-row>
@@ -182,10 +182,9 @@ export default {
         images: [],
         selected: 'A',
         options: [
-          { item: 'A', name: 'Option A' },
-          { item: 'B', name: 'Option B' },
-          { item: 'D', name: 'Option C', notEnabled: true },
-          { item: { d: 1 }, name: 'Option D' }
+          { name: 'кек' },
+          { name: 'кек' },
+          { name: 'кек' }
         ]
     }
   },

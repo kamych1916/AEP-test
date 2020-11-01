@@ -4,7 +4,7 @@
         <b-card class="text-center">
           <div class="w-100 d-flex justify-content-center pb-2">
             <div v-if="UserData" :style="'background-color:' + UserData.avatar_color" class="wrap__client_container__avatar d-flex justify-content-center align-items-center">
-              <h2 class="mt-2 pl-2">{{avatar_initials}}</h2>
+              <h2 class="mt-2">{{avatar_initials}}</h2>
             </div>
           </div>
           <h4 v-if="UserData">{{UserData.company_name}}</h4>
@@ -198,7 +198,7 @@ export default {
               return array[0].charAt(0).toUpperCase();
               break;
             default:
-              return array[1].charAt(0).toUpperCase() + "." + array[2].charAt(0).toUpperCase() + '.';
+              return array[1].charAt(0).toUpperCase() + array[2].charAt(0).toUpperCase();
           }
         }
         return false;

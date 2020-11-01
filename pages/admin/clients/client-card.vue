@@ -4,26 +4,7 @@
         <b-card class="text-center">
           <div class="w-100 d-flex justify-content-center pb-2">
             <div style="" class="wrap__client_container__avatar d-flex justify-content-center align-items-center">
-              <h2 class="mt-2 pl-2">К.Р.</h2>
-              <!-- <label v-b-modal.downloadPhoto>Загрузить</label> -->
-              <!-- <font-awesome-icon style="width: 35px; height: 35px " :icon="['fas', 'camera']"/> -->
-              <!-- <img :src="image" alt=""> -->
-
-              <!-- <b-modal id="downloadPhoto" size="lg" centered>
-                  <template v-slot:modal-header>
-                    <p></p>
-                  </template>
-                  <div style="text-align: center;">
-                    <p>Изменить логотип компании</p>
-                    <label for="logo" style="color: #00D1A1; cursor: pointer;">Загрузить логотип</label>
-                    <input id="logo"  @change="onFileChange" type="file" name="photo" style="display: none;">
-                    <p style="color: #E84242; cursor: pointer;">Удалить логотип</p>
-                    <p style="cursor: pointer;" @click="$bvModal.hide('downloadPhoto')">Отмена</p>
-                  </div>
-                  <template v-slot:modal-footer>
-                    <p></p>
-                  </template>
-              </b-modal> -->
+              <h2 class="mt-2">КР</h2>
             </div>
           </div>
           <h4>Компания</h4>

@@ -43,4 +43,14 @@ body {
 .login-group {
     padding: 45px !important;
 }
+
+.table.b-table > thead > tr > [aria-sort="none"], .table.b-table > tfoot > tr > [aria-sort="none"]{
+  background-image: url('~assets/arrows.png');
+}
+.table.b-table > thead > tr > [aria-sort="ascending"], .table.b-table > tfoot > tr > [aria-sort="ascending"] {
+  background-image: url('~assets/arrows_up.png');
+}
+.table.b-table > thead > tr > [aria-sort="descending"], .table.b-table > tfoot > tr > [aria-sort="descending"]{
+  background-image: url('~assets/arrows_down.png');
+}
 </style>

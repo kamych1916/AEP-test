@@ -18,6 +18,8 @@ const nodemailer = require('nodemailer');
 const { type } = require('os');
 const { reset } = require('nodemon');
 
+const date = require('date-and-time');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
@@ -135,7 +137,8 @@ app.post('/auth/registration', (req, res) => {
       company_site: "",
       position: "",
       company_name: "",
-      objects: []
+      objects: [],
+      requests: []
     }
     data.users.push(new_user)
 
@@ -388,7 +391,7 @@ app.post('/getDataObject', (req, res) => {
   }
 })
 
-app.post('/newObjectData', (req, res) => {
+app.post('/createDataObject', (req, res) => {
   const {ObjectData, idecur} = req.body
   
   fs.readFile("./db.json", (err, data) => {  
@@ -489,6 +492,50 @@ app.post('/deleteObject', (req, res) => {
   })
 })
 
+
+app.post('/getRequests', (req, res) => {
+  const {PageRole, UserRole, idecur} = req.body
+  if(PageRole != UserRole){
+    const status = 401
+    const message = 'Dont have access for this request'
+    res.status(status).json({status, message})
+    return
+  }else{
+    let UserStore = userdb.users.find((user) => {
+      if(user.id == decryptCode(idecur)){ return user }
+    })
+    if(UserStore){
+      if(UserStore.role == UserRole){
+        let RequestsStore = []
+        for(let idx of UserStore.requests){
+          RequestsStore.push(userdb.requests.find((request) => {
+            if(request.id == idx){ return request }
+          }))
+        }
+        let ObjectStore
+        for(let request of RequestsStore){
+          ObjectStore = userdb.objects.find((object) => {
+            if(object.id == request.object){ return object }
+          })
+        }
+        for(let idx in RequestsStore){
+          if(ObjectStore.id == RequestsStore[idx].object){
+            RequestsStore[idx].object_address = ObjectStore.address
+          }
+        }
+        res.status(200).json({RequestsStore})
+      }else{
+        res.status(401)
+        return
+      }
+    }else{
+      res.status(401)
+      return
+    }
+  }
+})
+
+// date.format(now, 'YYYY/MM/DD HH:mm:ss'); 
 app.listen(8000, () => {
   console.log('Run Auth API Server')
 })
