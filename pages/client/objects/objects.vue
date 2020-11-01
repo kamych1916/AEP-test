@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap__objects__container p-3">
+    <div class="wrap__objects__container">
         <div class="panel-group theme-panel">
             <div class="panel panel-default">
                 <div class="panel-heading w-100 text-light" v-b-toggle.collapse-2 @click="first_accor_is_open=!first_accor_is_open">
@@ -298,6 +298,7 @@ export default {
 
 <style>
  .wrap__objects__container {
+     padding: 22px;
      width: 100%;
      font-size: calc(8px + 6 * (100vw / 1366));
  }

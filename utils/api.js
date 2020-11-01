@@ -51,6 +51,19 @@ export default class Api {
                 }
             )
         },
+        async getDataObject(PageRole, ObjectId) {
+            let UserRole = localStorage.getItem('role')
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/getDataObject`,
+                {UserRole, idecur, PageRole, ObjectId}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
         async sendNewObjectData(ObjectData) {
             let idecur = localStorage.getItem('idecur');
             return axios.post(
@@ -63,6 +76,30 @@ export default class Api {
                 }
             )
         },  
+        async sendChangeObjectData(ObjectData) {
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/changeObjectData`,
+                {ObjectData, idecur}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
+        async deleteObject(ObjectId) {
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/deleteObject`,
+                {ObjectId, idecur}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },        
     }
     
     auth = {
