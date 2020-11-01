@@ -10,7 +10,7 @@
             "position": "CEO",
             "company_name": "Perugino",
             "avatar_color": "#3F4C91",
-            "password": "123123123",
+            "password": "123123",
             "objects": [
                 1,
                 2,
@@ -96,7 +96,8 @@
             "fullname_responsible": "Рахимов Камол Самеевич",
             "phone_number_responsible": "+79080351453",
             "email_employee": "kamol@gmail.com",
-            "password": "123123"
+            "password": "123123",
+            "login": "ТЦ"
         },
         {
             "id": 2,
@@ -109,7 +110,8 @@
             "fullname_responsible": "Рахимов Камол Самеевич",
             "phone_number_responsible": "+79080351453",
             "email_employee": "kamol@gmail.com",
-            "password": "123123"
+            "password": "123123",
+            "login": "Аквапарк"
         },
         {
             "id": 3,
@@ -122,20 +124,22 @@
             "fullname_responsible": "Рахимов Камол Самеевич",
             "phone_number_responsible": "+79080351453",
             "email_employee": "kamol@gmail.com",
-            "password": "123123"
+            "password": "123123",
+            "login": "Отель"
         },
         {
             "id": 4,
             "city": "Краснодар",
             "address": "Улица Аэродромная 120",
             "quadrature": "4000",
-            "count_floors": "6",
-            "time_from": "",
-            "time_to": "",
+            "count_floors": "7",
+            "time_from": "01:01:00",
+            "time_to": "01:53:00",
             "fullname_responsible": "Рахимов Камол Самеевич",
             "phone_number_responsible": "+79080351453",
             "email_employee": "kamol@gmail.com",
-            "password": "123123"
+            "password": "123123",
+            "login": "Дом"
         }
     ],
     "reset_links": []

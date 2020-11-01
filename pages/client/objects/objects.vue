@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap__objects__container p-3">
+    <div class="wrap__objects__container">
         <div class="panel-group theme-panel">
             <div class="panel panel-default">
                 <div class="panel-heading w-100 text-light" v-b-toggle.collapse-2 @click="first_accor_is_open=!first_accor_is_open">
@@ -190,6 +190,7 @@ export default {
                 email_employee: null,
                 password: null,
                 password_confirm: null,
+                id: null
             },
             
             fields: [
@@ -261,7 +262,12 @@ export default {
                                     solid: true,
                                 })
                             })
-                        this.items.push(this.object)
+                            let last_item;
+                            for(let key of this.items) {
+                                last_item = key;
+                            }
+                            this.object.id = last_item.id
+                            this.items.push(this.object)
                     }else{
                         this.$bvToast.toast("Введенные вами пароли не совпадают.", {
                             title: `Ошибка аутентификации`,
@@ -298,6 +304,7 @@ export default {
 
 <style>
  .wrap__objects__container {
+     padding: 22px;
      width: 100%;
      font-size: calc(8px + 6 * (100vw / 1366));
  }
