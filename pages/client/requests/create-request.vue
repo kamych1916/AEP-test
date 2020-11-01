@@ -182,9 +182,9 @@ export default {
         images: [],
         selected: 'A',
         options: [
-          { name: 'кек' },
-          { name: 'кек' },
-          { name: 'кек' }
+          { name: 'Option A' },
+          { name: 'Option B' },
+          { name: 'Option D' }
         ]
     }
   },
