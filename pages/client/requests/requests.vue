@@ -86,6 +86,7 @@ export default {
     },
     onRowSelected(picked) {
         this.$router.push("/client/requests/" + picked[0].id)
+        
     }
   },
 
