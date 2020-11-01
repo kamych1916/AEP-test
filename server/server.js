@@ -512,15 +512,11 @@ app.post('/getRequests', (req, res) => {
             if(request.id == idx){ return request }
           }))
         }
-        let ObjectStore
-        for(let request of RequestsStore){
-          ObjectStore = userdb.objects.find((object) => {
-            if(object.id == request.object){ return object }
-          })
-        }
-        for(let idx in RequestsStore){
-          if(ObjectStore.id == RequestsStore[idx].object){
-            RequestsStore[idx].object_address = ObjectStore.address
+        for(let idr in RequestsStore){
+          for(let ido of userdb.objects){
+            if(RequestsStore[idr].object == ido.id){
+              RequestsStore[idr].object_address = ido.address
+            }
           }
         }
         res.status(200).json({RequestsStore})
@@ -534,6 +530,48 @@ app.post('/getRequests', (req, res) => {
     }
   }
 })
+
+
+app.post('/getDataRequest', (req, res) => {
+  const {PageRole, UserRole, idecur, RequestId} = req.body
+  if(PageRole != UserRole){
+    const status = 401
+    const message = 'Dont have access for this request'
+    res.status(status).json({status, message})
+    return
+  }else{
+    let UserStore = userdb.users.find((user) => {
+      if(user.id == decryptCode(idecur)){ return user }
+    })
+    if(UserStore){
+      if(UserStore.role == UserRole){
+        let RequestStore = userdb.requests.find((request) => {
+          if(request.id == RequestId){ return request }
+        })
+        let ObjectsStore = []
+        for(let idx of UserStore.objects){
+          ObjectsStore.push(userdb.objects.find((object) => {
+            if(object.id == idx){ return object.address }
+          }))
+        }
+        let AddressStore = []
+        for(let object of ObjectsStore){
+          let text = object.address;
+          let value = object.id;
+          AddressStore.push({value, text}) 
+        }
+        res.status(200).json({RequestStore, AddressStore})
+      }else{
+        res.status(401)
+        return
+      }
+    }else{
+      res.status(401)
+      return
+    }
+  }
+})
+
 
 // date.format(now, 'YYYY/MM/DD HH:mm:ss'); 
 app.listen(8000, () => {
