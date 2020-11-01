@@ -51,19 +51,6 @@ export default class Api {
                 }
             )
         },
-        async getDataRequest(PageRole, RequestId) {
-            let UserRole = localStorage.getItem('role')
-            let idecur = localStorage.getItem('idecur');
-            return axios.post(
-                `${contsants.API_BASE_URL}/getDataRequest`,
-                {UserRole, idecur, PageRole, RequestId}, 
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
-                    }                    
-                }
-            )
-        },
     }
 
     objects = {

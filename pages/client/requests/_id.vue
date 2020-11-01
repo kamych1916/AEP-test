@@ -1,14 +1,14 @@
 <template>
   <div class="wrap__create_req__container w-100 p3">
       <b-row class="py-2 px-3 mx-0 w-100 d-flex justify-content-between">
-            <p v-if="request">{{request.object_address}}</p>
+            <p>Ул. маршала жукова, 13</p>
             <div>
                 <b-button class="bg-dark mr-2" @click="$router.push('/client/requests/requests')" style="border: 0px;">Вернуться к списку объектов</b-button>
                 <b-button @click="$router.push('/client/requests/create-request')" style="background-color: #FFC221; border: 0px; color: black">Новая заявка</b-button>
             </div>
       </b-row>
       <b-row class="w-100 px-3 mx-0">
-            <b-card v-if="request" :header="'Заявка '+ request.name" class="w-100">
+            <b-card header="Заявка 3-XX-X0-000" class="w-100">
                 <b-form @submit.prevent="CreateReq()">
                 <b-row class="wrap__create_req__card">
                     <b-col cols="6" class="my-2">
@@ -22,13 +22,15 @@
                             <b-col cols="4">Объект</b-col>
                             <b-col>
                                 <div>
-                                    <b-form-select
-                                    v-if="request"
-                                    v-model="request.object"
-                                    :options="options"
-                                    required
-                                    :disabled="req_inputs"
-                                    ></b-form-select>
+                                        <b-form-select
+                                        v-model="selected"
+                                        :options="options"
+                                        value-field="item"
+                                        text-field="name"
+                                        required
+                                        disabled-field="notEnabled"
+                                        :disabled="req_inputs"
+                                        ></b-form-select>
                                 </div>
                             </b-col>
                         </b-row>
@@ -36,7 +38,7 @@
                             <b-col cols="4">Проблема</b-col>
                             <b-col>
                                 <div>
-                                    <input :readonly="req_inputs" v-model="request.problem" v-if="request" required name="problem" type="text" class="form-control"/>
+                                    <input :readonly="req_inputs"  required name="problem" type="text" class="form-control"/>
                                 </div>
                             </b-col>
                         </b-row>
@@ -45,6 +47,10 @@
                             <b-col>
                                 <div>
                                         <b-form-select
+                                        v-model="selected"
+                                        :options="options"
+                                        value-field="item"
+                                        text-field="name"
                                         required
                                         disabled-field="notEnabled"
                                         :disabled="req_inputs"
@@ -57,8 +63,6 @@
                             <b-col>
                                 <div>
                                         <b-form-textarea
-                                        v-if="request"
-                                        v-model="request.promblem_more"
                                         id="textarea"
                                         rows="3"
                                         max-rows="6"
@@ -72,7 +76,7 @@
                             <b-col cols="4">Кто составил</b-col>
                             <b-col>
                             <div>
-                                <input :readonly="req_inputs" v-if="request" v-model="request.who_made" required name="whois" type="text" class="form-control"/>
+                                <input :readonly="req_inputs" required name="whois" type="text" class="form-control"/>
                             </div>
                             </b-col>
                         </b-row>
@@ -81,10 +85,10 @@
                             <b-col>
                                 <b-row class="ml-0 px-0">
                                     <div>
-                                        <b-form-timepicker v-if="request" v-model="request.time_from" :readonly="req_inputs" placeholder="c"></b-form-timepicker>
+                                        <b-form-timepicker :readonly="req_inputs" placeholder="c"></b-form-timepicker>
                                     </div>
                                     <div class="pl-3">
-                                        <b-form-timepicker v-if="request" v-model="request.time_to" :readonly="req_inputs" placeholder="до"></b-form-timepicker>
+                                        <b-form-timepicker :readonly="req_inputs" placeholder="до"></b-form-timepicker>
                                     </div>
                                 </b-row>
                             </b-col>
@@ -95,7 +99,7 @@
                             <b-col cols="4">Город</b-col>
                             <b-col>
                             <div>
-                                <input :readonly="req_inputs" v-if="request" v-model="request.city" required name="city" type="text"  class="form-control"/>
+                                <input :readonly="req_inputs" required name="city" type="text"  class="form-control"/>
                             </div>
                             </b-col>
                         </b-row>
@@ -103,7 +107,7 @@
                             <b-col cols="4">Адрес</b-col>
                             <b-col>
                             <div>
-                                <input :readonly="req_inputs" v-if="request" v-model="request.address" required name="adress" type="text" class="form-control"/>
+                                <input :readonly="req_inputs" required name="adress" type="text" class="form-control"/>
                             </div>
                             </b-col>
                         </b-row>
@@ -111,7 +115,7 @@
                             <b-col cols="4">Размер помещения</b-col>
                             <b-col>
                             <div>
-                                <input :readonly="req_inputs" v-if="request" v-model="request.quadrature" required name="size" type="text" class="form-control"/>
+                                <input :readonly="req_inputs" required name="size" type="text" class="form-control"/>
                             </div>
                             </b-col>
                         </b-row>
@@ -119,7 +123,7 @@
                             <b-col cols="4">Количество этажей</b-col>
                             <b-col>
                                 <div>
-                                    <input :readonly="req_inputs" v-if="request" v-model="request.count_floors" required name="count" type="text" class="form-control"/>
+                                    <input :readonly="req_inputs" required name="count" type="text" class="form-control"/>
                                 </div>
                             </b-col>
                         </b-row>
@@ -127,7 +131,7 @@
                             <b-col cols="4">ФИО сотрудника</b-col>
                             <b-col>
                                 <div>
-                                    <input :readonly="req_inputs" v-if="request" v-model="request.fullname_employee" required name="fullname" type="text" class="form-control"/>
+                                    <input :readonly="req_inputs" required name="fullname" type="text" class="form-control"/>
                                 </div>
                             </b-col>
                         </b-row>
@@ -135,7 +139,7 @@
                             <b-col cols="4">Телефон сотрудника</b-col>
                             <b-col>
                                 <div>
-                                    <input :readonly="req_inputs" v-if="request" v-model="request.phone_number_employee" required name="telephone" type="text" class="form-control"/>
+                                    <input :readonly="req_inputs" required name="telephone" type="text" class="form-control"/>
                                 </div>
                             </b-col>
                         </b-row>
@@ -143,7 +147,7 @@
                             <b-col cols="4">E-mail сотрудника</b-col>
                             <b-col>
                                 <div>
-                                    <input :readonly="req_inputs" v-if="request" v-model="request.email_employee" required name="fullname" type="email" class="form-control"/>
+                                    <input :readonly="req_inputs" required name="fullname" type="email" class="form-control"/>
                                 </div>
                             </b-col>
                         </b-row>
@@ -204,7 +208,6 @@
 </template>
 
 <script>
-import Api from "~/utils/api";
 export default {
   data () {
     return {
@@ -213,38 +216,17 @@ export default {
         undo: false,
         EditModal: false,
         DeleteModal: false,
-
-        request: null,
-
         images: [],
-        options: []
+        selected: 'A',
+        options: [
+          { item: 'A', name: 'Option A' },
+          { item: 'B', name: 'Option B' },
+          { item: 'D', name: 'Option C', notEnabled: true },
+          { item: { d: 1 }, name: 'Option D' }
+        ]
     }
   },
-  mounted(){
-      this.getDataRequests();
-  },
   methods: {
-    getDataRequests(){
-      Api.getInstance()
-        .requests.getDataRequest("client", this.$route.params.id)
-        .then((response) => {
-          this.request = response.data.RequestStore;
-          this.options = response.data.AddressStore;
-        })
-        .catch((error) => {
-          this.$bvToast.toast("У вас нет доступа к данной странице", {
-            title: `Системная ошибка`,
-            variant: "danger",
-            solid: true,
-          });
-        //   localStorage.removeItem("strjwt");
-        //   localStorage.removeItem("role");
-        //   localStorage.removeItem("idecur");
-        //   setTimeout(() => {
-        //     this.$router.push("/account/login");
-        //   }, 1000);
-        });
-    },
     CreateReq () { 
       if(this.req_btn_title == "Редактировать"){
         this.req_btn_title = "Сохранить";
@@ -280,11 +262,6 @@ export default {
 .wrap__create_req__container{
   font-size: calc(8px + 6 * (100vw / 1366));
 }
-
-.wrap__create_req__container .custom-select{
-    height: unset !important;
-    font-size: calc(8px + 5 * (100vw / 1366));
-}
 .wrap__create_req__container .custom-select{
     border-radius: 0;
 }
@@ -303,14 +280,6 @@ export default {
       width: 100%;
       justify-content: start;
       flex-direction: column;
-    }
-    .wrap__create_req__container .custom-select{
-        font-size: calc(8px + 6 * (100vw / 1366));
-    }
-}
-@media (max-width: 684px) {
-    .wrap__create_req__container .custom-select{
-        font-size: calc(11px + 6 * (100vw / 1366));
     }
 }
 </style>
