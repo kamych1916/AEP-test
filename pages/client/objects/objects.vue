@@ -190,6 +190,7 @@ export default {
                 email_employee: null,
                 password: null,
                 password_confirm: null,
+                id: null
             },
             
             fields: [
@@ -261,7 +262,12 @@ export default {
                                     solid: true,
                                 })
                             })
-                        this.items.push(this.object)
+                            let last_item;
+                            for(let key of this.items) {
+                                last_item = key;
+                            }
+                            this.object.id = last_item.id
+                            this.items.push(this.object)
                     }else{
                         this.$bvToast.toast("Введенные вами пароли не совпадают.", {
                             title: `Ошибка аутентификации`,

@@ -457,20 +457,26 @@ app.post('/deleteObject', (req, res) => {
     if (err) {
       return err
     };
-    // let ObjectStore = userdb.objects.find((object) => {
-    //   if(object.id == ObjectId){ return object }
-    // })
     let UserStore = userdb.users.find((user) => {
       if(user.id == decryptCode(idecur)){
-        user.objects.splice(ObjectId-1, 1)
+        for(let object in user.objects){
+          if(user.objects[object] == ObjectId){
+            user.objects.splice(object, 1)
+          } 
+        }
         return user 
       }
     })
-    console.log(UserStore)
     // create new object of new user
     var data = JSON.parse(data.toString());
     data.users.splice(UserStore.id-1, 1, UserStore)
-    data.objects.splice(ObjectId-1, 1)
+    let StoreObject
+    for(let object in userdb.objects){
+      if(userdb.objects[object].id == ObjectId){
+        StoreObject = object
+      } 
+    }
+    data.objects.splice(StoreObject , 1)
     
     // //Add new user
     fs.writeFile("./db.json", JSON.stringify(data), (err, result) => {  // WRITE
