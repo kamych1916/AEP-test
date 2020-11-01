@@ -37,7 +37,7 @@ html, body{
 }
 
 body {
-  background-color: #E5E5E5;
+  background-color: #f8f8f8;
 }
 
 .login-group {

@@ -1,7 +1,13 @@
 <template>
     <div>
-        <div class="wrap__sidebar_context py-5">
+        <div class="wrap__sidebar_context">
             <b-list-group>
+                <nuxt-link to="/client/profile">
+                    <b-list-group-item>
+                        <font-awesome-icon :icon="['fas', 'briefcase']"/>&nbsp;&nbsp;
+                        Мой профиль
+                    </b-list-group-item>
+                </nuxt-link>
                 <nuxt-link to="/client/requests/requests">
                     <b-list-group-item>
                         <font-awesome-icon :icon="['fas', 'briefcase']"/>&nbsp;&nbsp;
