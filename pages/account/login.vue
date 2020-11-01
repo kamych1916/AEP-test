@@ -195,3 +195,11 @@ export default {
   }
 }
 </script>
+
+<style>
+  .login-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>

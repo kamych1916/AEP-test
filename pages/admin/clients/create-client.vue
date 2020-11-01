@@ -4,7 +4,7 @@
         <b-card class="text-center">
           <div class="w-100 d-flex justify-content-center pb-2">
             <div style="" class="wrap__client_container__avatar d-flex justify-content-center align-items-center">
-              <h2 class="mt-2">К.Р.</h2>
+              <h2 class="mt-2 pl-2">К.Р.</h2>
               <!-- <label v-b-modal.downloadPhoto>Загрузить</label> -->
               <!-- <font-awesome-icon style="width: 35px; height: 35px " :icon="['fas', 'camera']"/> -->
               <!-- <img :src="image" alt=""> -->

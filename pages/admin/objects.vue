@@ -4,10 +4,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading w-100 text-light" v-b-toggle.collapse-2 @click="first_accor_is_open=!first_accor_is_open">
                     <b-row class="d-flex justify-content-between px-3">
-                        <h4 class="panel-title">
+                        <h4 class="panel-title" style="margin: 0;">
                             Создание объекта
                         </h4>
-                        <h4 class="panel-title">
+                        <h4 class="panel-title" style="margin: 0;">
                             <font-awesome-icon v-if="first_accor_is_open" :icon="['fas', 'arrow-down']"/>
                             <font-awesome-icon v-else :icon="['fas', 'arrow-up']"/>
                         </h4>
