@@ -15,7 +15,7 @@
                 </div>
                 <b-collapse id="collapse-2" class="panel-collapse">
                     <div class="panel-body">
-                        <b-form>
+                        <b-form @submit.prevent="createObject()">
                             <b-row>
                                 <b-col sm="6">
                                     <b-row>
@@ -23,7 +23,9 @@
                                         <b-col>
                                             <b-form-group>
                                                 <input
+                                                v-model="object.city"
                                                 id="input-1"
+                                                required
                                                 type="text"
                                                 class="form-control"
                                                 >
@@ -36,6 +38,8 @@
                                         <b-col>
                                             <b-form-group>
                                                 <b-form-input
+                                                v-model="object.address"
+                                                required
                                                 type="text"
                                                 ></b-form-input>
                                             </b-form-group>
@@ -47,6 +51,8 @@
                                         <b-col>
                                             <b-form-group>
                                                 <b-form-input
+                                                v-model="object.quadrature"
+                                                required
                                                 type="text"
                                                 ></b-form-input>
                                             </b-form-group>
@@ -58,7 +64,9 @@
                                         <b-col>
                                             <b-form-group>
                                                 <b-form-input
-                                                type="text"
+                                                v-model="object.count_floors"
+                                                required
+                                                type="number"
                                                 ></b-form-input>
                                             </b-form-group>
                                         </b-col>
@@ -68,9 +76,14 @@
                                         <b-col cols="4">Время работы</b-col>
                                         <b-col>
                                             <b-form-group>
-                                                <b-form-input
-                                                type="text"
-                                                ></b-form-input>
+                                                <b-row class="ml-0 px-0">
+                                                    <div>
+                                                        <b-form-timepicker v-model="object.time_from" :state="time_from_flag" locale="ru"  placeholder="c"></b-form-timepicker>
+                                                    </div>
+                                                    <div class="pl-3">
+                                                        <b-form-timepicker v-model="object.time_to" :state="time_to_flag" locale="ru" placeholder="до"></b-form-timepicker>
+                                                    </div>
+                                                </b-row>
                                             </b-form-group>
                                         </b-col>
                                     </b-row>
@@ -80,6 +93,8 @@
                                         <b-col>
                                             <b-form-group>
                                                 <b-form-input
+                                                v-model="object.fullname_responsible"
+                                                required
                                                 type="text"
                                                 ></b-form-input>
                                             </b-form-group>
@@ -91,6 +106,8 @@
                                         <b-col>
                                             <b-form-group>
                                                 <b-form-input
+                                                v-model="object.phone_number_responsible"
+                                                required
                                                 type="text"
                                                 ></b-form-input>
                                             </b-form-group>
@@ -104,7 +121,9 @@
                                         <b-col>
                                             <b-form-group>
                                                 <b-form-input
-                                                type="text"
+                                                v-model="object.email_employee"
+                                                required
+                                                type="email"
                                                 ></b-form-input>
                                             </b-form-group>
                                         </b-col>
@@ -115,7 +134,9 @@
                                         <b-col>
                                             <b-form-group>
                                                 <b-form-input
-                                                type="text"
+                                                v-model="object.password"
+                                                required
+                                                type="password"
                                                 ></b-form-input>
                                             </b-form-group>
                                         </b-col>
@@ -126,14 +147,16 @@
                                         <b-col>
                                             <b-form-group>
                                                 <b-form-input
-                                                type="text"
+                                                v-model="object.password_confirm"
+                                                required
+                                                type="password"
                                                 ></b-form-input>
                                             </b-form-group>
                                         </b-col>
                                     </b-row>
                                 </b-col>
                             </b-row>
-                            <b-button class="save_button mt-3">Создать</b-button>
+                            <b-button type="submit" class="save_button mt-3">Создать</b-button>
                         </b-form>
                     </div>
                 </b-collapse>
@@ -145,10 +168,30 @@
 </template>
 
 <script>
+import Api from "~/utils/api";
 export default {
+  watch: {
+  },
     data () {
         return {
             first_accor_is_open: false,
+            time_from_flag: null,
+            time_to_flag: null,
+
+            object: {
+                city: null,
+                address: null,
+                quadrature: null,
+                count_floors: null,
+                time_from: null,
+                time_to: null,
+                fullname_responsible: null,
+                phone_number_responsible: null, 
+                email_employee: null,
+                password: null,
+                password_confirm: null,
+            },
+            
             fields: [
                 {
                     key: 'city',
@@ -163,110 +206,89 @@ export default {
                 },
 
                 {
-                    key: 'area',
+                    key: 'quadrature',
                     label: 'Квадратура',
                     sortable: true
                 },
 
                 {
-                    key: 'floors',
+                    key: 'count_floors',
                     label: 'Этажность',
                     sortable: true
                 },
 
                 {
-                    key: 'last_name',
+                    key: 'fullname_responsible',
                     label: 'Фамилия сотрудника',
                     sortable: true
                 },
 
                 {
-                    key: 'phone',
+                    key: 'phone_number_responsible',
                     label: 'Телефон'
                 },
 
                 {
-                    key: 'email',
+                    key: 'email_employee',
                     label: 'E-mail'
                 }
             ],
 
-            items: [
-                {
-                    id: 1,
-                    city: 'Набережные Челны',
-                    address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                    area: '30 кв.м.',
-                    floors: '1',
-                    last_name: 'Панкратов-Черный',
-                    phone: '+7 (999) 666 7373',
-                    email: 'e-mail@aepgroup'
-                },
-
-                {
-                    id: 2,
-                    city: 'Санкт-Петербург',
-                    address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                    area: '15 кв.м.',
-                    floors: '9',
-                    last_name: 'Панкратов-Белый',
-                    phone: '+7 (915) 666 7373',
-                    email: 'e-mail@aepgroup'
-                },
-
-                {
-                    id: 3,
-                    city: 'Набережные Челны',
-                    address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                    area: '30 кв.м.',
-                    floors: '1',
-                    last_name: 'Панкратов-Черный',
-                    phone: '+7 (999) 666 7373',
-                    email: 'e-mail@aepgroup'
-                },
-
-                {
-                    id: 4,
-                    city: 'Санкт-Петербург',
-                    address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                    area: '15 кв.м.',
-                    floors: '9',
-                    last_name: 'Панкратов-Белый',
-                    phone: '+7 (915) 666 7373',
-                    email: 'e-mail@aepgroup'
-                },
-
-                {
-                    id: 5,
-                    city: 'Набережные Челны',
-                    address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                    area: '30 кв.м.',
-                    floors: '1',
-                    last_name: 'Панкратов-Черный',
-                    phone: '+7 (999) 666 7373',
-                    email: 'e-mail@aepgroup'
-                },
-
-                {
-                    id: 6,
-                    city: 'Санкт-Петербург',
-                    address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                    area: '15 кв.м.',
-                    floors: '9',
-                    last_name: 'Панкратов-Белый',
-                    phone: '+7 (915) 666 7373',
-                    email: 'e-mail@aepgroup'
-                },
-
-
-
-            ],
+            items: [],
 
             tableVariant: 'light'
         }
     },
 
+    mounted(){
+        this.getObjects()
+    },
     methods: {
+        createObject(){
+            if(this.object.time_from == null ){
+                this.time_from_flag = false
+            }else{
+                if(this.object.time_to == null ){
+                    this.time_to_flag = false
+                }else{
+                    if(this.object.password == this.object.password_confirm){
+                        Api.getInstance().objects.sendNewObjectData(this.object).then((response) => {
+                                this.time_from_flag = null;
+                                this.time_to_flag = null;
+                                this.$bvToast.toast("Объект успешно добавлен!", {
+                                    title: `Сообщение:`,
+                                    variant: "success",
+                                    solid: true,
+                                })
+                            })
+                        this.items.push(this.object)
+                    }else{
+                        this.$bvToast.toast("Введенные вами пароли не совпадают.", {
+                            title: `Ошибка аутентификации`,
+                            variant: "danger",
+                            solid: true,
+                        });
+                    }
+                }
+            }
+
+        },
+        getObjects() {
+            Api.getInstance().objects.getObjects('client').then((response) => {
+                    this.items = response.data.ObjectsStore
+                })
+                .catch((error) => {
+                    this.$bvToast.toast("У вас нет доступа к данной странице", {
+                        title: `Системная ошибка`,
+                        variant: "danger",
+                        solid: true,
+                    });
+                    localStorage.removeItem('strjwt');
+                    localStorage.removeItem('role');
+                    localStorage.removeItem('idecur');
+                    setTimeout(()=>{this.$router.push('/account/login')}, 1000)
+                });
+        },
         onRowSelected(picked) {
             this.$router.push("/client/objects/" + picked[0].id)
         }

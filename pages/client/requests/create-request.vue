@@ -1,8 +1,8 @@
 <template>
   <div class="wrap__create_req__container w-100 p3">
       <b-row class="py-2 px-3 mx-0 w-100 d-flex justify-content-between">
-            <p>Ул. маршала жукова, 13</p>
-            <b-button size="sm" class="bg-dark" @click="$router.push('/client/requests/requests')">Вернуться к списку объектов</b-button>
+        <div></div>
+        <b-button class="bg-dark" @click="$router.push('/client/requests/requests')">Вернуться к списку объектов</b-button>
       </b-row>
       <b-row class="w-100 px-3 mx-0">
             <b-card header="Новая заявка" class="w-100">
@@ -174,7 +174,21 @@
 </template>
 
 <script>
+import Api from "~/utils/api";
 export default {
+  data () {
+    return {
+        modalShow: false,
+        images: [],
+        selected: 'A',
+        options: [
+          { item: 'A', name: 'Option A' },
+          { item: 'B', name: 'Option B' },
+          { item: 'D', name: 'Option C', notEnabled: true },
+          { item: { d: 1 }, name: 'Option D' }
+        ]
+    }
+  },
   methods: {
     CreateReq () { 
       this.modalShow = true 
@@ -194,20 +208,6 @@ export default {
         reader.readAsDataURL(file);
     },
   },
-  data () {
-    return {
-        modalShow: false,
-        images: [],
-        selected: 'A',
-        options: [
-          { item: 'A', name: 'Option A' },
-          { item: 'B', name: 'Option B' },
-          { item: 'D', name: 'Option C', notEnabled: true },
-          { item: { d: 1 }, name: 'Option D' }
-        ]
-    }
-  },
-
 }
 </script>
 

@@ -135,10 +135,11 @@ app.post('/auth/registration', (req, res) => {
       company_site: "",
       position: "",
       company_name: "",
+      objects: []
     }
     data.users.push(new_user)
 
-    // //Add new user
+    //Add new user
     fs.writeFile("./db.json", JSON.stringify(data), (err, result) => {  // WRITE
       if (err) {
         return err
@@ -328,6 +329,75 @@ app.post('/getClientInfo', (req, res) => {
       return
     }
   }
+})
+
+
+app.post('/getObjects', (req, res) => {
+  const {PageRole, UserRole, idecur} = req.body
+  if(PageRole != UserRole){
+    const status = 401
+    const message = 'Dont have access for this request'
+    res.status(status).json({status, message})
+    return
+  }else{
+    let UserStore = userdb.users.find((user) => {
+      if(user.id == decryptCode(idecur)){ return user }
+    })
+    if(UserStore){
+      if(UserStore.role == UserRole){
+        let ObjectsStore = []
+        for(let idx of UserStore.objects){
+          ObjectsStore.push(userdb.objects.find((object) => {
+            if(object.id == idx){ return object }
+          }))
+        }
+        res.status(200).json({ObjectsStore})
+      }else{
+        res.status(401)
+        return
+      }
+    }else{
+      res.status(401)
+      return
+    }
+  }
+})
+
+
+app.post('/newObjectData', (req, res) => {
+  const {ObjectData, idecur} = req.body
+  
+  fs.readFile("./db.json", (err, data) => {  
+    if (err) {
+      return err
+    };
+
+    // find last item in object for increment user id
+    let last_item;
+    for(let key of userdb.objects) {
+      last_item = key;
+    }
+
+    let UserStore = userdb.users.find((user) => {
+      if(user.id == decryptCode(idecur)){ return user }
+    })
+    UserStore.objects.push(last_item.id + 1)
+    
+    ObjectData.id = last_item.id + 1
+    var data = JSON.parse(data.toString());
+    data.users.splice(UserStore.id-1, 1, UserStore)
+    data.objects.push(ObjectData)
+
+
+    // //Add new user
+    fs.writeFile("./db.json", JSON.stringify(data), (err, result) => {  // WRITE
+      if (err) {
+        return err
+      }
+    });
+    let message = 'ok'
+    res.status(200).json({message})
+  })
 })
 
 app.listen(8000, () => {

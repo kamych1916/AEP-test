@@ -34,17 +34,44 @@ export default class Api {
                     }                    
                 }
             )
-        },
-        
+        },  
     }
+
+    objects = {
+        async getObjects(PageRole) {
+            let UserRole = localStorage.getItem('role')
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/getObjects`,
+                {UserRole, idecur, PageRole}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
+        async sendNewObjectData(ObjectData) {
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/newObjectData`,
+                {ObjectData, idecur}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },  
+    }
+    
     auth = {
         async login(email, password) {
             return axios.post(`${contsants.API_BASE_URL}/auth/login`, {email, password})
         },
         async registration(username, telephone, email, password) {
             return axios.post(`${contsants.API_BASE_URL}/auth/registration`, {username, telephone, email, password})
-        },
-        
+        },        
         async remember(email) {    
             return axios.post(`${contsants.API_BASE_URL}/auth/remember`, {email})
         },
