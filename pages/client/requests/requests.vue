@@ -2,11 +2,13 @@
     <div class="wrap__request__container w-100 p-3"> 
         <div class="py-2 w-100 d-flex justify-content-between">
             <p>Все заявки</p>
-            <b-button @click="$router.push('/client/requests/create-request')" size="sm" style="background-color: #FFC221; border: 0px; color: black">Новая заявка</b-button>
+            <b-button @click="$router.push('/client/requests/create-request')" size="sm" class="btn_warning">Новая заявка</b-button>
         </div>
         <b-table thead-class=" wrap__requests__container__table__head" @row-selected="onRowSelected($event)" table-variant="light" selectable striped :fields="fields" :items="items" responsive>
-            <template #cell(status)>
-                <b-button disabled size="sm" variant="success">Активно</b-button>
+            <template #cell(status)="row">
+                <b-button v-if="row.item.status == 1" size="sm" variant="success">Активно</b-button>
+                <b-button v-if="row.item.status == 2" size="sm" variant="danger">Заморожено</b-button>
+                <b-button v-if="row.item.status == 3" size="sm" class="btn_warning">На согласовании</b-button>
             </template>
         </b-table> 
 
@@ -16,6 +18,8 @@
 <script>
 import Api from "~/utils/api";
 export default {
+  watch: {
+  },
   data () {
     return {
         first_accor_is_open: false,
@@ -51,16 +55,7 @@ export default {
             }
         ],
 
-        items: [
-            {
-                id: 1,
-                date: '30.06.2020 (13:20)',
-                number: '000003',
-                executor: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А',
-                short_description: 'Клининг',
-                desription: 'Описание'
-            }
-        ],
+        items: [],
 
     }
   },
@@ -71,6 +66,7 @@ export default {
     getRequests(){
         Api.getInstance().requests.getRequests('client').then((response) => {
                 this.items = response.data.RequestsStore
+                console.log(this.items)
             })
             .catch((error) => {
                 this.$bvToast.toast("У вас нет доступа к данной странице", {
@@ -103,6 +99,9 @@ export default {
 }
 .wrap__request__container .theme-panel .panel{
     background-color: unset !important;
+}
+.wrap__request__container .btn_warning{
+    background-color: #FFC221; border: 0px; color: black !important
 }
 @media (max-width: 1035px) {
     .wrap__streets__container{

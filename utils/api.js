@@ -64,6 +64,55 @@ export default class Api {
                 }
             )
         },
+        async getRqstObjtsAndSrvs(PageRole) {
+            let UserRole = localStorage.getItem('role')
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/getRqstObjtsAndSrvs`,
+                {UserRole, idecur, PageRole}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
+        async createDataRequest(RequestData) {
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/createDataRequest`,
+                {RequestData, idecur}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
+        async changeRequestData(RequestData) {
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/changeRequestData`,
+                {RequestData, idecur}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
+        async deleteRequest(RequestId) {
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/deleteRequest`,
+                {RequestId, idecur}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
     }
 
     objects = {
@@ -105,7 +154,7 @@ export default class Api {
                 }
             )
         },  
-        async sendChangeObjectData(ObjectData) {
+        async changeObjectData(ObjectData) {
             let idecur = localStorage.getItem('idecur');
             return axios.post(
                 `${contsants.API_BASE_URL}/changeObjectData`,

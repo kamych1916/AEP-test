@@ -19,6 +19,7 @@ const { type } = require('os');
 const { reset } = require('nodemon');
 
 const date = require('date-and-time');
+const { Object } = require('core-js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -572,7 +573,169 @@ app.post('/getDataRequest', (req, res) => {
   }
 })
 
+app.post('/getRqstObjtsAndSrvs', (req, res) => {
+  const {PageRole, UserRole, idecur} = req.body
+  if(PageRole != UserRole){
+    const status = 401
+    const message = 'Dont have access for this request'
+    res.status(status).json({status, message})
+    return
+  }else{
+    let UserStore = userdb.users.find((user) => {
+      if(user.id == decryptCode(idecur)){ return user }
+    })
+    if(UserStore){
+      if(UserStore.role == UserRole){
+        let ObjectsStore = []
+        for(let idx of UserStore.objects){
+          ObjectsStore.push(userdb.objects.find((object) => {
+            if(object.id == idx){ return object.address }
+          }))
+        }
+        let AddressStore = []
+        for(let object of ObjectsStore){
+          let text = object.address;
+          let value = object.id;
+          AddressStore.push({value, text}) 
+        }
+        res.status(200).json({AddressStore})
+      }else{
+        res.status(401)
+        return
+      }
+    }else{
+      res.status(401)
+      return
+    }
+  }
+})
 
+function getInitials( name, delimeter ) {
+  if( name ) {
+    let array = name.split( delimeter );
+    switch ( array.length ) {
+      case 1:
+        return array[0].charAt(0).toUpperCase();
+        break;
+      default:
+        return array[0].charAt(0).toUpperCase() + array[1].charAt(0).toUpperCase();
+    }
+  }
+  return false;
+}
+app.post('/createDataRequest', (req, res) => {
+  const {RequestData, idecur} = req.body
+  
+  fs.readFile("./db.json", (err, data) => {  
+    if (err) {
+      return err
+    };
+
+    // find last item in object for increment user id
+    let last_item;
+    for(let key of userdb.requests) {
+      last_item = key;
+    }
+
+    let UserStore = userdb.users.find((user) => {
+      if(user.id == decryptCode(idecur)){ return user }
+    })
+    UserStore.requests.push(last_item.id + 1);
+    
+
+    // З-РК-А0-002
+    let ObjectLogin;
+    let ObjectId;
+    for(let object of userdb.objects){
+      if(object.id == RequestData.object){
+        ObjectLogin = object.login.split(' ');
+        ObjectId = object.id
+      }
+    }
+    RequestData.name = "З-" + getInitials(RequestData.fullname_employee, " ") + '-' + ObjectLogin[0].charAt(0) + '-' + ObjectId;
+    RequestData.id = last_item.id + 1;
+    RequestData.date_creating = date.format(new Date, 'DD.MM.YYYY (HH:mm)');
+    RequestData.status = 3;
+    var data = JSON.parse(data.toString());
+    data.users.splice(UserStore.id-1, 1, UserStore);
+    data.requests.push(RequestData);
+
+
+    // //Add new user
+    fs.writeFile("./db.json", JSON.stringify(data), (err, result) => {  // WRITE
+      if (err) {
+        return err
+      }
+    });
+    let message = 'ok'
+    res.status(200).json({message})
+  })
+})
+
+app.post('/changeRequestData', (req, res) => {
+  const {RequestData} = req.body
+  
+  fs.readFile("./db.json", (err, data) => {  
+    if (err) {
+      return err
+    };
+    let RequestStore = userdb.requests.find((request) => {
+      if(request.id == RequestData.id){ return request }
+    })
+    // create new object of new user
+    var data = JSON.parse(data.toString());
+    data.requests.splice(RequestStore.id-1, 1, RequestData)
+
+    // //Add new user
+    fs.writeFile("./db.json", JSON.stringify(data), (err, result) => {  // WRITE
+      if (err) {
+        return err
+      }
+    });
+    let message = 'ok'
+    res.status(200).json({message})
+  })
+})
+
+
+app.post('/deleteRequest', (req, res) => {
+  const {RequestId, idecur} = req.body
+  
+  fs.readFile("./db.json", (err, data) => {  
+    if (err) {
+      return err
+    };
+    let UserStore = userdb.users.find((user) => {
+      if(user.id == decryptCode(idecur)){
+        for(let request in user.requests){
+          if(user.requests[request] == RequestId){
+            user.requests.splice(request, 1)
+          } 
+        }
+        return user 
+      }
+    })
+    // create new object of new user
+    var data = JSON.parse(data.toString());
+    data.users.splice(UserStore.id-1, 1, UserStore)
+    let StorRequest
+    for(let request in userdb.requests){
+      if(userdb.requests[request].id == RequestId){
+        StorRequest = request
+      } 
+    }
+    data.requests.splice(StorRequest , 1)
+    
+    // //Add new user
+    fs.writeFile("./db.json", JSON.stringify(data), (err, result) => {  // WRITE
+      if (err) {
+        return err
+      }
+    });
+    let message = 'ok'
+    res.status(200).json({message})
+  })
+})
 // date.format(now, 'YYYY/MM/DD HH:mm:ss'); 
 app.listen(8000, () => {
   console.log('Run Auth API Server')

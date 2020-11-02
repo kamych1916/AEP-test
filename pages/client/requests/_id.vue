@@ -3,19 +3,19 @@
       <b-row class="py-2 px-3 mx-0 w-100 d-flex justify-content-between">
             <p>{{request.object_address}}</p>
             <div>
-                <b-button class="bg-dark mr-2" @click="$router.push('/client/requests/requests')" style="border: 0px;">Вернуться к списку объектов</b-button>
-                <b-button @click="$router.push('/client/requests/create-request')" style="background-color: #FFC221; border: 0px; color: black">Новая заявка</b-button>
+                <b-button class="bg-dark mr-2" @click="$router.push('/client/requests/requests')"  style="border: 0px;">Вернуться к списку объектов</b-button>
+                <b-button @click="$router.push('/client/requests/create-request')" class="btn_warning">Новая заявка</b-button>
             </div>
       </b-row>
       <b-row class="w-100 px-3 mx-0">
             <b-card v-if="request" :header="'Заявка '+ request.name" class="w-100">
-                <b-form @submit.prevent="CreateReq()">
+                <b-form @submit.prevent="change_btn_event(), changeRequestInfo(req_btn_title)">
                 <b-row class="wrap__create_req__card">
                     <b-col cols="6" class="my-2">
                         <b-row class="mb-3">
                             <b-col cols="4">Статус</b-col>
                             <b-col>
-                                <b-button disabled size="sm" variant="success">Активно</b-button>
+                                <b-button size="sm" class="btn_warning">На согласовании</b-button>
                             </b-col>
                         </b-row>
                         <b-row>
@@ -40,18 +40,16 @@
                                 </div>
                             </b-col>
                         </b-row>
-                        <b-row class="pt-3">
+                        <!-- <b-row class="pt-3">
                             <b-col cols="4">Выберите услугу</b-col>
                             <b-col>
                                 <div>
                                         <b-form-select
-                                        required
-                                        disabled-field="notEnabled"
                                         :disabled="req_inputs"
                                         ></b-form-select>
                                 </div>
                             </b-col>
-                        </b-row>
+                        </b-row> -->
                         <b-row class="pt-3">
                             <b-col cols="4">Детальное описание ситуации</b-col>
                             <b-col>
@@ -153,7 +151,8 @@
                             <b-button class="m-3 bg-dark" type="submit">{{req_btn_title}}</b-button>
                             <u v-if="undo" style="cursor: pointer" @click="undo = false, req_inputs = true, req_btn_title = 'Редактировать'">Отменить</u>
                         </div>
-                        <b-button class="m-3 bg-danger" @click="DeleteModal=true">Удалить</b-button>
+                        <!-- <b-button class="m-3 bg-danger" @click="DeleteModal=true">Удалить</b-button> -->
+                        <b-button class="m-3 bg-danger" @click="deleteRequest()">Удалить</b-button>
                     </b-row>
                     
                     <b-modal size="lg" v-model="EditModal" centered style="text-align: center;">
@@ -161,7 +160,7 @@
                             <p></p>
                         </template>
                         <div class="wrap__objects__element__container__modal__text text-center">
-                            <p>Заявка номер 3-XX-X0-000 на согласовании</p>
+                            <p>Заявка номер {{request.name}} на согласовании</p>
                             <u style="cursor: pointer;" @click="$router.push('/client/requests/requests')">Вернуться к списку заявок</u><br><br>
                             <u style="cursor: pointer;" @click="EditModal=false">Редактировать заявку</u>
                         </div>
@@ -237,15 +236,44 @@ export default {
             variant: "danger",
             solid: true,
           });
-        //   localStorage.removeItem("strjwt");
-        //   localStorage.removeItem("role");
-        //   localStorage.removeItem("idecur");
-        //   setTimeout(() => {
-        //     this.$router.push("/account/login");
-        //   }, 1000);
+          localStorage.removeItem("strjwt");
+          localStorage.removeItem("role");
+          localStorage.removeItem("idecur");
+          setTimeout(() => {
+            this.$router.push("/account/login");
+          }, 1000);
         });
     },
-    CreateReq () { 
+    changeRequestInfo(btn_title){
+        if(btn_title != "Сохранить"){
+            Api.getInstance()
+            .requests.changeRequestData(this.request).then((response) => {
+                this.$bvToast.toast("Данные успешно изменены!", {
+                    title: `Сообщение:`,
+                    variant: "success",
+                    solid: true,
+                })
+            }).catch((err)=>{
+                this.$bvToast.toast("Данные не изменились.", {
+                    title: `Системная ошибка`,
+                    variant: "danger",
+                    solid: true,
+                });
+            })
+        }
+    },
+    deleteRequest(){
+        Api.getInstance()
+          .requests.deleteRequest(this.request.id).then((response) => {
+              this.$bvToast.toast("Объект успешно удалён!", {
+                  title: `Сообщение:`,
+                  variant: "success",
+                  solid: true,
+              })
+              setTimeout(()=>{this.$router.push('/client/requests/requests')}, 1000)
+          })
+    },
+    change_btn_event() { 
       if(this.req_btn_title == "Редактировать"){
         this.req_btn_title = "Сохранить";
         this.req_inputs = false;
@@ -290,6 +318,9 @@ export default {
 }
 .wrap__card_photos{
     width: 50%;
+}
+.wrap__create_req__container .btn_warning{
+    background-color: #FFC221; border: 0px; color: black !important
 }
 @media (max-width: 1035px) {
     .col-6 {

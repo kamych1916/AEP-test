@@ -102,7 +102,7 @@
                     <div>
                       <b-form-timepicker
                         v-model="object.time_from"
-                        
+                        :readonly="object_input_rdnl"
                         v-if="object"
                         locale="ru"
                         placeholder="c"
@@ -111,7 +111,7 @@
                     <div class="pl-3">
                       <b-form-timepicker
                         v-model="object.time_to"
-                        
+                        :readonly="object_input_rdnl"
                         v-if="object"
                         locale="ru"
                         placeholder="до"
@@ -293,7 +293,7 @@ export default {
     changeObjectInfo(btn_title){
       if(btn_title != "Сохранить"){
         Api.getInstance()
-          .objects.sendChangeObjectData(this.object).then((response) => {
+          .objects.changeObjectData(this.object).then((response) => {
               this.$bvToast.toast("Данные успешно изменены!", {
                   title: `Сообщение:`,
                   variant: "success",
