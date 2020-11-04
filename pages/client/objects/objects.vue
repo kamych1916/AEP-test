@@ -8,8 +8,8 @@
                             Создание объекта
                         </h4>
                         <h4 class="panel-title" style="margin: 0;">
-                            <font-awesome-icon v-if="first_accor_is_open" :icon="['fas', 'arrow-down']"/>
-                            <font-awesome-icon v-else :icon="['fas', 'arrow-up']"/>
+                            <font-awesome-icon v-if="first_accor_is_open" :icon="['fas', 'arrow-up']"/>
+                            <font-awesome-icon v-else :icon="['fas', 'arrow-down']"/>
                         </h4>
                     </b-row>
                 </div>
@@ -162,8 +162,24 @@
                 </b-collapse>
             </div>
         </div>
-        <p class="wrap__objects__container__header">Все объекты</p>
-        <b-table thead-class="wrap__objects__container__table__head" striped :fields="fields" :items="items" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable></b-table>
+        <div class="w-100 d-flex justify-content-between align-items-center py-2">
+            ВСЕ ОБЪЕКТЫ
+            <div style="display: flex; align-items: center">
+                <b-form-input
+                    v-model="filter__objects"
+                    type="search"
+                    id="filterInput"
+                    placeholder="поиск по таблице.."
+                ></b-form-input>
+            </div>
+        </div>
+        <b-table :filter="filter__objects" thead-class="wrap__objects__container__table__head" striped :fields="fields" :items="filtered" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable>
+            <template slot="top-row" slot-scope="{ fields }">
+                <td v-for="field in fields" :key="field.key">
+                <input v-model="filters[field.key]" :placeholder="field.label">
+                </td>
+            </template>
+        </b-table>
     </div>
 </template>
 
@@ -174,10 +190,19 @@ export default {
   },
     data () {
         return {
+            filter__objects: null,
             first_accor_is_open: false,
             time_from_flag: null,
             time_to_flag: null,
-
+            filters: {
+                city: '',
+                address: '',
+                quadrature: '',
+                count_floors: '',
+                fullname_responsible: '',
+                phone_number_responsible: '',
+                email_responsible: ''
+            },
             object: {
                 city: null,
                 address: null,
@@ -243,6 +268,19 @@ export default {
 
     mounted(){
         this.getObjects()
+    },
+    computed: {
+        filtered () {
+            const filtered = this.items.filter(item => {
+                return Object.keys(this.filters).every(key =>
+                    String(item[key]).includes(this.filters[key]))
+            })
+            return filtered.length > 0 ? filtered : [{
+                id: '',
+                issuedBy: '',
+                issuedTo: ''
+            }]
+        }
     },
     methods: {
         createObject(){

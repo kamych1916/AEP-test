@@ -19,7 +19,6 @@ const { type } = require('os');
 const { reset } = require('nodemon');
 
 const date = require('date-and-time');
-const { Object } = require('core-js');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -238,14 +237,14 @@ app.post('/auth/remember', (req, res) => {
     const reset_code = crypto.randomBytes(16).toString("hex");
     let mailOptions = {
       from: 'AEP agency - info@perugino.club', // sender address
-      to: 'krakhimov.it@gmail.com', // list of receivers
+      to: email.email, // list of receivers
       subject: 'Сброс пароля AEP', // Subject line
       html: '<h2> Здравствуйте, для восстановления пароля перейдите по ссылке ' + 'http://localhost:3000/account/reset?id=' + reset_code + '&email='+ email.email +'</h2>'
     };
     
     transporter.sendMail(mailOptions, function (err, info) {
       if(err){
-        res.status(status).json({err})
+        res.status(401).json({err})
         console.log(err)
         return
       }else{

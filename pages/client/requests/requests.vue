@@ -1,10 +1,25 @@
 <template>
     <div class="wrap__request__container w-100 p-3"> 
-        <div class="py-2 w-100 d-flex justify-content-between">
-            <p>Все заявки</p>
-            <b-button @click="$router.push('/client/requests/create-request')" size="sm" class="btn_warning">Новая заявка</b-button>
+        <div class="py-2 w-100 d-flex justify-content-between wrap__request_header_element">
+            <p>ВСЕ ЗАВЯВКИ</p>
+            <b-row class="d-flex justify-content-between pr-3">
+                <div class="px-3">
+                    <b-form-input
+                        v-model="filter__requests"
+                        type="search"
+                        id="filterInput"
+                        placeholder="поиск по таблице.."
+                    ></b-form-input>
+                </div>
+                <b-button @click="$router.push('/client/requests/create-request')" size="sm" class="btn_warning">Новая заявка</b-button>
+            </b-row>
         </div>
-        <b-table thead-class=" wrap__requests__container__table__head" @row-selected="onRowSelected($event)" table-variant="light" selectable striped :fields="fields" :items="items" responsive>
+        <b-table :filter="filter__requests" thead-class=" wrap__requests__container__table__head" @row-selected="onRowSelected($event)" table-variant="light" selectable striped :fields="fields" :items="filtered" responsive>
+            <template slot="top-row" slot-scope="{ fields }">
+                <td v-for="field in fields" :key="field.key">
+                <input v-model="filters[field.key]" :placeholder="field.label">
+                </td>
+            </template>
             <template #cell(status)="row">
                 <b-button v-if="row.item.status == 1" size="sm" variant="success">Активно</b-button>
                 <b-button v-if="row.item.status == 2" size="sm" variant="danger">Заморожено</b-button>
@@ -23,7 +38,15 @@ export default {
   data () {
     return {
         first_accor_is_open: false,
+        filter__requests: null,
         tableVariant: 'light',
+        filters: {
+            date_creating: '',
+            name: '',
+            status: '',
+            object_address: '',
+            problem: ''
+        },
         fields: [
             {
                 key: 'date_creating',
@@ -62,11 +85,23 @@ export default {
   mounted(){
       this.getRequests()
   },
+    computed: {
+        filtered () {
+            const filtered = this.items.filter(item => {
+                return Object.keys(this.filters).every(key =>
+                    String(item[key]).includes(this.filters[key]))
+            })
+            return filtered.length > 0 ? filtered : [{
+                id: '',
+                issuedBy: '',
+                issuedTo: ''
+            }]
+        }
+    },
   methods: {
     getRequests(){
         Api.getInstance().requests.getRequests('client').then((response) => {
                 this.items = response.data.RequestsStore
-                console.log(this.items)
             })
             .catch((error) => {
                 this.$bvToast.toast("У вас нет доступа к данной странице", {
@@ -103,7 +138,14 @@ export default {
 .wrap__request__container .btn_warning{
     background-color: #FFC221; border: 0px; color: black !important
 }
+.wrap__request__container .form-control {
+    height: calc(1.9em + 0.75rem + 2px);
+}
+
 @media (max-width: 1035px) {
+    .wrap__request_header_element{
+        flex-direction: column;
+    }
     .wrap__streets__container{
       width: 100%;
       justify-content: start;
