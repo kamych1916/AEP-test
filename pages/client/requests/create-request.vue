@@ -227,6 +227,7 @@ export default {
         if (!files.length)
             return;
         this.createImage(files[0]);
+        
     },
     createImage(file) {
         let reader = new FileReader();
@@ -235,6 +236,7 @@ export default {
             vm.images.push(e.target.result)
         };
         reader.readAsDataURL(file);
+        
     },
   },
 }

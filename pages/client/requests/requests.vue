@@ -1,7 +1,7 @@
 <template>
     <div class="wrap__request__container w-100 p-3"> 
         <div class="py-2 w-100 d-flex justify-content-between wrap__request_header_element">
-            <p>ВСЕ ЗАВЯВКИ</p>
+            <p>ВСЕ ЗАЯВКИ</p>
             <b-row class="d-flex justify-content-between pr-3">
                 <div class="px-3">
                     <b-form-input
@@ -11,7 +11,7 @@
                         placeholder="поиск по таблице.."
                     ></b-form-input>
                 </div>
-                <b-button @click="$router.push('/client/requests/create-request')" size="sm" class="btn_warning">Новая заявка</b-button>
+                <b-button @click="$router.push('/client/requests/create-request')" size="sm" class="btn_warning px-3">Новая заявка</b-button>
             </b-row>
         </div>
         <b-table :filter="filter__requests" thead-class=" wrap__requests__container__table__head" @row-selected="onRowSelected($event)" table-variant="light" selectable striped :fields="fields" :items="filtered" responsive>
@@ -101,7 +101,7 @@ export default {
   methods: {
     getRequests(){
         Api.getInstance().requests.getRequests('client').then((response) => {
-                this.items = response.data.RequestsStore
+                this.items = response.data.RequestsStore.reverse()
             })
             .catch((error) => {
                 this.$bvToast.toast("У вас нет доступа к данной странице", {

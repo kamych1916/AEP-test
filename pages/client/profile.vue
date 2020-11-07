@@ -1,5 +1,5 @@
 <template>
-    <b-row class="wrap__client_container py-2 px-0 mx-0 ">
+    <b-row v-if="UserData" class="wrap__client_container py-2 px-0 mx-0 ">
       <b-col class=" ml-md-auto p-3 wrap__client_container__avatar_block ">
         <b-card class="text-center">
           <div class="w-100 d-flex justify-content-center pb-2">

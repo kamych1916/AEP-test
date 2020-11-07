@@ -13,7 +13,7 @@
                         </h4>
                     </b-row>
                 </div>
-                <b-collapse id="collapse-2" class="panel-collapse">
+                <b-collapse id="collapse-2" class="panel-collapse" v-model="accor_is_open">
                     <div class="panel-body">
                         <b-form @submit.prevent="createObject()">
                             <b-row>
@@ -190,6 +190,7 @@ export default {
   },
     data () {
         return {
+            accor_is_open: false,
             filter__objects: null,
             first_accor_is_open: false,
             time_from_flag: null,
@@ -304,8 +305,10 @@ export default {
                             for(let key of this.items) {
                                 last_item = key;
                             }
-                            this.object.id = last_item.id
-                            this.items.push(this.object)
+                            this.object.id = last_item.id;
+                            this.items.unshift(this.object);
+                            this.accor_is_open = false;
+                            this.object = {}
                     }else{
                         this.$bvToast.toast("Введенные вами пароли не совпадают.", {
                             title: `Ошибка аутентификации`,
@@ -319,7 +322,7 @@ export default {
         },
         getObjects() {
             Api.getInstance().objects.getObjects('client').then((response) => {
-                    this.items = response.data.ObjectsStore
+                    this.items = response.data.ObjectsStore.reverse()
                 })
                 .catch((error) => {
                     this.$bvToast.toast("У вас нет доступа к данной странице", {

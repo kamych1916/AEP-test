@@ -5,7 +5,7 @@
 <script>
 export default {
     mounted(){
-        this.$router.push('/client/profile')
+        // this.$router.push('/client/profile')
     }
 }
 </script>
