@@ -1,8 +1,8 @@
 <template>
     <div class="wrap__request__container w-100 p-3">  
         <div class="py-2 w-100 d-flex justify-content-between">
-            <p>Все заявки</p>
-            <b-button @click="$router.push('/client/requests/create-request')" size="sm" style="background-color: #FFC221; border: 0px; color: black">Новая заявка</b-button>
+            <p>Ул. Маршала Жукова, 13</p>
+            <b-button @click="$router.push('/executor/requests/create-request')" size="sm" style="background-color: #FFC221; border: 0px; color: black">Новая заявка</b-button>
         </div>
         <b-table thead-class=" wrap__requests__container__table__head" @row-selected="onRowSelected($event)" table-variant="light" selectable striped :fields="fields" :items="items" responsive>
             <template #cell(status)>
@@ -17,7 +17,7 @@
 export default {
   methods: {
     onRowSelected(picked) {
-        this.$router.push("/client/requests/" + picked[0].id)
+        this.$router.push("/executor/requests/" + picked[0].id)
     }
   },
   data () {
@@ -27,7 +27,13 @@ export default {
         fields: [
             {
                 key: 'date',
-                label: 'Дата создания заявки',
+                label: 'Дата и время создания',
+                sortable: true
+            },
+
+            {
+                key: 'problem',
+                label: 'Проблема',
                 sortable: true
             },
 
@@ -43,22 +49,6 @@ export default {
                 sortable: true
             },
 
-            {
-                key: 'executor',
-                label: 'Объект',
-                sortable: true
-            },
-
-            {
-                key: 'short_description',
-                label: 'Краткое описание',
-                sortable: true
-            },
-
-            {
-                key: 'desription',
-                label: 'Описание'
-            }
         ],
 
         items: [
@@ -66,9 +56,7 @@ export default {
                 id: 1,
                 date: '30.06.2020 (13:20)',
                 number: '000003',
-                executor: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А',
-                short_description: 'Клининг',
-                desription: 'Описание'
+                problem: 'Поменять трубы'
             }
         ],
 

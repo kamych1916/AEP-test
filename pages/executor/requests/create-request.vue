@@ -1,8 +1,10 @@
 <template>
-  <div class="wrap__create_req__container w-100 p3">
+  <div class="wrap__create_req__container w-100 p-3">
       <b-row class="py-2 px-3 mx-0 w-100 d-flex justify-content-between">
             <p>Ул. маршала жукова, 13</p>
-            <b-button size="sm" class="bg-dark" @click="$router.push('/client/requests/requests')">Вернуться к списку объектов</b-button>
+            <div>
+                <b-button size="lg" class="bg-dark" @click="$router.push('/executor/requests/requests')" style="font-size: calc(8px + 6 * (100vw / 1366));">Вернуться к списку заявок</b-button>
+            </div>
       </b-row>
       <b-row class="w-100 px-3 mx-0">
             <b-card header="Новая заявка" class="w-100">
@@ -140,14 +142,31 @@
                             </b-col>
                         </b-row>
                     </b-col>
-                    <b-button class="m-3 bg-dark" type="submit">Создать заявку</b-button>
+                    <div class="wrap__create_req__container__buttons mt-3">
+                        <b-button class="m-3 bg-dark" type="submit">Создать заявку</b-button>
+                    </div>
+                     <b-modal id="deleteRequest" size="lg" centered style="text-align: center;">
+                        <template v-slot:modal-header>
+                            <p></p>
+                        </template>
+                        <div class="wrap__create_req__container__modal__text" style="text-align:center;">
+                            <p style="color: #E84242;">Удаление заявки</p>
+                            <p>Ваш запрос на рассмотрении</p>
+                            <p style="cursor: pointer;" @click="$router.push('/admin/requests/requests')">Вернуться к списку заявок</p>
+                            <p style="cursor: pointer;" @click="$bvModal.hide('deleteRequest')">Редактировать заявку</p>
+                        </div>
+                        <template v-slot:modal-footer>
+                            <p></p>
+                        </template>
+                    </b-modal>
+
                     <b-modal size="lg" v-model="modalShow" centered style="text-align: center;">
                         <template v-slot:modal-header>
                             <p></p>
                         </template>
                         <div class="wrap__objects__element__container__modal__text text-center">
                             <p>Заявка номер 3-XX-X0-000 на согласовании</p>
-                            <u style="cursor: pointer;" @click="$router.push('/client/requests/requests')">Вернуться к списку заявок</u><br><br>
+                            <u style="cursor: pointer;" @click="$router.push('/executor/requests/requests')">Вернуться к списку заявок</u><br><br>
                             <u style="cursor: pointer;" @click="modalShow=false">Редактировать заявку</u>
                         </div>
                         <template v-slot:modal-footer>
@@ -157,19 +176,24 @@
                 </b-row>
                 </b-form>
             </b-card>
-            <div class="wrap__card_photos">
-
-            <b-card header="Добавить фото/видео" class="my-4 ">
-                <b-row class="pl-3">
-                    <label for="load" class="text-light py-2 px-3 bg-dark">+ Добавить фото</label>
-                    <input id="load" @change="onFileChange" type="file" name="photo" style="display: none;">
-                </b-row>
-                    <b-row>
-                        <img v-for="(image, i) in images" :key="i" :src="image" alt="" width="180" height="150" class="pl-3 pt-2">
-                    </b-row>
-            </b-card>
-            </div>
       </b-row>
+
+            <b-row class="p-3">
+                <b-col cols="6">
+                    <b-card header="Добавить фото/видео" class="my-4 ">
+                        <b-row class="pl-3">
+                            <label for="load" class="text-light py-2 px-3 bg-dark">+ Добавить фото</label>
+                            <input id="load" @change="onFileChange" type="file" name="photo" style="display: none;">
+                        </b-row>
+                            <b-row>
+                                <img v-for="(image, i) in images" :key="i" :src="image" alt="" width="180" height="150" class="pl-3 pt-2">
+                            </b-row>
+                    </b-card>
+                </b-col>
+                
+               
+            </b-row>
+      
   </div>
 </template>
 
@@ -211,16 +235,31 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .wrap__create_req__container{
   font-size: calc(8px + 6 * (100vw / 1366));
 }
 .wrap__create_req__container .custom-select{
     border-radius: 0;
 }
-.wrap__card_photos{
+.wrap__card_photos, .wrap_card_notes{
     width: 50%;
 }
+
+.wrap__create_req__container__buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
 @media (max-width: 1035px) {
     .col-6 {
         flex: 0 0 100%;
@@ -234,5 +273,11 @@ export default {
       justify-content: start;
       flex-direction: column;
     }
+}
+
+@media (max-width: 451px) {
+   .wrap__create_req__container__header__button {
+        margin-top: 5px;
+    } 
 }
 </style>

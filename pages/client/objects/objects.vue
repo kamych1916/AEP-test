@@ -8,8 +8,8 @@
                             Создание объекта
                         </h4>
                         <h4 class="panel-title" style="margin: 0;">
-                            <font-awesome-icon v-if="first_accor_is_open" :icon="['fas', 'arrow-up']"/>
-                            <font-awesome-icon v-else :icon="['fas', 'arrow-down']"/>
+                            <font-awesome-icon v-if="first_accor_is_open" :icon="['fas', 'arrow-down']"/>
+                            <font-awesome-icon v-else :icon="['fas', 'arrow-up']"/>
                         </h4>
                     </b-row>
                 </div>
@@ -117,11 +117,11 @@
 
                                 <b-col>
                                     <b-row>
-                                        <b-col cols="4">E-mail ответственного</b-col>
+                                        <b-col cols="4">E-mail сотрудника</b-col>
                                         <b-col>
                                             <b-form-group>
                                                 <b-form-input
-                                                v-model="object.email_responsible"
+                                                v-model="object.email_employee"
                                                 required
                                                 type="email"
                                                 ></b-form-input>
@@ -162,24 +162,8 @@
                 </b-collapse>
             </div>
         </div>
-        <div class="w-100 d-flex justify-content-between align-items-center py-2">
-            ВСЕ ОБЪЕКТЫ
-            <div style="display: flex; align-items: center">
-                <b-form-input
-                    v-model="filter__objects"
-                    type="search"
-                    id="filterInput"
-                    placeholder="поиск по таблице.."
-                ></b-form-input>
-            </div>
-        </div>
-        <b-table :filter="filter__objects" thead-class="wrap__objects__container__table__head" striped :fields="fields" :items="filtered" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable>
-            <template slot="top-row" slot-scope="{ fields }">
-                <td v-for="field in fields" :key="field.key">
-                <input v-model="filters[field.key]" :placeholder="field.label">
-                </td>
-            </template>
-        </b-table>
+        <p class="wrap__objects__container__header">Все объекты</p>
+        <b-table thead-class="wrap__objects__container__table__head" striped :fields="fields" :items="items" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable></b-table>
     </div>
 </template>
 
@@ -195,15 +179,7 @@ export default {
             first_accor_is_open: false,
             time_from_flag: null,
             time_to_flag: null,
-            filters: {
-                city: '',
-                address: '',
-                quadrature: '',
-                count_floors: '',
-                fullname_responsible: '',
-                phone_number_responsible: '',
-                email_responsible: ''
-            },
+
             object: {
                 city: null,
                 address: null,
@@ -213,7 +189,7 @@ export default {
                 time_to: null,
                 fullname_responsible: null,
                 phone_number_responsible: null, 
-                email_responsible: null,
+                email_employee: null,
                 password: null,
                 password_confirm: null,
                 id: null
@@ -256,32 +232,18 @@ export default {
                 },
 
                 {
-                    key: 'email_responsible',
+                    key: 'email_employee',
                     label: 'E-mail'
                 }
             ],
 
             items: [],
-
-            tableVariant: 'light'
+   
         }
     },
 
     mounted(){
         this.getObjects()
-    },
-    computed: {
-        filtered () {
-            const filtered = this.items.filter(item => {
-                return Object.keys(this.filters).every(key =>
-                    String(item[key]).includes(this.filters[key]))
-            })
-            return filtered.length > 0 ? filtered : [{
-                id: '',
-                issuedBy: '',
-                issuedTo: ''
-            }]
-        }
     },
     methods: {
         createObject(){
@@ -292,7 +254,7 @@ export default {
                     this.time_to_flag = false
                 }else{
                     if(this.object.password == this.object.password_confirm){
-                        Api.getInstance().objects.createDataObject(this.object).then((response) => {
+                        Api.getInstance().objects.sendNewObjectData(this.object).then((response) => {
                                 this.time_from_flag = null;
                                 this.time_to_flag = null;
                                 this.$bvToast.toast("Объект успешно добавлен!", {
