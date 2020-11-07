@@ -37,7 +37,7 @@
                 <b-row class="wrap__executor_container pb-0">
                     <b-col class="pt-3">
                         <b-row>
-                            <b-col cols="4">ФИО отвественного</b-col>
+                            <b-col cols="4">ФИО ответственного</b-col>
                             <b-col>
                             <div>
                                 <input required  v-model="text" name="text" type="text" class="form-control"/>
@@ -53,7 +53,7 @@
                             </b-col>
                         </b-row>
                         <b-row class="pt-3">
-                            <b-col cols="4">Телефон отвественного</b-col>
+                            <b-col cols="4">Телефон ответственного</b-col>
                             <b-col>
                             <div>
                                 <input required  v-model="text" name="text" type="text" class="form-control"/>

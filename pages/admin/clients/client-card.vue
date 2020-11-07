@@ -97,7 +97,7 @@
           <b-row class="pt-3">
             <b-col cols="4">Новый пароль</b-col>
             <b-col >
-              <div class="form-group">
+              <div>
                 <input required :readonly="password_input_rdnl" v-model="password" name="password" type="password" class="form-control"/>
               </div>
             </b-col>

@@ -3,10 +3,10 @@
         <b-col class="ml-md-auto p-3 wrap__contractor_container__contacts__block">
             <b-card header="Контакты" class="wrap__contractor_container__contacts__block__card">
                 <b-row>
-                    <b-col cols="4">Навание организации</b-col>
+                    <b-col cols="4">Название организации</b-col>
                     <b-col>
                         <div>
-                            <input required :readonly="client_input_rdnl" class="form-control" placeholder="Навание организации" type="text"/>
+                            <input required :readonly="client_input_rdnl" class="form-control" placeholder="Название организации" type="text"/>
                         </div>
                     </b-col>
                 </b-row>

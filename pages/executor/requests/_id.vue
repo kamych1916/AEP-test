@@ -3,7 +3,7 @@
       <b-row class="py-2 px-3 mx-0 w-100 d-flex justify-content-between">
             <p>Ул. маршала жукова, 13</p>
             <div>
-                <b-button class="bg-dark mr-2" @click="$router.push('/client/requests/requests')" style="border: 0px;">Вернуться к списку объектов</b-button>
+                <b-button class="bg-dark mr-2" @click="$router.push('/executor/requests/requests')" style="border: 0px;">Вернуться к списку заявок</b-button>
                 <b-button @click="$router.push('/client/requests/create-request')" style="background-color: #FFC221; border: 0px; color: black">Новая заявка</b-button>
             </div>
       </b-row>
@@ -16,22 +16,6 @@
                             <b-col cols="4">Статус</b-col>
                             <b-col>
                                 <b-button disabled size="sm" variant="success">Активно</b-button>
-                            </b-col>
-                        </b-row>
-                        <b-row>
-                            <b-col cols="4">Объект</b-col>
-                            <b-col>
-                                <div>
-                                        <b-form-select
-                                        v-model="selected"
-                                        :options="options"
-                                        value-field="item"
-                                        text-field="name"
-                                        required
-                                        disabled-field="notEnabled"
-                                        :disabled="req_inputs"
-                                        ></b-form-select>
-                                </div>
                             </b-col>
                         </b-row>
                         <b-row class="pt-3">
@@ -181,7 +165,7 @@
                         <div class="wrap__objects__element__container__modal__text text-center">
                             <p Class="text-danger">Удаление заявки</p>
                             <p>Ваш запрос на рассмотрении</p>
-                            <u style="cursor: pointer;" @click="$router.push('/client/requests/requests')">Вернуться к списку заявок</u><br><br>
+                            <u style="cursor: pointer;" @click="$router.push('/executor/requests/requests')">Вернуться к списку заявок</u><br><br>
                             <u style="cursor: pointer;" @click="DeleteModal=false">Редактировать заявку</u>
                         </div>
                         <template v-slot:modal-footer>
