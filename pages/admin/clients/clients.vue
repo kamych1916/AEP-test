@@ -53,6 +53,7 @@ export default {
 
             items: [
                 {
+                    id: 1,
                     name: 'Клиент',
                     address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А',
                     site: 'www',
@@ -63,6 +64,12 @@ export default {
             ],
 
         }
+    },
+
+    methods: {
+        onRowSelected(picked) {
+        this.$router.push("/admin/clients/" + picked[0].id)
+    }
     }
 }
 </script>

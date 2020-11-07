@@ -201,6 +201,12 @@ export default {
                 }
             ]
         }
+    },
+
+    methods: {
+        onRowSelected(picked) {
+            this.$router.push("/admin/objects/" + picked[0].id)
+        }
     }
 }
 </script>

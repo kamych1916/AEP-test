@@ -66,6 +66,12 @@ export default {
             ],
 
         }
+    },
+
+        methods: {
+            onRowSelected(picked) {
+            this.$router.push("/admin/requests/" + picked[0].id)
+        }
     }
 }
 </script>
