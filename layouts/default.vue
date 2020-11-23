@@ -53,4 +53,7 @@ body {
 .table.b-table > thead > tr > [aria-sort="descending"], .table.b-table > tfoot > tr > [aria-sort="descending"]{
   background-image: url('~assets/arrows_down.png');
 }
+textarea {
+  border: 1px solid #ced4da;
+}
 </style>

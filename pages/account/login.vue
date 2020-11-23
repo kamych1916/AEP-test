@@ -36,7 +36,7 @@
                       <b-row>
                         <b-col>
                           <div class="login-form-1">
-                            <form id="login-form" class="text-left"  @submit.prevent="AuthReq()">
+                            <form id="login-form" class="text-left" @submit.prevent="AuthReq()">
                               <div class="main-login-form">
                                 <div class="login-group">
                                   <div class="form-group">
@@ -51,17 +51,16 @@
                                     />
                                   </div>
                                     <small v-if="warning">Некорректный email адрес</small>
-                                  <div class="form-group">
-                                    <input
-                                      name="password"
-                                      type="password"
-                                      class="form-control"
-                                      id="lg_password"
-                                      placeholder="Пароль"
-                                      required
+                                  <b-form-group>
+                                    <b-form-input
+                                      id="input-2"
                                       v-model="password"
-                                    />
-                                  </div>
+                                      required
+                                      placeholder="Введите пароль"
+                                      autocomplete="off"
+                                      type="password"
+                                    ></b-form-input>
+                                  </b-form-group>
                                   <div
                                     class="form-group form-group-remember no-margin no-padding login-group-checkbox"
                                   >
@@ -158,19 +157,25 @@ export default {
               localStorage.setItem('role', response.data.store_role)
               localStorage.setItem('idecur', response.data.store_idecur)
               if(this.check_box) { this.event_checkbox() }
-                switch(response.data.store_role) {
-                  case 'admin':
-                    this.$router.push('/admin/profile')
-                    break
-                  case 'client':
-                    this.$router.push('/client/profile')
-                    break
-                  case 'executor':
-                    this.$router.push('/executor/profile')
-                    break
-                  default:
-                    break
-                } 
+              console.log(response.data.store_role)
+              if(response.data.store_role != 'executor'){
+                this.$router.push('/objects/objects')
+              }else{
+                this.$router.push('/requests/requests')
+              }
+                // switch(response.data.store_role) {
+                //   case 'admin':
+                //     this.$router.push('/admin/profile')
+                //     break
+                //   case 'client':
+                //     this.$router.push('/client/profile')
+                //     break
+                //   case 'executor':
+                //     this.$router.push('/executor/profile')
+                //     break
+                //   default:
+                //     break
+                // } 
             }
           })
           .catch((error) => {

@@ -29,7 +29,7 @@
                 <nuxt-link  :to="role.contractor" >
                     <b-list-group-item>
                         <font-awesome-icon :icon="['fas', 'briefcase']"/>&nbsp;&nbsp;
-                        Единный подрядчик
+                        Единый подрядчик
                     </b-list-group-item>
                 </nuxt-link>
             </b-list-group>
@@ -54,26 +54,26 @@ export default {
     switch(localStorage.getItem('role')) {
         case 'client':
             this.role = {
-                profile: '/client/profile',
-                requests: '/client/requests/requests',
-                objects: '/client/objects/objects',
-                contractor: '/client/contractor'
+                profile: '/',
+                requests: '/requests/requests',
+                objects: '/objects/objects',
+                contractor: '/contractor'
             }
             break
         case 'executor':
             this.role = {
-                profile: '/executor/profile',
-                requests: '/executor/requests/requests',
-                contractor: '/executor/contractor'
+                profile: '/',
+                requests: '/requests/requests',
+                contractor: '/contractor'
             }
             break
         case 'admin':
             this.role = {
-                profile: '/admin/profile',
-                requests: '/admin/requests/requests',
-                clients: '/admin/clients/clients', 
-                objects: '/admin/objects',
-                contractor: '/admin/contractor'
+                profile: '/',
+                requests: '/requests/requests',
+                clients: '/clients/clients', 
+                objects: '/objects/objects',
+                contractor: '/contractor'
             }
             break
         default:

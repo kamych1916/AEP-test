@@ -1,5 +1,6 @@
+import axios from "axios";
 export default {
-  mode: 'spa',
+  mode: 'universal',
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'Агенство «Единый Подрядчик» — строительство, ремонт и обслуживание зданий в Санкт-Петербурге.',
@@ -55,7 +56,19 @@ export default {
       }
     ]
   ],
-
+  // generate: {
+  //     routes: function () {
+  //       return axios.get('http://kvm3.krakhimov-it.m960m.vps.myjino.ru:49416/auth/getUsersId')
+  //       .then((res) => {
+  //         return res.data.map((user) => {
+  //             return {
+  //                 route: '/users/' + user.id,
+  //                 payload: user
+  //             }
+  //         })
+  //       })
+  //     }
+  // },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {},
 

@@ -41,7 +41,7 @@
                                       type="text"
                                       class="form-control"
                                       id="lg_username"
-                                      placeholder="Имя"
+                                      placeholder="ФИО"
                                       required
                                       v-model="username"
                                     />
@@ -78,6 +78,7 @@
                                       placeholder="Пароль"
                                       required
                                       v-model="password"
+                                      autocomplete="off"
                                     />
                                   </div>
                                   <div

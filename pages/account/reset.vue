@@ -27,6 +27,7 @@
                                         id="lg_password"
                                         placeholder="Password"
                                         v-model="password"
+                                        onfocus="this.removeAttribute('readonly');"
                                     />
                                     </div>
                                 </div>

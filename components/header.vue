@@ -102,7 +102,6 @@ export default {
 }
 </script>
 <style> 
-
 .wrap__header{
     background-color: #0C2947;
     width: 100%;
@@ -164,10 +163,10 @@ export default {
     background-color: #2F343E
 }
 .wrap__context_desktop .b-sidebar-backdrop {
-    top: 58px;
+    top: 62px;
 }
 .wrap__context_desktop .b-sidebar {
-    top: 58px;
+    top: 62px;
 }
 @media (max-width: 1035px) {
     .wrap__context_desktop{

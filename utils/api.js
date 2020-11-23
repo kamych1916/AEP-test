@@ -35,6 +35,46 @@ export default class Api {
                 }
             )
         },  
+        async getCLients(PageRole) {
+            let UserRole = localStorage.getItem('role')
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/getClients`,
+                {UserRole, idecur, PageRole}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
+        async getDataClientForAdmin(PageRole, ClientId) {
+            let UserRole = localStorage.getItem('role')
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/getDataClientForAdmin`,
+                {UserRole, idecur, PageRole, ClientId}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
+        async createNewClient(clientData) {
+            let UserRole = localStorage.getItem('role')
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/createNewClient`,
+                {UserRole, idecur, clientData}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
+        
     }
 
     requests = {
@@ -78,10 +118,11 @@ export default class Api {
             )
         },
         async createDataRequest(RequestData) {
+            let UserRole = localStorage.getItem('role');
             let idecur = localStorage.getItem('idecur');
             return axios.post(
                 `${contsants.API_BASE_URL}/createDataRequest`,
-                {RequestData, idecur}, 
+                {RequestData, UserRole, idecur}, 
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('strjwt')}`
@@ -102,10 +143,63 @@ export default class Api {
             )
         },
         async deleteRequest(RequestId) {
+            let UserRole = localStorage.getItem('role');
             let idecur = localStorage.getItem('idecur');
             return axios.post(
                 `${contsants.API_BASE_URL}/deleteRequest`,
-                {RequestId, idecur}, 
+                {RequestId, UserRole, idecur}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
+        async uploadFile(formData, RequestId) {
+            return axios.post(
+                `${contsants.API_BASE_URL}/uploadFile`,
+                formData,
+                {
+                    params: {
+                        RequestId
+                    },
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+           )
+        },
+        async deleteFile(idImage, RequestId) {
+            return axios.post(
+                `${contsants.API_BASE_URL}/deleteFile`,
+                {idImage, RequestId},
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+           )
+        },
+        async getCLientsForCreateRequest(PageRole) {
+            let UserRole = localStorage.getItem('role')
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/getCLientsForCreateRequest`,
+                {UserRole, idecur, PageRole}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
+        async getClientData(PageRole, idClient) {
+            let UserRole = localStorage.getItem('role')
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/getClientData`,
+                {UserRole, idecur, PageRole, idClient}, 
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('strjwt')}`
@@ -116,6 +210,19 @@ export default class Api {
     }
 
     objects = {
+        async getCLientsForCreateObject(PageRole) {
+            let UserRole = localStorage.getItem('role')
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/getCLientsForCreateObject`,
+                {UserRole, idecur, PageRole}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
         async getObjects(PageRole) {
             let UserRole = localStorage.getItem('role')
             let idecur = localStorage.getItem('idecur');
@@ -179,13 +286,42 @@ export default class Api {
             )
         },        
     }
+
+    contractor = {
+        async getContractorData(PageRole) {
+            let UserRole = localStorage.getItem('role')
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/getContractorData`,
+                {idecur}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
+        async changeContractorData(PageRole, ContractorData) {
+            let UserRole = localStorage.getItem('role')
+            let idecur = localStorage.getItem('idecur');
+            return axios.post(
+                `${contsants.API_BASE_URL}/changeContractorData`,
+                {idecur, PageRole, UserRole, ContractorData}, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                    }                    
+                }
+            )
+        },
+    }
     
     auth = {
         async login(email, password) {
             return axios.post(`${contsants.API_BASE_URL}/auth/login`, {email, password})
         },
-        async registration(username, telephone, email, password) {
-            return axios.post(`${contsants.API_BASE_URL}/auth/registration`, {username, telephone, email, password})
+        async registration(username, phone_number, email, password) {
+            return axios.post(`${contsants.API_BASE_URL}/auth/registration`, {username, phone_number, email, password})
         },        
         async remember(email) {    
             return axios.post(`${contsants.API_BASE_URL}/auth/remember`, {email})
