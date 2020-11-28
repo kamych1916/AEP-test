@@ -371,7 +371,7 @@ export default {
         this.req_inputs = false;
         this.undo = true
       }else{
-        this.EditModal = true;
+        setTimeout(()=>{this.EditModal = true;}, 1500);
         this.req_btn_title = "Редактировать";
         this.req_inputs = true
       }

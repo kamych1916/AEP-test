@@ -26,7 +26,7 @@
           >
         </div>
       </div>
-      <b-card header="Название">
+      <b-card header="Название" class="mb-5">
         <b-form @submit.prevent="change_btn_event(), changeObjectInfo(object_btn_change_title)">
         <b-row class="wrap__objects__element__container__main__row">
           <b-col>
@@ -92,15 +92,6 @@
                   />
                 </div>
               </b-col>
-            </b-row>
-
-            <b-row class="pt-3">
-                <b-col cols="4">Выбрать день</b-col>
-                <b-col>
-                  <div>
-                    <b-form-input v-if="object" required :readonly="object_input_rdnl" v-model="object.date" type="date"></b-form-input>
-                  </div>
-                </b-col>
             </b-row>
 
             <b-row class="pt-3 time_wrap">
@@ -261,6 +252,19 @@
           </template>
         </b-modal>
       </b-card>
+
+      <b-table class="mb-5 pb-5" empty-text="Таблица пуста" show-empty thead-class=" wrap__requests__container__table__head" @row-selected="onRowSelected($event)" table-variant="light" selectable striped :fields="fields" :items="filtered" responsive>
+          <template #empty="scope">
+              <div  class="d-flex justify-content-center w-100">
+                  <h6>{{ scope.emptyText }}</h6>
+              </div>
+          </template>
+          <template #cell(status)="row">
+              <b-button v-if="row.item.status == 1" size="sm" variant="success">Активно</b-button>
+              <b-button v-if="row.item.status == 2" size="sm" variant="danger">Заморожено</b-button>
+              <b-button v-if="row.item.status == 3" size="sm" class="btn_warning">На согласовании</b-button>
+          </template>
+      </b-table>
     </b-col>
   </b-row>
 </template>
@@ -273,10 +277,73 @@ export default {
     object_btn_change_title: "Редактировать",
     object: null,
     role: null,
+
+    filter__requests: null,
+    tableVariant: 'light',
+    filters: {
+        date_creating: '',
+        name: '',
+        status: '',
+        object_address: '',
+        problem: ''
+    },
+    fields: [
+        {
+            key: 'date_creating',
+            label: 'Дата создания заявки',
+            sortable: true
+        },
+
+        {
+            key: 'name',
+            label: 'Номер заявки',
+            sortable: true
+        },
+
+        {
+            key: 'company_name',
+            label: 'Сайт компании',
+            sortable: true
+        },
+
+        {
+            key: 'status',
+            label: 'Статус'
+        },
+
+        {
+            key: 'fullname_responsible',
+            label: 'ФИО ответственного',
+            sortable: true
+        },
+
+        {
+            key: 'problem',
+            label: 'Краткое описание'
+        }
+    ],
+
+    items: [],
   }),
   mounted() {
     this.role = localStorage.getItem('role')
     this.getDataObject();
+    this.getRequests();
+  },
+  computed: {
+    filtered () {
+      if(this.items.length > 0){
+        const filtered = this.items.filter(item => {
+            return Object.keys(this.filters).every(key =>
+                String(item[key]).toLowerCase().includes(this.filters[key].toLowerCase()))
+        })
+        return filtered.length > 0 ? filtered : [{
+            id: '',
+            issuedBy: '',
+            issuedTo: ''
+        }]
+      }
+    }
   },
   methods: {
     getDataObject() {
@@ -300,6 +367,7 @@ export default {
           // }, 1000);
         });
     },
+
     changeObjectInfo(btn_title){
       if(btn_title != "Сохранить"){
         Api.getInstance()
@@ -332,7 +400,27 @@ export default {
         this.object_btn_change_title = "Редактировать";
         this.object_input_rdnl = true
       }
-    }
+    },
+    getRequests(){
+      Api.getInstance().requests.getRequests(localStorage.getItem('role'), this.$route.params.id).then((response) => {
+              this.items = response.data.RequestsStore.reverse();
+          })
+          .catch((error) => {
+              console.log('getRequests -> ',error)
+              this.$bvToast.toast("Системная ошибка", {
+                  title: `Предупреждение!`,
+                  variant: "danger",
+                  solid: true,
+              });
+              // localStorage.removeItem('strjwt');
+              // localStorage.removeItem('role');
+              // localStorage.removeItem('idecur');
+              // setTimeout(()=>{this.$router.push('/account/login')}, 1000)
+          });
+    },
+    onRowSelected(picked) {
+        this.$router.push("/requests/" + picked[0].id)
+    },
   },
 };
 </script>
@@ -385,6 +473,20 @@ export default {
     border-radius: 0 !important;
 }
 
+.wrap__objects__element__container, .panel-heading{
+  font-size: calc(8px + 6 * (100vw / 1366));
+}
+.wrap__requests__container__table__head, .wrap__request__container .theme-panel .panel-heading {
+    background-color: #2F343E !important;
+    color: white;
+}
+.wrap__objects__element__container .theme-panel .panel{
+    background-color: unset !important;
+}
+
+.wrap__objects__element__container .btn_warning{
+    background-color: #FFC221; border: 0px; color: black !important
+}
 @media (max-width: 1035px) {
   .wrap__objects__element__container__main__row {
     display: flex;

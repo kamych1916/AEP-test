@@ -14,7 +14,12 @@
                 <b-button @click="$router.push('/clients/create-client')" size="sm" class="btn_warning px-2" style="background-color: #FFC221; border: 0px; color: black; font-size: calc(8px + 6 * (100vw / 1366));">Завести клиента</b-button>
             </b-row>
         </div>
-        <b-table :filter="filter__clients" thead-class=" wrap__clients__container__table__head" @row-selected="onRowSelected($event)" table-variant="light" selectable striped :fields="fields" :items="filtered" responsive>
+        <b-table :filter="filter__clients" show-empty empty-text="Таблица пуста" thead-class=" wrap__clients__container__table__head" @row-selected="onRowSelected($event)" table-variant="light" selectable striped :fields="fields" :items="filtered" responsive>
+            <template #empty="scope">
+                <div  class="d-flex justify-content-center w-100">
+                    <h6>{{ scope.emptyText }}</h6>
+                </div>
+            </template>
             <template slot="top-row" slot-scope="{ fields }">
                 <td v-for="field in fields" :key="field.key">
                 <input v-model="filters[field.key]" :placeholder="field.label">
@@ -42,7 +47,7 @@ export default {
             fields: [
                 {
                     key: 'username',
-                    label: 'Название',
+                    label: 'ФИО',
                     sortable: true
                 },
                 {
@@ -52,8 +57,8 @@ export default {
                 },
 
                 {
-                    key: 'position',
-                    label: 'Старший менеджер',
+                    key: 'company_name',
+                    label: 'Компания',
                     sortable: true
                 },
 
@@ -69,29 +74,21 @@ export default {
                 
             ],
 
-            items: [
-                {
-                    id: 1,
-                    name: 'Клиент',
-                    address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А',
-                    site: 'www',
-                    manager: 'Панкратов-Черный',
-                    phone: '+7 999 775 77 77',
-                    email: 'e-mail'
-                }
-            ],
+            items: [],
 
         }
     },
     computed: {
         filtered () {
-            const filtered = this.items.filter(item => {
-                return Object.keys(this.filters).every(key =>
-                    String(item[key]).toLowerCase().includes(this.filters[key].toLowerCase()))
-            })
-            return filtered.length > 0 ? filtered : [{
-                id: '',
-            }]
+            if(this.items.length > 0){
+                const filtered = this.items.filter(item => {
+                    return Object.keys(this.filters).every(key =>
+                        String(item[key]).toLowerCase().includes(this.filters[key].toLowerCase()))
+                })
+                return filtered.length > 0 ? filtered : [{
+                    id: '',
+                }]
+            }
         }
     },
     mounted(){

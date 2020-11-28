@@ -14,7 +14,12 @@
                 <b-button @click="$router.push('/requests/create-request')" size="sm" class="btn_warning px-3">Новая заявка</b-button>
             </b-row>
         </div>
-        <b-table :filter="filter__requests" thead-class=" wrap__requests__container__table__head" @row-selected="onRowSelected($event)" table-variant="light" selectable striped :fields="fields" :items="filtered" responsive>
+        <b-table :filter="filter__requests" thead-class=" wrap__requests__container__table__head" empty-text="Таблица пуста" show-empty @row-selected="onRowSelected($event)" table-variant="light" selectable striped :fields="fields" :items="filtered" responsive>
+            <template #empty="scope">
+                <div  class="d-flex justify-content-center w-100">
+                    <h6>{{ scope.emptyText }}</h6>
+                </div>
+            </template>
             <template slot="top-row" slot-scope="{ fields }">
                 <td v-for="field in fields" :key="field.key">
                 <input v-model="filters[field.key]" :placeholder="field.label">
@@ -61,6 +66,12 @@ export default {
             },
 
             {
+                key: 'company_name',
+                label: 'Компания',
+                sortable: true
+            },
+
+            {
                 key: 'status',
                 label: 'Статус'
             },
@@ -86,15 +97,17 @@ export default {
   },
     computed: {
         filtered () {
-            const filtered = this.items.filter(item => {
-                return Object.keys(this.filters).every(key =>
-                    String(item[key]).toLowerCase().includes(this.filters[key].toLowerCase()))
-            })
-            return filtered.length > 0 ? filtered : [{
-                id: '',
-                issuedBy: '',
-                issuedTo: ''
-            }]
+            if(this.items.length > 0){
+                const filtered = this.items.filter(item => {
+                    return Object.keys(this.filters).every(key =>
+                        String(item[key]).toLowerCase().includes(this.filters[key].toLowerCase()))
+                })
+                return filtered.length > 0 ? filtered : [{
+                    id: '',
+                    issuedBy: '',
+                    issuedTo: ''
+                }]
+            }
         }
     },
   methods: {

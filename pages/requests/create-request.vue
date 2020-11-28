@@ -320,19 +320,36 @@ export default {
             if(this.request.time_to == null & this.request.time_to == ''){
                 this.time_to_flag = false
             }else{
-                delete this.request.requests
-                Api.getInstance().requests.createDataRequest(this.request).then((response) => {
-                    this.modalShow = true 
-                    this.time_from_flag = null;
-                    this.time_to_flag = null;
-                    this.$bvToast.toast("Заявка успешно создана!", {
-                        title: `Сообщение:`,
-                        variant: "success",
+                let storeStr = this.who_made.trim().split(" ").length;
+                if(storeStr >= 2){
+                    if(storeStr > 3){
+                        this.$bvToast.toast("В поле Кто составил, вводите только - Имя, Фамилия и Отчество", {
+                            title: `Ошибка валидации`,
+                            variant: "danger",
+                            solid: true,
+                        });
+                    }else{
+                        delete this.request.requests
+                        Api.getInstance().requests.createDataRequest(this.request).then((response) => {
+                            this.modalShow = true 
+                            this.time_from_flag = null;
+                            this.time_to_flag = null;
+                            this.$bvToast.toast("Заявка успешно создана!", {
+                                title: `Сообщение:`,
+                                variant: "success",
+                                solid: true,
+                            })
+                        }).catch((error)=>{
+                            console.log(error)
+                        })
+                    }
+                }else{
+                    this.$bvToast.toast("В поле Кто составил, обязательны - Имя и Фамилия", {
+                        title: `Ошибка валидации`,
+                        variant: "danger",
                         solid: true,
-                    })
-                }).catch((error)=>{
-                    console.log(error)
-                })
+                    });
+                }
             }
         }
 

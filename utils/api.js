@@ -28,11 +28,11 @@ export default class Api {
             return axios.post(
                 `${contsants.API_BASE_URL}/newUserData`,
                 {UserData}, 
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('strjwt')}`
-                    }                    
-                }
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('strjwt')}`
+                        }                    
+                    }
             )
         },  
         async getCLients(PageRole) {
@@ -78,12 +78,12 @@ export default class Api {
     }
 
     requests = {
-        async getRequests(PageRole) {
+        async getRequests(PageRole, ObjectId) {
             let UserRole = localStorage.getItem('role')
             let idecur = localStorage.getItem('idecur');
             return axios.post(
                 `${contsants.API_BASE_URL}/getRequests`,
-                {UserRole, idecur, PageRole}, 
+                {UserRole, idecur, PageRole, ObjectId}, 
                 {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('strjwt')}`

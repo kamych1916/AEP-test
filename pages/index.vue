@@ -253,7 +253,7 @@ export default {
     }else{
       this.$router.push('/account/login')
     }
-    this.getClientInfo()
+    this.getClientInfo();
   },
   methods: {
     changeUserPass(btn_title){
@@ -282,12 +282,14 @@ export default {
               Api.getInstance()
                 .auth.reset(this.new_password_1, this.UserData.id, this.UserData.email )
                 .then((response) => {
-                    this.$bvToast.toast("Пароль успешно изменён!", {
-                        title: `Сообщение:`,
-                        variant: "success",
-                        solid: true,
-                    })
-                    setTimeout(()=>{window.location.reload(true)}, 1000)
+                  this.$bvToast.toast("Пароль успешно изменён!", {
+                      title: `Сообщение:`,
+                      variant: "success",
+                      solid: true,
+                  })
+                  // setTimeout(()=>{window.location.reload(true)}, 1000)
+                }).catch((error)=>{
+                  console.log('changeUserPass -> ', error)
                 })
             }
           }
@@ -296,29 +298,64 @@ export default {
     },
     changeUserInfo(btn_title){
       if(btn_title != "Сохранить"){
-        Api.getInstance()
-          .client.sendNewUserData(this.UserData)
-          .then((response) => {
-              this.$bvToast.toast("Данные успешно изменены!", {
-                  title: `Сообщение:`,
-                  variant: "success",
-                  solid: true,
-              })
-              setTimeout(()=>{window.location.reload(true)}, 1000)
-          })
+        let storeStr = this.UserData.username.trim().split(" ").length;
+        if(storeStr >= 2){
+          if(storeStr > 3){
+            this.$bvToast.toast("В поле ФИО, вводите только - Имя, Фамилия и Отчество", {
+              title: `Ошибка валидации`,
+              variant: "danger",
+              solid: true,
+            });
+          }else{
+            Api.getInstance().client.sendNewUserData(this.UserData).then((response) => {
+                  this.$bvToast.toast("Данные успешно изменены!", {
+                      title: `Сообщение:`,
+                      variant: "success",
+                      solid: true,
+                  })
+                  // setTimeout(()=>{window.location.reload(true)}, 1500)
+            }).catch((error)=>{
+                console.log('changeUserInfo -> ', error)
+            })
+          }
+        }else{
+          this.$bvToast.toast("В поле ФИО, обязательны - Имя и Фамилия", {
+              title: `Ошибка валидации`,
+              variant: "danger",
+              solid: true,
+          });
+        }
       }
     },
     changeObjectInfo(btn_title){
       if(btn_title != "Сохранить"){
-        Api.getInstance()
-          .objects.changeObjectData(this.ObjectData).then((response) => {
-              this.$bvToast.toast("Данные успешно изменены!", {
-                  title: `Сообщение:`,
-                  variant: "success",
-                  solid: true,
+        let storeStr = this.fullname_responsible.trim().split(" ").length;
+        if(storeStr >= 2){
+          if(storeStr > 3){
+            this.$bvToast.toast("В поле ФИО ответственного, вводите только - Имя, Фамилия и Отчество", {
+              title: `Ошибка валидации`,
+              variant: "danger",
+              solid: true,
+            });
+          }else{
+              Api.getInstance().objects.changeObjectData(this.ObjectData).then((response) => {
+                this.$bvToast.toast("Данные успешно изменены!", {
+                    title: `Сообщение:`,
+                    variant: "success",
+                    solid: true,
+                })
+                // setTimeout(()=>{window.location.reload(true)}, 1500)
+              }).catch((error)=>{
+                console.log('changeObjectInfo -> ', error)
               })
-              setTimeout(()=>{window.location.reload(true)}, 1000)
-          })
+          }
+        }else{
+          this.$bvToast.toast("В поле ФИО ответственного, обязательны - Имя и Фамилия", {
+              title: `Ошибка валидации`,
+              variant: "danger",
+              solid: true,
+          });
+        }
       }
     },
     getInitials( name, delimeter ) {
@@ -329,7 +366,7 @@ export default {
               return array[0].charAt(0).toUpperCase();
               break;
             default:
-              return array[1].charAt(0).toUpperCase() + array[2].charAt(0).toUpperCase();
+              return array[0].charAt(0).toUpperCase() + array[1].charAt(0).toUpperCase();
           }
         }
         return false;

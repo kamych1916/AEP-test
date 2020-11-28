@@ -180,8 +180,7 @@ app.post('/auth/registration', (req, res) => {
       position: "",
       company_name: "",
       note: "",
-      objects: [],
-      requests: []
+      objects: []
     }
     data.users.push(new_user)
 
@@ -787,42 +786,69 @@ app.post('/getCLientsForCreateObject', (req, res) => {
 
 app.post('/getRequests', (req, res) => {
   
-  const {PageRole, UserRole, idecur} = req.body
+  const {PageRole, UserRole, idecur, ObjectId} = req.body;
   if(PageRole != UserRole){
-    const status = 401
-    const message = 'Dont have access for this request'
-    res.status(status).json({status, message})
+    const status = 401;
+    const message = 'Dont have access for this request';
+    res.status(status).json({status, message});
     return
   }else{
     let UserStore = userdb.users.find((user) => {
       if(user.id == decryptCode(idecur)){ return user }
-    })
+    });
     let ObjectStore = userdb.objects.find((object) => {
       if(object.id == decryptCode(idecur)){ return object }
-    })
-    let RequestsStore = []
-    if(UserStore){
-        if(UserStore.role == "admin"){
-          for(let idx of userdb.requests){
-            RequestsStore.push(idx) 
-          }
-          for(let idr in RequestsStore){
-            for(let ido of userdb.objects){
-              if(RequestsStore[idr].object == ido.id){
-                RequestsStore[idr].object_address = ido.address
+    });
+    let RequestsStore = [];
+    if(ObjectId){
+      for(let ido of userdb.objects){
+        if(ido.id == ObjectId){
+          for(let idor of ido.requests){
+            for(let idr of userdb.requests){
+              if(idor == idr.id){
+                RequestsStore.push(idr)
               }
             }
           }
-        }else {
-          for(let idx of userdb.users){
-            if(idx.id == decryptCode(idecur)){
-              for(let idco of idx.objects){
-                for(let ido of userdb.objects){
-                  if(idco == ido.id){
-                    for(let idor of ido.requests){
-                      for(let idr of userdb.requests){
-                        if(idor == idr.id){
-                          RequestsStore.push(idr)
+          for(let idr in RequestsStore){
+            for(let idc of userdb.users){
+              if(idc.id == RequestsStore[idr].client){
+                RequestsStore[idr].company_name = idc.company_name
+              }
+            }
+          }
+        }
+      }
+      res.status(200).json({RequestsStore})
+    }else{
+      if(UserStore){
+          if(UserStore.role == "admin"){
+            for(let idx of userdb.requests){
+              RequestsStore.push(idx) 
+            }
+            for(let idr in RequestsStore){
+              for(let ido of userdb.objects){
+                if(RequestsStore[idr].object == ido.id){
+                  RequestsStore[idr].object_address = ido.address
+                }
+              }
+              for(let idc of userdb.users){
+                if(idc.id == RequestsStore[idr].client){
+                  RequestsStore[idr].company_name = idc.company_name
+                }
+              }
+            }
+          }else {
+            for(let idx of userdb.users){
+              if(idx.id == decryptCode(idecur)){
+                for(let idco of idx.objects){
+                  for(let ido of userdb.objects){
+                    if(idco == ido.id){
+                      for(let idor of ido.requests){
+                        for(let idr of userdb.requests){
+                          if(idor == idr.id){
+                            RequestsStore.push(idr)
+                          }
                         }
                       }
                     }
@@ -830,6 +856,26 @@ app.post('/getRequests', (req, res) => {
                 }
               }
             }
+            for(let idr in RequestsStore){
+              for(let ido of userdb.objects){
+                if(RequestsStore[idr].object == ido.id){
+                  RequestsStore[idr].object_address = ido.address
+                }
+              }
+              for(let idc of userdb.users){
+                if(idc.id == RequestsStore[idr].client){
+                  RequestsStore[idr].company_name = idc.company_name
+                }
+              }
+            }
+          }
+          res.status(200).json({RequestsStore})
+      }else{
+        if(ObjectStore.role == UserRole){
+          for(let idx of ObjectStore.requests){
+            RequestsStore.push(userdb.requests.find((request) => {
+              if(request.id == idx){ return request }
+            }))
           }
           for(let idr in RequestsStore){
             for(let ido of userdb.objects){
@@ -837,29 +883,20 @@ app.post('/getRequests', (req, res) => {
                 RequestsStore[idr].object_address = ido.address
               }
             }
-          }
-        }
-        res.status(200).json({RequestsStore})
-    }else{
-      if(ObjectStore.role == UserRole){
-        for(let idx of ObjectStore.requests){
-          RequestsStore.push(userdb.requests.find((request) => {
-            if(request.id == idx){ return request }
-          }))
-        }
-        for(let idr in RequestsStore){
-          for(let ido of userdb.objects){
-            if(RequestsStore[idr].object == ido.id){
-              RequestsStore[idr].object_address = ido.address
+            for(let idc of userdb.users){
+              if(idc.id == RequestsStore[idr].client){
+                RequestsStore[idr].company_name = idc.company_name
+              }
             }
           }
+          
+          res.status(200).json({RequestsStore})
+        }else{
+          const status = 401
+          const message = 'Dont have access for this request'
+          res.status(status).json({status, message})
+          return
         }
-        res.status(200).json({RequestsStore})
-      }else{
-        const status = 401
-        const message = 'Dont have access for this request'
-        res.status(status).json({status, message})
-        return
       }
     }
   }
@@ -1179,7 +1216,8 @@ app.post('/deleteRequest', (req, res) => {
               for(let idor in ido.requests){
                 if(idr.id == ido.requests[idor]){
                   ido.requests.splice(idor, 1);
-                  ObjectStore = ido
+                  ObjectStore = ido;
+                  ObjectStore.amount_requests = ObjectStore.amount_requests - 1;
                 }
               }
             }
@@ -1188,8 +1226,7 @@ app.post('/deleteRequest', (req, res) => {
       }
       data.objects.splice(ObjectStore.id-1, 1, ObjectStore)
     }
-
-    let StorRequest
+    let StorRequest;
     for(let request in userdb.requests){
       if(userdb.requests[request].id == RequestId){
         StorRequest = request

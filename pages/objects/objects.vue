@@ -1,19 +1,32 @@
 <template>
     <div class="wrap__objects__container p-3">
         <div class="panel-group theme-panel">
-            <div class="panel panel-default">
-                <div class="panel-heading w-100 text-light" v-b-toggle.collapse-2 @click="first_accor_is_open=!first_accor_is_open">
-                    <b-row class="d-flex justify-content-between px-3">
-                        <h4 class="panel-title" style="margin: 0;">
-                            Создание объекта
-                        </h4>
-                        <h4 class="panel-title" style="margin: 0;">
-                            <font-awesome-icon v-if="first_accor_is_open" :icon="['fas', 'arrow-down']"/>
-                            <font-awesome-icon v-else :icon="['fas', 'arrow-up']"/>
-                        </h4>
-                    </b-row>
+            <div class="panel panel-default ">
+                <div class="d-flex ">     
+                    <div class="panel-heading w-100 p-3 mr-2 text-light"  @click="f_accor_is_open=!f_accor_is_open, s_accor_is_open=false">
+                        <b-row class="d-flex justify-content-between px-3">
+                            <h4 class="panel-title" style="margin: 0;">
+                                Создание объекта
+                            </h4>
+                            <h4 class="panel-title" style="margin: 0;">
+                                <font-awesome-icon v-if="f_accor_is_open" :icon="['fas', 'arrow-down']"/>
+                                <font-awesome-icon v-else :icon="['fas', 'arrow-up']"/>
+                            </h4>
+                        </b-row>
+                    </div>
+                    <div class="panel-heading w-100 p-3 text-light" v-if="role == 'admin'" @click="s_accor_is_open=!s_accor_is_open, f_accor_is_open=false">
+                        <b-row class="d-flex justify-content-between px-3">
+                            <h4 class="panel-title" style="margin: 0;">
+                                Поиск объекта
+                            </h4>
+                            <h4 class="panel-title" style="margin: 0;">
+                                <font-awesome-icon v-if="s_accor_is_open" :icon="['fas', 'arrow-down']"/>
+                                <font-awesome-icon v-else :icon="['fas', 'arrow-up']"/>
+                            </h4>
+                        </b-row>
+                    </div>
                 </div>
-                <b-collapse id="collapse-2" class="panel-collapse" v-model="accor_is_open">
+                <b-collapse id="collapse-1" class="panel-collapse p-3" v-model="f_accor_is_open">
                     <div class="panel-body">
                         <b-form @submit.prevent="createObject()">
                             <b-row>
@@ -88,17 +101,6 @@
                                         </b-col>
                                     </b-row>
 
-                                    <b-row>
-                                        <b-col cols="4">Выбрать день</b-col>
-                                        <b-col>
-                                            <b-form-group>
-                                                <b-input-group>
-                                                    <b-form-input required v-model="object.date" type="date"></b-form-input>
-                                                </b-input-group>
-                                            </b-form-group>
-                                        </b-col>
-                                    </b-row>
-
                                     <b-row class=" time_wrap">
                                         <b-col cols="4">Время работы</b-col>
                                         <b-col>
@@ -152,10 +154,8 @@
                                             </b-form-group>
                                         </b-col>
                                     </b-row>
-                                </b-col>
 
-                                <b-col>
-                                    <b-row>
+                                                                        <b-row>
                                         <b-col cols="4">E-mail сотрудника</b-col>
                                         <b-col>
                                             <b-form-group>
@@ -199,9 +199,29 @@
                                         </b-col>
                                     </b-row>
                                 </b-col>
+
                             </b-row>
                             <b-button type="submit" :disabled="create_btn" class="save_button mt-3">Создать</b-button>
                         </b-form>
+                    </div>
+                </b-collapse>
+                <b-collapse id="collapse-2" class="panel-collapse p-3" v-model="s_accor_is_open">
+                    <div class="panel-body d-flex justify-content-center">
+                        <div>
+                            <p class="">Поиск объекта по всем таблицам</p>
+                            <b-row>
+                                <div>
+                                    <b-form-input
+                                        @input="search_objects_input($event)"
+                                        v-model="admin_filter_input"
+                                        type="search"
+                                        id="filterInput"
+                                        placeholder="поиск объекта.."
+                                    ></b-form-input>
+                                </div>
+                                <b-button class="px-4 save_button" style="text-transform: lowercase" @click="search_objects_btn()">поиск</b-button>
+                            </b-row>
+                        </div>
                     </div>
                 </b-collapse>
             </div>
@@ -218,7 +238,12 @@
                     ></b-form-input>
                 </div>
             </div>
-            <b-table thead-class="wrap__objects__container__table__head" :filter="filter__objects" striped :fields="fields" :items="filtered" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable>
+            <b-table  thead-class="wrap__objects__container__table__head" empty-text="Таблица пуста" show-empty :filter="filter__objects" striped :fields="fields" :items="filtered" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable>
+                <template #empty="scope">
+                    <div  class="d-flex justify-content-center w-100">
+                        <h6>{{ scope.emptyText }}</h6>
+                    </div>
+                </template>
                 <template slot="top-row" slot-scope="{ fields }">
                     <td v-for="field in fields" :key="field.key">
                     <input v-model="filters[field.key]" :placeholder="field.label">
@@ -226,21 +251,31 @@
                 </template>
             </b-table>
         </div>
-        <div v-else v-for="(item, idx) in admin_items" :key="idx">
-            <div class="py-2 w-100 d-flex justify-content-between wrap__request_header_element">
-                <!-- Доработать функционал reverse() -->
-                <p>{{item[0].company_name}}</p>
-                <b-row class="d-flex justify-content-between px-3">
-                    <div>
-                        <b-form-input
-                            type="search"
-                            id="filterInput"
-                            placeholder="поиск по таблице.."
-                        ></b-form-input>
-                    </div>
-                </b-row>
+        <div v-else>
+            <div v-if="search_admin">
+                <div class="py-2 w-100 d-flex justify-content-between wrap__request_header_element">
+                    <p class="wrap__objects__container__header">ВСЕ ОБЪЕКТЫ</p>
+                </div>
+                <b-table thead-class="wrap__objects__container__table__head" empty-text="Таблица пуста" show-empty :filter="admin_filter_table" striped :fields="fields_admin" :items="admin_filtered" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable>
+                    <template #empty="scope">
+                        <div  class="d-flex justify-content-center w-100">
+                            <h6>{{ scope.emptyText }}</h6>
+                        </div>
+                    </template>
+                </b-table>
             </div>
-            <b-table hover thead-class="wrap__objects__container__table__head" striped :fields="fields_admin" :items="item" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable></b-table>
+            <div v-else v-for="(item, idx) in admin_items" :key="idx">
+                <div class="py-2 w-100 d-flex justify-content-between wrap__request_header_element">
+                    <p>Компания: <strong>{{item[0].company_name}}</strong></p>
+                </div>
+                <b-table hover thead-class="wrap__objects__container__table__head" empty-text="Таблица пуста" show-empty striped :fields="fields_admin" :items="item" :table-variant="tableVariant" responsive @row-selected="onRowSelected($event)" selectable>
+                    <template #empty="scope">
+                        <div  class="d-flex justify-content-center w-100">
+                            <h6>{{ scope.emptyText }}</h6>
+                        </div>
+                    </template>
+                </b-table>
+            </div>
         </div>
     </div>
 </template>
@@ -253,7 +288,6 @@ export default {
             tableVariant: 'light',
             create_btn: false,
             items: [],
-            filter__objects: null,
             filters: {
                 city: '',
                 address: '',
@@ -306,9 +340,11 @@ export default {
             ],
             options: [],
 
-            accor_is_open: false,
+            f_accor_is_open: false,
+            s_accor_is_open: false,
             filter__objects: null,
             first_accor_is_open: false,
+            second_accor_is_open: false,
             role: null,
 
             object: {
@@ -358,28 +394,12 @@ export default {
                     label: 'Телефон'
                 },
             ],
-            admin_items: [
-                // [
-                //     {
-                //         id: 1,
-                //         city: 'Набережные Челны',
-                //         address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                //         amount: 5,
-                //         last_name: 'Панкратов-Черный',
-                //         phone: '+7 (999) 666 7373',
-                //     }
-                // ],
-                // [
-                //     {
-                //         id: 2,
-                //         city: 'Санкт-Петербург',
-                //         address: 'ул. Маршала Блюхера, д. 13, стр. 30, лит. А ',
-                //         amount: 5,
-                //         last_name: 'Панкратов-Черный',
-                //         phone: '+7 (999) 666 7373',
-                //     }
-                // ]
-            ],
+            admin_items: [],
+
+            search_admin: false,
+            search_admin_items: [],
+            admin_filter_input: null,
+            admin_filter_table: null,
 
         }
     },
@@ -390,7 +410,18 @@ export default {
     },
     computed: {
         filtered () {
-            const filtered = this.items.filter(item => {
+            if(this.items.length > 0){
+                const filtered = this.items.filter(item => {
+                    return Object.keys(this.filters).every(key =>
+                        String(item[key]).toLowerCase().includes(this.filters[key].toLowerCase()))
+                })
+                return filtered.length > 0 ? filtered : [{
+                    id: '',
+                }]
+            }
+        },
+        admin_filtered(){
+            const filtered = this.search_admin_items.filter(item => {
                 return Object.keys(this.filters).every(key =>
                     String(item[key]).toLowerCase().includes(this.filters[key].toLowerCase()))
             })
@@ -409,29 +440,46 @@ export default {
         },
         createObject(){
             if(this.object.password == this.object.password_confirm){
-                this.create_btn = true;
-                Api.getInstance().objects.createDataObject(this.object).then((response) => {
-                        this.time_from_flag = null;
-                        this.time_to_flag = null;
-                        this.$bvToast.toast("Объект успешно добавлен!", {
-                            title: `Сообщение:`,
-                            variant: "success",
-                            solid: true,
-                        })
-                        this.items.unshift(response.data.ObjectData);
-                        this.accor_is_open = false;
-                        this.create_btn = false;
-                        this.object = {}
-                        if(this.role="admin"){
-                            setTimeout(()=>{window.location.reload(true)}, 1000)
-                        }
-                    }).catch((error)=>{
-                        this.$bvToast.toast("Данный объект уже существует.", {
-                            title: `Ошибка аутентификации`,
+                let storeStr = this.object.fullname_responsible.trim().split(" ").length;
+                if(storeStr >= 2){
+                    if(storeStr > 3){
+                        this.$bvToast.toast("В поле ФИО, вводите только - Имя, Фамилия и Отчество", {
+                            title: `Ошибка валидации`,
                             variant: "danger",
                             solid: true,
                         });
-                    })
+                    }else{
+                        this.create_btn = true;
+                        Api.getInstance().objects.createDataObject(this.object).then((response) => {
+                            this.time_from_flag = null;
+                            this.time_to_flag = null;
+                            this.$bvToast.toast("Объект успешно добавлен!", {
+                                title: `Сообщение:`,
+                                variant: "success",
+                                solid: true,
+                            })
+                            this.items.unshift(response.data.ObjectData);
+                            this.f_accor_is_open = false;
+                            this.create_btn = false;
+                            this.object = {}
+                            if(this.role="admin"){
+                                setTimeout(()=>{window.location.reload(true)}, 1000)
+                            }
+                        }).catch((error)=>{
+                            this.$bvToast.toast("Данный объект уже существует.", {
+                                title: `Ошибка аутентификации`,
+                                variant: "danger",
+                                solid: true,
+                            });
+                        })
+                    }
+                }else{
+                    this.$bvToast.toast("В поле ФИО, обязательны - Имя и Фамилия", {
+                        title: `Ошибка валидации`,
+                        variant: "danger",
+                        solid: true,
+                    });
+                }
             }else{
                 this.$bvToast.toast("Введенные вами пароли не совпадают.", {
                     title: `Ошибка аутентификации`,
@@ -450,7 +498,10 @@ export default {
                             }
                         }
                     }else{
-                        this.items = response.data.ObjectsStore.reverse()
+                        if(response.data.ObjectsStore.length > 0){
+                            this.items = response.data.ObjectsStore.reverse()
+                            console.log(this.items)
+                        }
                     }
                 })
                 .catch((error) => {
@@ -468,6 +519,24 @@ export default {
         },
         onRowSelected(picked) {
             this.$router.push("/objects/" + picked[0].id)
+        },
+        search_objects_btn(){
+            this.search_admin_items = [];
+            this.admin_filter_table = this.admin_filter_input;
+            if(this.admin_filter_input){
+                this.search_admin = true;
+                for(let a_i of this.admin_items){
+                    for(let a_i_items of a_i){
+                        this.search_admin_items.push(a_i_items)
+                    }
+                }
+            }
+
+        },
+        search_objects_input(str){
+            if(str == ''){
+                this.search_admin = false;
+            }
         }
     }
 }
@@ -477,6 +546,9 @@ export default {
 .wrap__objects__container {
      width: 100%;
      font-size: calc(8px + 6 * (100vw / 1366));
+}
+.panel-title{
+    font-size: calc(6px + 6 * (100vw / 1366));
 }
 
  .wrap__objects__container__table__head, .wrap__objects__container .theme-panel .panel-heading , .wrap__objects__container .save_button {

@@ -146,33 +146,51 @@ export default {
     AuthReq() {
       if(this.check_box){
         if(this.validateEmail(this.email)){
-        Api.getInstance()
-            .auth.registration(this.username, this.phone_number, this.email, this.password)
-            .then((response) => {
-                this.$bvToast.toast("Регистрация прошла успешно.", {
-                title: `Сообщение:`,
-                variant: "success",
+          let storeStr = this.username.trim().split(" ").length;
+          if(storeStr >= 2){
+            if(storeStr > 3){
+              this.$bvToast.toast("В поле ФИО, вводите только - Имя, Фамилия и Отчество", {
+                title: `Ошибка валидации`,
+                variant: "danger",
                 solid: true,
-                });
-                setTimeout(()=>{this.$router.push('/account/login')}, 1500)
-            })
-            .catch((error) => {
-            console.log(error.response)
-            if(error.response.status == 401){
-                this.$bvToast.toast("Данный пользователь уже существует в системе.", {
-                    title: `Ошибка регистрации`,
-                    variant: "danger",
-                    solid: true,
-                });
+              });
             }else{
-                this.$bvToast.toast("Сервер не отвечает", {
-                    title: `Ошибка регистрации`,
-                    variant: "danger",
+              Api.getInstance()
+                .auth.registration(this.username, this.phone_number, this.email, this.password)
+                .then((response) => {
+                    this.$bvToast.toast("Регистрация прошла успешно.", {
+                    title: `Сообщение:`,
+                    variant: "success",
                     solid: true,
+                    });
+                    setTimeout(()=>{this.$router.push('/account/login')}, 1500)
+                })
+                .catch((error) => {
+                  console.log(error.response)
+                  if(error.response.status == 401){
+                    this.$bvToast.toast("Данный пользователь уже существует в системе.", {
+                        title: `Ошибка регистрации`,
+                        variant: "danger",
+                        solid: true,
+                    });
+                  }else{
+                    this.$bvToast.toast("Сервер не отвечает", {
+                        title: `Ошибка регистрации`,
+                        variant: "danger",
+                        solid: true,
+                    });
+                  }
                 });
+              this.warning = false
             }
+
+          }else{
+            this.$bvToast.toast("В поле ФИО, обязательны - Имя и Фамилия", {
+                title: `Ошибка валидации`,
+                variant: "danger",
+                solid: true,
             });
-        this.warning = false
+          }
         } 
       }else{
         this.$bvToast.toast("Пожалуйста согласитесь на обработку персональных данных.", {
@@ -181,6 +199,10 @@ export default {
             solid: true,
         });
       }
+    },
+    validateFIO(str){
+      // str = str.replace(/\s/g, '');
+      return true
     },
     // ФУНКЦИЯ ПРОВЕРКИ НА КОРРЕКТНОСТЬ ВВЕДЕНОЙ ПОЧТЫ
     validateEmail(value){
