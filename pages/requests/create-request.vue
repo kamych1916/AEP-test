@@ -320,7 +320,7 @@ export default {
             if(this.request.time_to == null & this.request.time_to == ''){
                 this.time_to_flag = false
             }else{
-                let storeStr = this.who_made.trim().split(" ").length;
+                let storeStr = this.request.who_made.trim().split(" ").length;
                 if(storeStr >= 2){
                     if(storeStr > 3){
                         this.$bvToast.toast("В поле Кто составил, вводите только - Имя, Фамилия и Отчество", {
@@ -331,7 +331,7 @@ export default {
                     }else{
                         delete this.request.requests
                         Api.getInstance().requests.createDataRequest(this.request).then((response) => {
-                            this.modalShow = true 
+                            setTimeout(()=>{this.modalShow = true; }, 1500);
                             this.time_from_flag = null;
                             this.time_to_flag = null;
                             this.$bvToast.toast("Заявка успешно создана!", {

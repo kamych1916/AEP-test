@@ -377,7 +377,7 @@ export default {
                   variant: "success",
                   solid: true,
               })
-              setTimeout(()=>{window.location.reload(true)}, 1000)
+              // setTimeout(()=>{window.location.reload(true)}, 1000)
           })
       }
     },

@@ -22,7 +22,7 @@
             </template>
             <template slot="top-row" slot-scope="{ fields }">
                 <td v-for="field in fields" :key="field.key">
-                <input v-model="filters[field.key]" :placeholder="field.label">
+                    <input v-model="filters[field.key]" :placeholder="field.label">
                 </td>
             </template>
         </b-table> 

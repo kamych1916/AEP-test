@@ -99,8 +99,6 @@ let check_accsess = function (req, res, next) {
   }
 };
 
-
-
 app.use(/^(?!\/auth).*$/, check_accsess);
 app.use(upload())
 
@@ -133,8 +131,7 @@ app.post('/auth/login', (req, res) => {
     store_role = ObjectStore.role
     store_idecur = CryptoJS.AES.encrypt(ObjectStore.id.toString(), 'AeP-idecur_2020').toString();
   }
-  
-  res.status(200).json({access_token, store_role, store_idecur})
+  res.status(200).json({access_token, store_role, store_idecur});
 })
 
 // START - АПИ ДЛЯ РЕГИСТРАЦИИ
@@ -323,6 +320,7 @@ app.post('/test', (req, res) => {
   let test = 'test'
   res.status(200).json({test})
 })
+
 
 app.post('/newUserData', (req, res) => {
   const {UserData} = req.body

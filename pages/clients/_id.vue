@@ -243,7 +243,7 @@ export default {
               return array[0].charAt(0).toUpperCase();
               break;
             default:
-              return array[1].charAt(0).toUpperCase() + array[2].charAt(0).toUpperCase();
+              return array[0].charAt(0).toUpperCase() + array[1].charAt(0).toUpperCase();
           }
         }
         return false;

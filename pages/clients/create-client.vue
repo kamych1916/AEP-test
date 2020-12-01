@@ -129,9 +129,10 @@ export default {
               variant: "success",
               solid: true,
           });
-          setTimeout(()=>{this.$router.push('/clients/clients')}, 1000)
+          setTimeout(()=>{this.$router.push('/clients/clients')}, 1500)
         })
         .catch((error) => {
+          console.log('createNewClient-> ', error)
           this.$bvToast.toast("Неверное имя пользователя или пароль", {
             title: `Ошибка авторизации`,
             variant: "danger",
@@ -147,7 +148,7 @@ export default {
               this.ClientInitials = array[0].charAt(0).toUpperCase();
               break;
             default:
-              this.ClientInitials = array[1].charAt(0).toUpperCase() + array[2].charAt(0).toUpperCase();
+              this.ClientInitials = array[0].charAt(0).toUpperCase() + array[1].charAt(0).toUpperCase();
               break;
           }
         }
@@ -155,9 +156,10 @@ export default {
     },
     AuthReq() {
       Api.getInstance().auth.test().then((response) => {
-          console.log('kek-> ', response)
+          // console.log('AuthReq-> ', response)
         })
         .catch((error) => {
+          console.log('AuthReq-> ', error)
           this.$bvToast.toast("Неверное имя пользователя или пароль", {
             title: `Ошибка авторизации`,
             variant: "danger",
