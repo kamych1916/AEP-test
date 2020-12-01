@@ -68,7 +68,6 @@ export default class Api {
                 `${contsants.API_BASE_URL}/createNewClient`,
                 {UserRole, idecur, clientData}, 
                 {
-                    withCredentials: true,
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('strjwt')}`
                     }                    

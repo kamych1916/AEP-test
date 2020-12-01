@@ -362,7 +362,7 @@ export default {
                   variant: "success",
                   solid: true,
               })
-              setTimeout(()=>{this.$router.push('/requests/requests')}, 1000)
+              setTimeout(()=>{this.$router.push('/requests/requests')}, 1500)
           })
     },
     change_btn_event() { 
@@ -392,7 +392,6 @@ export default {
             // file_type = file_type[0];
             // this.files.push({file_link, file_type});
             this.files = response.data.newFilesReq
-            console.log(response.data.newFilesReq)
             this.show_overlay = false;
             this.$bvToast.toast("Файл успешно добавлен к заявке!", {
                 title: `Сообщение:`,
@@ -401,7 +400,7 @@ export default {
             })
         })
         .catch((error) => {
-            console.log(error)
+            console.log("send_image -> ", error)
             if(error.response.data.status == 402){
                 this.$bvToast.toast(error.response.data.message, {
                     title: `Ошибка!`,
@@ -410,7 +409,7 @@ export default {
                 });
             }else{
                 this.$bvToast.toast("Файл не был загружен!", {
-                        title: `Ошибка аутентификации`,
+                    title: `Ошибка аутентификации`,
                     variant: "danger",
                     solid: true,
                 });
@@ -427,9 +426,9 @@ export default {
             this.files = response.data.newFilesRequest
         })
         .catch((error) => {
-            console.log(error)
+            console.log('deleteFile-> ', error)
             this.$bvToast.toast("Удаление прошло безуспешно.", {
-                    title: `Ошибка аутентификации`,
+                title: `Ошибка аутентификации`,
                 variant: "danger",
                 solid: true,
             });

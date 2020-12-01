@@ -279,19 +279,7 @@ export default {
             vm.image = e.target.result;
         };
         reader.readAsDataURL(file);
-    },
-    AuthReq() {
-      Api.getInstance().auth.test().then((response) => {
-          console.log('kek-> ', response)
-        })
-        .catch((error) => {
-          this.$bvToast.toast("Неверное имя пользователя или пароль", {
-            title: `Ошибка авторизации`,
-            variant: "danger",
-            solid: true,
-          });
-        });
-    },
+    }
   }
 }
 </script>

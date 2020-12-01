@@ -12,7 +12,6 @@
           <h6>{{client.username}}</h6>
         </b-card>
       </b-col>
-<!-- AuthReq() -->
       <b-col class="ml-md-auto p-3">
         <b-card header="Данные пользователя">
           <b-form @submit.prevent="createNewClient()">
@@ -153,20 +152,7 @@ export default {
           }
         }
         return false;
-    },
-    AuthReq() {
-      Api.getInstance().auth.test().then((response) => {
-          // console.log('AuthReq-> ', response)
-        })
-        .catch((error) => {
-          console.log('AuthReq-> ', error)
-          this.$bvToast.toast("Неверное имя пользователя или пароль", {
-            title: `Ошибка авторизации`,
-            variant: "danger",
-            solid: true,
-          });
-        });
-    },
+    }
   }
 }
 </script>

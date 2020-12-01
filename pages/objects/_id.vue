@@ -389,7 +389,7 @@ export default {
                   variant: "success",
                   solid: true,
               })
-              setTimeout(()=>{this.$router.push('/objects/objects')}, 1000)
+              setTimeout(()=>{this.$router.push('/objects/objects')}, 1500)
           })
     },
     change_btn_event(){

@@ -280,14 +280,14 @@ export default {
         Api.getInstance().requests.getCLientsForCreateRequest(localStorage.getItem('role')).then((response) => {
             this.client_options = response.data.ClientsStore;
         }).catch((err)=>{
-            console.log(err)
+            console.log('getCLientsForCreateRequest -> ', err)
         })
     },
     getClientData(event){
         Api.getInstance().requests.getClientData(localStorage.getItem('role'), event).then((response) => {
             this.options = response.data.ObjectsStore;
         }).catch((err)=>{
-            console.log(err)
+            console.log('getClientData -> ', err)
         })
     },
     getDataObject(event) {
@@ -340,7 +340,7 @@ export default {
                                 solid: true,
                             })
                         }).catch((error)=>{
-                            console.log(error)
+                            console.log('createRequest -> ',error)
                         })
                     }
                 }else{
@@ -365,7 +365,7 @@ export default {
                 delete this.request.requests
             }
         }).catch((err)=>{
-            console.log(err)
+            console.log('getRqstObjtsAndSrvs -> ', err)
         })
     },
     send_image(){
@@ -392,7 +392,7 @@ export default {
             })
         })
         .catch((error) => {
-            console.log(error)
+            console.log('send_image-> ',error)
             if(error.response.data.status == 402){
                 this.$bvToast.toast(error.response.data.message, {
                     title: `Ошибка!`,

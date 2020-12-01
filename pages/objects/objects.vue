@@ -96,6 +96,7 @@
                                                 required
                                                 type="number"
                                                 name="count_floors"
+                                                min="1"
                                                 ></b-form-input>
                                             </b-form-group>
                                         </b-col>
@@ -155,7 +156,7 @@
                                         </b-col>
                                     </b-row>
 
-                                                                        <b-row>
+                                    <b-row>
                                         <b-col cols="4">E-mail сотрудника</b-col>
                                         <b-col>
                                             <b-form-group>
@@ -435,7 +436,7 @@ export default {
             Api.getInstance().objects.getCLientsForCreateObject(localStorage.getItem('role')).then((response) => {
                 this.options = response.data.ClientsStore;
             }).catch((err)=>{
-                console.log(err)
+                console.log('getCLientsForCreateObject -> ', err)
             })
         },
         createObject(){
@@ -463,9 +464,10 @@ export default {
                             this.create_btn = false;
                             this.object = {}
                             if(this.role="admin"){
-                                setTimeout(()=>{window.location.reload(true)}, 1000)
+                                setTimeout(()=>{window.location.reload(true)}, 1500)
                             }
                         }).catch((error)=>{
+                            console.log('createObject-> ', error)
                             this.$bvToast.toast("Данный объект уже существует.", {
                                 title: `Ошибка аутентификации`,
                                 variant: "danger",
@@ -500,7 +502,6 @@ export default {
                     }else{
                         if(response.data.ObjectsStore.length > 0){
                             this.items = response.data.ObjectsStore.reverse()
-                            console.log(this.items)
                         }
                     }
                 })
