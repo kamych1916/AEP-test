@@ -436,23 +436,6 @@ export default {
         });
     }
 
-
-    // onFileChange(e) {
-    //     let files = e.target.files || e.dataTransfer.files;
-    //     if (!files.length)
-    //         return;
-    //     this.createImage(files[0]);
-    //     console.log(this.images)
-    // },
-    // createImage(file) {
-    //     let reader = new FileReader();
-    //     let vm = this;
-    //     reader.onload = (e) => {
-    //         vm.images.push(e.target.result)
-    //     };
-        
-    //     reader.readAsDataURL(file);
-    // },
   },
 
 

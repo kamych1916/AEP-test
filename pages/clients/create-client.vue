@@ -128,7 +128,7 @@ export default {
               variant: "success",
               solid: true,
           });
-          setTimeout(()=>{this.$router.push('/clients/clients')}, 1500)
+          setTimeout(()=>{this.$router.push('/clients/clients')}, 2000)
         })
         .catch((error) => {
           console.log('createNewClient-> ', error)
